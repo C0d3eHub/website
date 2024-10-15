@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<head>
+    <style>
+        /* CSS styles for the About Institute page */
+       .abouth1 h1 {
+            text-align: center; /* Center the heading */
+            margin-bottom: 20px; /* Add space below the heading */
+        }
+
+        aboutp p {
+            margin: 0 20px; /* Add margin from both sides (left and right) */
+            text-align: justify; /* Justify the text in the paragraph */
+            padding-bottom: 10px;
+        }
+    </style>
+</head>
+
+<h1 class="abouth1">{{ content.title }}</h1>
+<p class="aboutp">{{ content.description }}</p>
+<p>Last updated on: {{ content.updated_at }}</p>
+
+{% endblock %}

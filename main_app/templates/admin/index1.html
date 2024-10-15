@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Custom Admin Panel</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'admin/css/custom_admin.css' %}">
+    <style>
+        /* Additional styles for theme toggle */
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .theme-toggle {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            cursor: pointer;
+        }
+        .welcome-message {
+            margin: 20px 0;
+            font-size: 1.5em;
+            color: #333;
+        }
+        .admin-actions {
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="theme-toggle">
+        <button id="toggleTheme">Toggle theme (current theme: <span id="themeLabel">light</span>)</button>
+    </div>
+
+    <h1>My Custom Admin Panel</h1>
+    <h2>Custom Admin Index Template Loaded</h2>
+    
+    <div class="welcome-message">
+        Welcome to the ITI Krishangarh Admin Panel
+    </div>
+    
+    <h3>Custom Admin Index Template Loaded</h3>
+    <p>Here, you can manage the website content for the ITI Krishangarh, including News Alerts and Principal's Desk posts.</p>
+    
+    <div class="admin-actions">
+        <h4>Admin Actions</h4>
+        <a href="{% url 'admin:app_list' 'main_app' %}"><button>Manage Models</button></a>
+        <a href="{% url 'admin:logout' %}"><button>Logout</button></a>
+    </div>
+    
+    <h4>Quick Links</h4>
+    <ul>
+        <li><a href="{% url 'admin:main_app_newsalert_changelist' %}">Manage News Alerts</a></li>
+        <li><a href="{% url 'admin:main_app_principaldesk_changelist' %}">Manage Principal Desk Posts</a></li>
+    </ul>
+
+    <script>
+        document.getElementById('toggleTheme').addEventListener('click', function() {
+            const body = document.body;
+            const themeLabel = document.getElementById('themeLabel');
+            if (body.classList.contains('dark-theme')) {
+                body.classList.remove('dark-theme');
+                themeLabel.innerText = 'light';
+            } else {
+                body.classList.add('dark-theme');
+                themeLabel.innerText = 'dark';
+            }
+        });
+    </script>
+</body>
+</html>

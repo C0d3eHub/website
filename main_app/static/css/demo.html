@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+.content {
+    display: flex;
+    flex-direction: row; /* Items will be in a row for large screens */
+    justify-content: space-between; /* Space between the items */
+    padding: 20px;
+}
+
+/* Individual Sections */
+.news-alert,
+.principal-desk {
+    border-radius: 5px;
+    overflow: hidden;
+    border: 2px solid #006400;
+    width: calc(20%);
+    height: 385px;
+    background-color: #f9f9f9;
+    padding: 10px;
+    margin: 10px;
+}
+
+.photo-slider {
+    position: relative;
+    width: calc(52%);
+    height: 400px;
+    margin: 10px;
+    overflow: hidden;
+    border-radius: 5px;
+    border: 2px solid #006400;
+}
+
+/* Slider Images */
+.slider img {
+    width: 100%;
+    height: 375px;
+    object-fit: cover;
+}
+
+/* Navigation Buttons */
+.navigation {
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    transform: translateY(-50%);
+}
+
+.prev,
+.next {
+    background-color: rgba(255, 255, 255, 0.8);
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    padding: 10px;
+}
+
+/* Indicators */
+.indicator {
+    text-align: center;
+    padding-top: 10px;
+}
+
+.dot {
+    display: inline-block;
+    height: 12px;
+    width: 12px;
+    margin: 0 5px;
+    border-radius: 50%;
+    background-color: #bbb;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.dot.active {
+    background-color: #717171;
+}
+
+.dot:hover {
+    background-color: #666;
+}
+@media (max-width: 877px) {
+    .content {
+        flex-direction: column; /* Change to column for small screens */
+        justify-content: flex-start; /* Ensure content stacks vertically */
+        align-items: stretch; /* Allow full-width stacking */
+    }
+
+    .news-alert,
+    .photo-slider,
+    .principal-desk {
+        width: 100%; /* Make each section take up full width */
+        margin: 10px 0; /* Add margin to separate the sections */
+    }
+
+    .slider img {
+        height: auto; /* Adjust height of images on small screens */
+    }
+}
+.circular-images-section {
+    background-color: #165BB6;
+    padding: 20px;
+    text-align: center;
+}
+
+.circular-images {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.card {
+    width: 220px;
+    margin: 15px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+.card img {
+    width: 100%;
+    height: 220px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.card h3 {
+    margin: 10px 0 5px;
+    font-size: 18px;
+}
+
+.card p {
+    margin: 5px 0 15px;
+    font-size: 14px;
+    color: #333;
+}
+
+.know-more-button {
+    display: inline-block;
+    padding: 10px 15px;
+    background-color: #0044cc;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.know-more-button:hover {
+    background-color: #003399;
+}
+
+    </style>
+ <script src="../js/script.js"></script>
+</head>
+<body>
+    <div class="content">
+        <div class="news-alert">
+            <h2>News and Alerts</h2>
+            <p>Latest news and announcements...</p>
+        </div>    
+    
+        <div class="photo-slider">
+            <div class="slider">
+                <img src="../images/image1.jpg" alt="Slider Image 1" style="display: none;">
+                <img src="../images/image2.jpg" alt="Slider Image 2" style="display: none;">
+                <img src="../images/image1.jpg" alt="Slider Image 3" style="display: none;">
+            </div>
+            <div class="navigation">
+                <button class="prev" onclick="showPreviousImage()">&#10094;</button>
+                <button class="next" onclick="showNextImage()">&#10095;</button>
+            </div>
+            <div class="indicator">
+                <span class="dot" onclick="currentSlide(1)"></span>
+                <span class="dot" onclick="currentSlide(2)"></span>
+                <span class="dot" onclick="currentSlide(3)"></span>
+            </div>
+        </div>
+    
+        <div class="principal-desk">
+            <h2>Principal's Desk</h2>
+            <p>Message from the principal...</p>
+        </div>
+    </div>
+    <div class="circular-images-section">
+        <h2>Explore Our Programs</h2>
+        <div class="circular-images">
+            <div class="card">
+                <img src="{% static 'images/institute_trades.jpg' %}" alt="Institute Trades">
+                <h3>Institute Trades</h3>
+                <p>Learn about the various trades offered at our institute.</p>
+                <a href="#" class="know-more-button">Know More</a>
+            </div>
+            <div class="card">
+                <img src="{% static 'images/apprenticeship.jpg' %}" alt="Apprenticeship">
+                <h3>Apprenticeship</h3>
+                <p>Discover our apprenticeship programs and how to apply.</p>
+                <a href="#" class="know-more-button">Know More</a>
+            </div>
+            <div class="card">
+                <img src="{% static 'images/placement.jpg' %}" alt="Placement">
+                <h3>Placement</h3>
+                <p>Find out about our placement assistance for students.</p>
+                <a href="#" class="know-more-button">Know More</a>
+            </div>
+            <div class="card">
+                <img src="{% static 'images/on_job_training.jpg' %}" alt="On Job Training">
+                <h3>On Job Training</h3>
+                <p>Explore our on-the-job training opportunities.</p>
+                <a href="#" class="know-more-button">Know More</a>
+            </div>
+            <div class="card">
+                <img src="{% static 'images/on_job_training.jpg' %}" alt="On Job Training">
+                <h3>On Job Training</h3>
+                <p>Explore our on-the-job training opportunities.</p>
+                <a href="#" class="know-more-button">Know More</a>
+            </div>
+        </div>
+    </div>
+    {% static 'images/institute_trades.jpg' %}
+</body>
+</html>

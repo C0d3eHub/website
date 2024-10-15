@@ -1,0 +1,9 @@
+pip install django
+pip install django-cms
+
+python -m pip install Pillow
+pip install python-decouple
+pip install python-dotenv
+pip install python-decouple
+
+pip install django-jet.

@@ -1,0 +1,248 @@
+/* General Body Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 5%; /* Adjusted padding for responsiveness */
+}
+
+.logo {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%; /* Make logo circular */
+    overflow: hidden; /* Hide overflow to keep the circular shape */
+}
+
+.header-text {
+    text-align: center;
+    flex-grow: 1;
+}
+
+.header-text h1, .header-text h2, .header-text p {
+    color: #010101; /* Set header text color to #010101 */
+    margin: 0; /* Reset margins */
+}
+
+.header-text h1 {
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.header-text h2 {
+    font-size: 22px;
+}
+
+.header-text p {
+    font-size: 16px;
+}
+
+/* Header */
+header {
+    background-color: #FF9933; /* Saffron color */
+    position: relative;
+    z-index: 100;
+}
+
+/* Buttons */
+.buttons {
+    display: flex;
+    gap: 10px;
+    margin-right: 100px;
+}
+
+.donation-button {
+    background-color: #0044cc;
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.admission-button {
+    background-color: #00cc44;
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.donation-button:hover, .admission-button:hover {
+    filter: brightness(90%); /* Slightly darkens the button on hover */
+    transform: scale(1.05); /* Slightly enlarges the button on hover */
+}
+
+/* Navigation Bar */
+nav {
+    background-color: #006400; /* Green */
+    padding: 15px 0;
+    text-align: center;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+nav ul li {
+    position: relative;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: white;
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #006400; /* Match nav bar color */
+    transition: background-color 0.3s ease;
+}
+
+nav ul li a:hover {
+    background-color: #32cd32; /* Highlight on hover */
+    color: #fff;
+}
+
+/* Dropdown Menu */
+nav ul li ul {
+    display: none;
+    position: absolute;
+    top: 100%; /* Shifted dropdown down */
+    left: 0;
+    background-color: white; /* White background for dropdown */
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Dropdown shadow for visibility */
+    z-index: 9999; /* Ensure it's on top */
+}
+
+nav ul li:hover > ul {
+    display: block; /* Show dropdown on hover */
+}
+
+nav ul li ul li {
+    width: 200px;
+}
+
+nav ul li ul li a {
+    padding: 10px;
+    display: block;
+    color: black;
+    background-color: white; /* Ensure dropdown text is visible */
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+nav ul li ul li a:hover {
+    background-color: #f0f0f0; /* Highlight dropdown item on hover */
+    color: #25633e;
+}
+
+/* Hamburger Menu */
+.hamburger {
+    display: none; /* Hidden by default */
+    font-size: 28px;
+    cursor: pointer;
+    margin-right: 20px; /* Add some space on the right */
+}
+
+/* Footer Styles */
+footer {
+    background-color: #006400; /* Dark green */
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+}
+
+.footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column; /* Stack vertically on small screens */
+        align-items: center; /* Center items */
+        padding: 10px; /* Adjust padding for mobile */
+    }
+
+    .buttons {
+        margin-right: 0; /* Remove margin for buttons */
+        justify-content: center; /* Center buttons */
+    }
+
+    nav ul {
+        flex-direction: column; /* Stack navigation items */
+        gap: 10px; /* Reduce gap */
+    }
+
+    nav ul li a {
+        padding: 10px; /* Adjust padding */
+        font-size: 14px; /* Smaller font size */
+    }
+
+    .hamburger {
+        display: block; /* Show hamburger icon */
+    }
+
+    nav ul {
+        display: none; /* Hide the navigation menu by default */
+        flex-direction: column; /* Stack items vertically */
+        width: 100%; /* Full width */
+        position: absolute; /* Position it absolutely */
+        top: 60px; /* Adjust according to your header height */
+        left: 0;
+        background-color: #006400; /* Match navbar background */
+        z-index: 1000; /* Ensure it appears above other content */
+    }
+
+    nav.active ul {
+        display: flex; /* Show menu when active */
+    }
+
+    /* Submenu Styles for Small Screens */
+    nav ul li ul {
+        background-color: #fff; /* White background for better visibility */
+        color: #000; /* Black text color */
+    }
+
+    nav ul li ul li a {
+        color: #006400; /* Green text for submenu items */
+        background-color: #fff; /* White background */
+        border-bottom: 1px solid #ddd;
+    }
+
+    nav ul li ul li a:hover {
+        background-color: #f0f0f0; /* Light grey background on hover */
+        color: #006400; /* Keep green text on hover */
+    }
+
+    /* When parent is clicked/active */
+    nav ul li.active ul li a {
+        color: #006400; /* Ensure submenu is readable when active */
+        background-color: #fff; /* Keep white background when active */
+    }
+
+    /* Ensure transition works smoothly */
+    nav ul ul {
+        transition: max-height 0.3s ease, opacity 0.3s ease;
+        overflow: hidden;
+        max-height: 0;
+        opacity: 0;
+    }
+
+    nav ul li.active > ul {
+        max-height: 300px; /* Smooth dropdown transition */
+        opacity: 1; /* Fully visible submenu */
+    }
+}

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>News Alerts</title>
+</head>
+<body>
+    <h1>News Alerts</h1>
+    <ul>
+        {% for news in news_alerts %}
+            <li>
+                <strong>{{ news.title }}</strong> - {{ news.published_date }}<br>
+                {{ news.content }}
+            </li>
+        {% empty %}
+            <li>No news alerts found.</li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'create_news' %}">Post New News</a>
+</body>
+</html>

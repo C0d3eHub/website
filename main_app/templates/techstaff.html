@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Tech Staff{% endblock %}
+
+{% block content %}
+<style>
+   
+   .tech-staff-page {
+        margin: 20px auto;
+        width: 80%; /* Adjust to center the table and set the width */
+        text-align: center;
+    }
+    .techstaff-title {
+        color: #2c3e50;
+        font-size: 24px;
+        margin-bottom: 20px;
+        font-weight: bold;
+    }
+    .techstaff-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 0 auto;
+        background-color: #f9f9f9; /* Light background similar to the image */
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add subtle shadow */
+    }
+    .techstaff-th, .techstaff-td {
+        border: 1px solid #ddd;
+        padding: 12px;
+        text-align: center; /* Center the content in the cells */
+    }
+    .techstaff-th {
+        background-color: #f2f2f2;
+        font-weight: bold;
+        text-transform: uppercase; /* Make headers look prominent */
+    }
+    .techstaff-td {
+        vertical-align: middle;
+    }
+    .techstaff-photo {
+        width: 60px; /* Set a reasonable width for the photo */
+        height: 60px;
+        object-fit: cover;
+        border-radius: 50%; /* Make the photo circular */
+    }
+    /* Additional styling for responsiveness */
+    @media (max-width: 768px) {
+        .techstaff-table {
+            width: 100%;
+        }
+        .techstaff-th, .techstaff-td {
+            padding: 8px;
+        }
+        .techstaff-photo {
+            width: 40px;
+            height: 40px;
+        }
+    }
+</style>
+
+</style>
+<div class="tech-staff-page">
+    <h1 class="techstaff-title">Tech Staff Information</h1>
+    <table class="techstaff-table">
+        <thead>
+            <tr>
+                <th class="techstaff-th">Sr No</th>
+                <th class="techstaff-th">Name</th>
+                <th class="techstaff-th">Designation</th>
+                <th class="techstaff-th">Date of Joining</th>
+                <th class="techstaff-th">Phone No</th>
+                <th class="techstaff-th">Photo</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for staff in tech_staff_list %}
+            <tr>
+                <td class="techstaff-td">{{ staff.serial_number }}</td>
+                <td class="techstaff-td">{{ staff.name }}</td>
+                <td class="techstaff-td">{{ staff.designation }}</td>
+                <td class="techstaff-td">{{ staff.date_of_joining }}</td>
+                <td class="techstaff-td">{{ staff.phone_number }}</td>
+                <td class="techstaff-td"><img src="{{ staff.photo.url }}" alt="Photo" class="techstaff-photo"></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

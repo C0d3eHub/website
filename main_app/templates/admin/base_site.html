@@ -1,0 +1,20 @@
+{% extends "admin/base.html" %}
+
+{% load static %}  <!-- Load the static template tag library -->
+
+{% block title %}My Custom Admin Dashboard{% endblock %}
+
+{% block branding %}
+  <h1 id="site-name">My Project Admin</h1>
+{% endblock %}
+
+{% block content %}
+  <div id="custom-admin-dashboard">
+    <!-- All your custom admin content goes here -->
+    <!-- Add your admin-specific content here directly -->
+  </div>
+{% endblock %}
+
+{% block extrahead %}
+  <link rel="stylesheet" href="{% static 'css/admin_custom.css' %}">
+{% endblock %}

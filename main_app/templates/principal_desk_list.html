@@ -1,0 +1,10 @@
+<h2>Principal's Desk - All Posts</h2>
+<div class="principal-desk-list">
+    {% for post in principal_desk_posts %}
+        <div class="principal-post">
+            <h3>{{ post.title }}</h3>
+            <p>{{ post.published_date }}</p>
+            <p>{{ post.content }}</p>
+        </div>
+    {% endfor %}
+</div>

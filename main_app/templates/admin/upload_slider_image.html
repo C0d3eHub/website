@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Slider Image</title>
+</head>
+<body>
+    <h1>Upload Slider Image</h1>
+
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Upload Image</button>
+    </form>
+
+    <h2>Current Images</h2>
+    <div class="slider-images">
+        {% for image in images %}
+            <div class="slider-image">
+                <img src="{{ image.image.url }}" alt="Slider Image" width="200px">
+                <form method="post" action="{% url 'upload_slider_image' %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="image_id" value="{{ image.id }}">
+                    <button type="submit" name="delete_image">Delete</button>
+                </form>
+            </div>
+        {% endfor %}
+    </div>
+</body>
+</html>

@@ -1,0 +1,166 @@
+/* Content Section */
+.content {
+    display: flex; /* Use flexbox for layout */
+    justify-content: space-between; /* Space between items */
+    padding: 20px; /* Padding for content */
+    flex-wrap: wrap; /* Allow wrapping for smaller screens */
+}
+
+.news-alert,
+.principal-desk {
+    border-radius: 5px; /* Rounded corners */
+    overflow: hidden; /* Prevent overflow */
+    border: 2px solid #006400; /* Green border */
+    flex: 1 1 240px; /* Flexible width with a minimum of 240px */
+    height: 400px; /* Fixed height for large screens */
+    background-color: #f9f9f9; /* Light background */
+    padding: 10px; /* Padding for content */
+    margin: 10px; /* Margin for spacing */
+}
+
+.photo-slider {
+    position: relative;
+    max-width: 100%; /* Full width */
+    margin: auto;
+    overflow: hidden; /* Hide overflow */
+}
+
+.slider img {
+    width: 100%; /* Responsive image */
+    height: auto; /* Maintain aspect ratio */
+    max-height: 400px; /* Fixed height for images */
+}
+
+.navigation {
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    transform: translateY(-50%);
+}
+
+.prev,
+.next {
+    background-color: rgba(255, 255, 255, 0.8);
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    padding: 10px;
+}
+
+.indicator {
+    text-align: center;
+    padding-top: 10px;
+}
+
+.dot {
+    display: inline-block;
+    height: 12px; /* Height of the dot */
+    width: 12px; /* Width of the dot */
+    margin: 0 5px; /* Spacing between dots */
+    border-radius: 50%; /* Make it circular */
+    background-color: #bbb; /* Default color */
+    cursor: pointer; /* Show pointer on hover */
+    transition: background-color 0.3s; /* Smooth color transition */
+}
+
+.dot.active {
+    background-color: #717171; /* Color for the active dot */
+}
+
+/* Add hover effect for dots */
+.dot:hover {
+    background-color: #666; /* Darker shade on hover */
+}
+
+.active {
+    background-color: #717171;
+}
+
+/* Circular Images Section */
+.circular-images-section {
+    background-color: #165BB6; /* Background color */
+    padding: 20px;
+    text-align: center;
+}
+
+.circular-images {
+    display: flex;
+    justify-content: center; /* Center images */
+    flex-wrap: wrap; /* Allow wrapping to the next line */
+}
+
+.card {
+    width: 220px; /* Fixed width for each image container */
+    margin: 15px; /* Margin around each container */
+    background-color: #f9f9f9; /* Light gray background for cards */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+    padding: 10px; /* Padding inside the card */
+    transition: transform 0.3s; /* Smooth hover effect */
+}
+
+.card:hover {
+    transform: translateY(-5px); /* Slight lift on hover */
+}
+
+.card img {
+    width: 100%; /* Full width for responsive images */
+    height: auto; /* Maintain aspect ratio */
+    border-radius: 50%; /* Circular shape */
+    object-fit: cover; /* Cover the container while maintaining aspect ratio */
+}
+
+.card h3 {
+    margin: 10px 0 5px; /* Space above and below the title */
+    font-size: 18px; /* Title font size */
+}
+
+.card p {
+    margin: 5px 0 15px; /* Space above and below the description */
+    font-size: 14px; /* Description font size */
+    color: #333; /* Text color */
+}
+
+.know-more-button {
+    display: inline-block; /* Button as an inline-block */
+    padding: 10px 15px; /* Padding for button */
+    background-color: #0044cc; /* Button background color */
+    color: white; /* Button text color */
+    text-decoration: none; /* No underline */
+    border-radius: 5px; /* Rounded corners for button */
+    transition: background-color 0.3s; /* Smooth hover effect */
+}
+
+.know-more-button:hover {
+    background-color: #003399; /* Darker shade on hover */
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .content {
+        flex-direction: column; /* Stack content vertically */
+    }
+
+    .news-alert,
+    .photo-slider,
+    .principal-desk {
+        height: auto; /* Allow height to be flexible */
+        margin: 10px 0; /* Margin for spacing */
+        width: 100%; /* Full width for smaller screens */
+    }
+
+    .photo-slider {
+        margin: 10px 0; /* Margin for spacing */
+    }
+
+    .circular-images {
+        justify-content: center; /* Center the circular images */
+    }
+
+    .card {
+        width: 90%; /* Full width for smaller screens */
+        margin: 10px 0; /* Margin on top and bottom */
+    }
+}
