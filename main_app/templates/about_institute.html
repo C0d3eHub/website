@@ -1,15 +1,20 @@
 {% extends 'base.html' %}
 
+{% block breadcrumb %}
+ 
+    <li class="breadcrumb-item active" aria-current="page">About Institute</li>
+{% endblock %}
+
 {% block content %}
 <head>
     <style>
         /* CSS styles for the About Institute page */
-       .abouth1 h1 {
+        .abouth1 h1 {
             text-align: center; /* Center the heading */
             margin-bottom: 20px; /* Add space below the heading */
         }
 
-        aboutp p {
+        .aboutp {
             margin: 0 20px; /* Add margin from both sides (left and right) */
             text-align: justify; /* Justify the text in the paragraph */
             padding-bottom: 10px;

@@ -102,7 +102,20 @@
             </ul>
         </nav>
     </nav>
-
+    <div class="sitemap">
+        <nav aria-label="breadcrumb" class="breadcrumb-container">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'index' %}">Home</a></li>
+                {% block breadcrumb %}
+                <li class="breadcrumb-item active" aria-current="page">{{ page_title }}</li>
+                {% endblock %}
+            </ol>
+        </nav>
+    </div>
+    
+    
+    
+    
     <main>
         {% block content %}
         <p>Default content goes here.</p>

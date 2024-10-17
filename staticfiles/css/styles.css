@@ -146,6 +146,64 @@ nav ul li ul li a:hover {
     background-color: #f0f0f0; /* Highlight dropdown item on hover */
     color: #25633e;
 }
+/* sitemap */
+.sitemap {
+    background-color: rgb(245, 245, 245); /* Set the background color */
+    padding-top: 1px; /* Slight padding at the top */
+    padding-bottom: 0; /* No padding at the bottom */
+    text-align: left !important; /* Force left alignment */
+    width: 100%; /* Full width */
+    display: block; /* Ensure it behaves like a block */
+}
+
+.breadcrumb-container {
+    background-color: rgb(255, 255, 255); /* Background color */
+    padding-left: 20px; /* Shift content from the left */
+    padding-right: 10px; /* Small right padding for responsiveness */
+    padding-top: 2px; /* Slight padding at the top */
+    margin-bottom: 0; /* Remove margin */
+    width: 100%; /* Full width */
+}
+
+.breadcrumb {
+    display: block; /* Block element to ensure full width */
+    padding: 0;
+    margin: 0; /* No margins */
+    background-color: transparent;
+    color: rgb(250, 250, 250); /* Set text color */
+    text-align: left; /* Explicit left alignment */
+    width: 100%; /* Make sure it uses full width */
+}
+
+.breadcrumb a {
+    color: rgb(0, 0, 0); /* Set link text color */
+    text-decoration: none;
+    display: inline-block; /* Ensure proper spacing */
+    text-align: left !important; /* Force text alignment to left */
+}
+
+.breadcrumb-item.active {
+    color: blue; /* Set active item color */
+    display: inline-block; /* Ensure proper spacing */
+    text-align: left; /* Explicitly align left */
+}
+
+.breadcrumb ol {
+    list-style: none; /* Remove list numbering */
+    padding-left: 0; /* No left padding */
+    margin: 0; /* No margins */
+}
+
+.breadcrumb li {
+    display: inline-block; /* Keep the items inline */
+    text-align: left; /* Ensure text is left-aligned */
+}
+
+.breadcrumb li+li:before {
+    content: "> "; /* Separator */
+    padding: 0 5px;
+    color: blue; /* Set separator color */
+}
 
 /* Hamburger Menu */
 .hamburger {
@@ -244,5 +302,27 @@ footer {
     nav ul li.active > ul {
         max-height: 300px; /* Smooth dropdown transition */
         opacity: 1; /* Fully visible submenu */
+    }
+}
+/* Responsive Design of sitemap */
+@media (max-width: 768px) {
+    .breadcrumb-container {
+        padding-left: 10px; /* Reduce left padding on smaller screens */
+        padding-right: 5px; /* Reduce right padding */
+    }
+
+    .breadcrumb {
+        font-size: 14px; /* Adjust font size for readability */
+    }
+}
+
+@media (max-width: 576px) {
+    .breadcrumb-container {
+        padding-left: 5px; /* Further reduce padding on extra-small screens */
+        padding-right: 5px;
+    }
+
+    .breadcrumb {
+        font-size: 12px; /* Adjust font size for smaller screens */
     }
 }

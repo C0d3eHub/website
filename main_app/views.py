@@ -37,6 +37,7 @@ def index(request):
     
     # Fetch header content
     header_content = get_header_content()
+    page_title = "Index" 
 
     # Pass 'images' to the template context
     return render(request, 'index.html', {
@@ -44,15 +45,19 @@ def index(request):
         'principal_desk_posts': principal_desk_posts,
         'header_content': header_content,
         'images': images,  # Add images to the context
+        'page_title': page_title,
     })
 
 
 # About page view
 def about(request):
     header_content = get_header_content()
+    page_title = "About Us"  # New content for page title
     return render(request, 'about.html', {
         'header_content': header_content,
+        'page_title': page_title,  # Add page title to context
     })
+
 
 # Contact page view
 def contact(request):
@@ -208,9 +213,11 @@ def eca(request):
 def adminstaff(request):
     staff_members = AdminStaff.objects.all()
     header_content = get_header_content()
+    page_title = "Admin Staff"  
     return render(request, 'adminstaff.html', {
         'staff_members': staff_members,
         'header_content': header_content,
+         'page_title': page_title, 
     })
 
 # Technical Staff page
