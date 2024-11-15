@@ -1,6 +1,58 @@
 {% extends 'base.html' %}
-
+{% block breadcrumb %}
+    <li class="breadcrumb-item active" aria-current="page">Institute Amenities</li>
+{% endblock %}
 {% block content %}
-<h1>Institute Amenities</h1>
-<p>Information about the amenities available at the institute.</p>
+<style>
+    /* Container for amenities */
+    .amenities-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    /* Styling for each amenity */
+    .amenity {
+        background-color: #f4f4f4;
+        padding: 20px;
+        margin-bottom: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Title Styling */
+    .amenity-title {
+        font-size: 30px;
+        font-weight: bold;
+        color: #2c3e50;
+        margin-bottom: 15px;
+        text-transform: capitalize;
+    }
+
+    /* Description Styling */
+    .amenity-description {
+        font-size: 18px;
+        line-height: 1.6;
+        color: #34495e;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+        .amenity-title {
+            font-size: 24px;
+        }
+        .amenity-description {
+            font-size: 16px;
+        }
+    }
+</style>
+
+<div class="amenities-container">
+    {% for amenity in amenities %}
+        <div class="amenity">
+            <h2 class="amenity-title">{{ amenity.title }}</h2>
+            <p class="amenity-description">{{ amenity.description }}</p>
+        </div>
+    {% endfor %}
+</div>
 {% endblock %}

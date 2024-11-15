@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% block breadcrumb %}
+    <li class="breadcrumb-item active" aria-current="page">Trainees </li>
+
+    {% endblock %}
+
+   {% block title %}Trainee List{% endblock %}
+
+{% block content %}
+<div class="container">
+   
+<h2>Trainee Details</h2>
+
+<table class="trainee-table">
+    <thead>
+        <tr>
+            <th>SN</th>
+            <th>Name</th>
+            <th>Father's Name</th>
+            <th>Mother's Name</th>
+            <th>Address</th>
+            <th>Phone No</th>
+           
+            <th>Trade</th>
+            <th>Session</th>
+            <th>Result</th>
+            <th>Photo</th>
+            <th>Remarks</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for trainee in trainees %}
+        <tr>
+            <td>{{ trainee.sn }}</td>
+            <td>{{ trainee.name }}</td>
+            <td>{{ trainee.fathername }}</td>
+            <td>{{ trainee.mothername }}</td>
+            <td>{{ trainee.address }}</td>
+            <td>{{ trainee.phoneno }}</td>
+           
+            <td>{{ trainee.trade }}</td>
+            <td>{{ trainee.session }}</td>
+            <td>{{ trainee.result }}</td>
+            <td>
+                {% if trainee.photo %}
+                    <img src="{{ trainee.photo.url }}" alt="{{ trainee.name }}" class="trainee-photo">
+                {% else %}
+                    No Photo
+                {% endif %}
+            </td>
+            <td>{{ trainee.remarks }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+    </table>
+</div>
+{% endblock %}

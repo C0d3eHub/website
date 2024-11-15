@@ -1,6 +1,86 @@
 {% extends 'base.html' %}
 
-{% block content %}
-<h2>Trades</h2>
-<p>Content for the Trades page goes here.</p>
+{% block breadcrumb %}
+    <li class="breadcrumb-item active" aria-current="page">Trades</li>
 {% endblock %}
+
+{% block content %}
+<style>
+    /* Styling for the trades heading */
+    .trades-heading {
+        font-size: 2rem;
+        font-weight: bold;
+        text-align: center;
+        margin-bottom: 30px;
+        color: #2c3e50;
+    }
+
+    /* Styling for the trade items container */
+    .trades-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        justify-content: center;
+    }
+
+    /* Styling for individual trade items */
+    .trade-item {
+        background-color: #f9f9f9;
+        padding: 20px;
+        border-radius: 8px;
+        width: 500px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+    }
+
+    /* Hover effect for each trade item */
+    .trade-item:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+    }
+
+    /* Styling for the trade name (heading) */
+    .trade-name {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: #2980b9;
+        margin-bottom: 15px;
+    }
+
+    /* Styling for the trade description */
+    .trade-description {
+        font-size: 1rem;
+        color: #7f8c8d;
+        line-height: 1.5;
+    }
+
+    /* Responsive design for mobile screens */
+    @media (max-width: 768px) {
+        .trade-item {
+            width: 100%;
+            padding: 15px;
+        }
+
+        .trades-heading {
+            font-size: 1.5rem;
+        }
+    }
+
+    /* Responsive design for tablets (smaller screens) */
+    @media (max-width: 1024px) {
+        .trade-item {
+            width: 45%;
+        }
+    }
+</style>
+    <h2 class="trades-heading">Trades</h2>
+    <div class="trades-list">
+        {% for trade in trades %}
+            <div class="trade-item">
+                <h3 class="trade-name">{{ trade.name }}</h3>
+                <p class="trade-description">{{ trade.description }}</p>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
+

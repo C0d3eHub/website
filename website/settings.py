@@ -41,6 +41,8 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+
+    
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -63,6 +65,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                
             ],
         },
     },
@@ -75,6 +78,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
+        'OPTIONS': {
+            'timeout': 20,  # Increase timeout to 20 seconds
+        },
     }
 }
 
@@ -124,6 +130,8 @@ CMS_TEMPLATES = [
 CSRF_COOKIE_SECURE = not DEBUG  # Set to True in production
 SESSION_COOKIE_SECURE = not DEBUG  # Set to True in production
 
+
+
 # Logging configuration (optional)
 LOGGING = {
     'version': 1,
@@ -161,3 +169,5 @@ DEFAULT_FROM_EMAIL = EMAIL_HOST_USER  # Default email sender
 # Console email backend for local testing (optional)
 if DEBUG:
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+

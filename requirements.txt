@@ -7,3 +7,5 @@ pip install python-dotenv
 pip install python-decouple
 
 pip install django-jet
+pip install whitenoise
+pip install pandas openpyxl

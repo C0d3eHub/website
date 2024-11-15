@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bulk Upload Trainees</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        .form-section {
+            margin: 20px 0;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+        }
+
+        input[type="file"] {
+            margin: 10px 0;
+        }
+
+        button {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+
+        .template-info {
+            margin: 20px 0;
+            font-size: 0.9em;
+            color: #777;
+        }
+
+        .column-names {
+            font-weight: bold;
+            color: #0056b3;
+        }
+
+        .messages {
+            margin: 20px 0;
+            font-size: 1em;
+            color: #d9534f;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Bulk Upload Trainees</h1>
+
+    <!-- Display Success or Error Messages -->
+    {% if messages %}
+        <div class="messages">
+            {% for message in messages %}
+                <p>{{ message }}</p>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <div class="form-section">
+        <!-- Form for uploading file -->
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <label for="file-upload">Upload Excel File:</label>
+            <input type="file" id="file-upload" name="file" accept=".xlsx, .xls" required>
+            <button type="submit">Upload</button>
+        </form>
+    </div>
+
+    <div class="template-info">
+        <p>Use the following template for uploading:</p>
+        <p class="column-names">Columns: SN, Name, Father Name, Mother Name, Address, Phone No, Aadhar Card, Trade, Session, Result, Photo, Remarks</p>
+        <p>Make sure the file is in Excel format (.xlsx or .xls).</p>
+    </div>
+</div>
+
+<!-- Home button to go back to admin -->
+<a href="{% url 'admin:index' %}" class="button">Home</a>
+
+</body>
+</html>
