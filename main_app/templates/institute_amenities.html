@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block breadcrumb %}
+    <li class="breadcrumb-item active" aria-current="page">Institute Amenities</li>
+{% endblock %}
+{% block content %}
+
+
+<div class="amenities-container">
+    {% for amenity in amenities %}
+        <div class="amenity">
+            <h2 class="amenity-title">{{ amenity.title }}</h2>
+            <p class="amenity-description">{{ amenity.description }}</p>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}

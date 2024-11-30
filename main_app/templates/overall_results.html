@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block breadcrumb %}
+    <li class="breadcrumb-item active" aria-current="page">Overall Results </li>
+{% endblock %}
+
+
+  {% block content %}
+
+  <h2>Overall Results</h2>
+
+  <form method="get" action="{% url 'overall_results' %}">
+    <label for="result">Select Result:</label>
+    <select name="result" id="result" onchange="this.form.submit()">
+      <option value="all" {% if selected_result == 'all' %}selected{% endif %}>All</option>
+      <option value="pass" {% if selected_result == 'pass' %}selected{% endif %}>Pass</option>
+      <option value="fail" {% if selected_result == 'fail' %}selected{% endif %}>Fail</option>
+      <option value="reappear" {% if selected_result == 'reappear' %}selected{% endif %}>Reappear</option>
+    </select>
+  </form>
+
+  <h3>Results for: {{ selected_result|title }}</h3>
+
+  <table class="results-table">
+    <thead>
+      <tr>
+        <th>SN</th>
+        <th>Name</th>
+        <th>Father Name</th>
+        <th>Trade</th>
+        <th>Session</th>
+        <th>Result</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for trainee in trainees %}
+        <tr>
+          <td>{{ trainee.sn }}</td>
+          <td>{{ trainee.name }}</td>
+          <td>{{ trainee.fathername }}</td>
+          <td>{{ trainee.trade }}</td>
+          <td>{{ trainee.session }}</td>
+          <td>{{ trainee.result }}</td>
+        </tr>
+      {% empty %}
+        <tr>
+          <td colspan="6">No data available for the selected result.</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+
+
+{% endblock %}

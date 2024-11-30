@@ -1,0 +1,198 @@
+{% extends 'base.html' %}
+
+{% block breadcrumb %}
+    <li class="breadcrumb-item">Tenders</li>
+{% endblock %}
+
+{% block title %}
+    Tender List
+{% endblock %}
+
+{% block content %}
+    <div class="container mt-5 tender-container" id="tender-container">
+        <h2 id="tender-list-heading">Tender List</h2>
+        <table class="table table-bordered tender-table" id="tender-table">
+            <thead id="table-header">
+                <tr>
+                    <th id="sn-column">SN</th>
+                    <th id="particulars-column">Particulars</th>
+                    <th id="attachment-column">Attachment</th>
+                    <th id="status-column">Status</th>
+                    <th id="remarks-column">Remarks</th>
+                    {% if user.is_staff %}
+                        <th id="actions-column">Actions</th>
+                    {% endif %}
+                </tr>
+            </thead>
+            <tbody id="tender-body">
+                {% for tender in tenders %}
+                <tr class="tender-row" id="tender-row-{{ forloop.counter }}">
+                    <td class="tender-sn" id="tender-sn-{{ forloop.counter }}">{{ forloop.counter }}</td>
+                    <td class="tender-particulars" id="tender-particulars-{{ forloop.counter }}">{{ tender.particulars }}</td>
+                    <td class="tender-attachment" id="tender-attachment-{{ forloop.counter }}">
+                        <a href="{{ tender.attachment.url }}" target="_blank" class="tender-attachment-link">Download</a>
+                    </td>
+                    <td class="tender-status {% if tender.status == 'Open Soon' %}open-soon{% elif tender.status == 'Upcoming' %}upcoming{% elif tender.status == 'Opened' %}opened{% elif tender.status == 'Closed' %}closed{% elif tender.status == 'Re-Open' %}re-open{% elif tender.status == 'Pending' %}pending{% elif tender.status == 'Under Review' %}under-review{% elif tender.status == 'Awarded' %}awarded{% endif %}" id="tender-status-{{ forloop.counter }}">
+                        {{ tender.status }}
+                    </td>
+                    <td class="tender-remarks" id="tender-remarks-{{ forloop.counter }}">{{ tender.remarks }}</td>
+                    {% if user.is_staff %}
+                    <td class="tender-actions" id="tender-actions-{{ forloop.counter }}">
+                        <a href="{% url 'tender_edit' tender.id %}" class="btn btn-warning btn-sm">Edit</a>
+                        <a href="{% url 'tender_delete' tender.id %}" class="btn btn-danger btn-sm">Delete</a>
+                    </td>
+                    {% endif %}
+                </tr>
+                {% empty %}
+                <tr class="no-tenders" id="no-tenders-row">
+                    <td colspan="6" class="no-tenders-message" style="text-align:center; padding: 1rem;" id="no-tenders-message">No tenders available</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
+
+{% block extra_styles %}
+    <style>
+        /* General Styling for Table */
+        #tender-container {
+            background-color: #fff;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        #tender-list-heading {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            color: #333;
+        }
+
+        #tender-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        #table-header th {
+            background-color: #f4f4f4;
+            color: #333;
+            padding: 1rem;
+            text-align: left;
+        }
+
+        .tender-row td {
+            padding: 1rem;
+            text-align: left;
+        }
+
+        .tender-sn, .tender-particulars, .tender-attachment, .tender-status, .tender-remarks {
+            font-size: 1rem;
+        }
+
+        .tender-attachment-link {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .tender-attachment-link:hover {
+            text-decoration: underline;
+        }
+
+        .tender-status.open-soon {
+            background-color: #ffcc00; /* Yellow for open soon */
+            color: #fff;
+            padding: 0.5rem;
+            border-radius: 5px;
+        }
+
+        .tender-status.upcoming {
+            background-color: #ffa500; /* Orange for upcoming */
+            color: #fff;
+            padding: 0.5rem;
+            border-radius: 5px;
+        }
+
+        .tender-status.opened {
+            background-color: #4caf50; /* Green for opened */
+            color: #fff;
+            padding: 0.5rem;
+            border-radius: 5px;
+        }
+
+        .tender-status.closed {
+            background-color: #e63946; /* Red for closed */
+            color: #fff;
+            padding: 0.5rem;
+            border-radius: 5px;
+        }
+
+        .tender-status.re-open {
+            background-color: #1d3557; /* Blue for re-open */
+            color: #fff;
+            padding: 0.5rem;
+            border-radius: 5px;
+        }
+
+        .tender-status.pending {
+            background-color: #ff8c00; /* Amber for pending */
+            color: #fff;
+            padding: 0.5rem;
+            border-radius: 5px;
+        }
+
+        .tender-status.under-review {
+            background-color: #8e44ad; /* Purple for under review */
+            color: #fff;
+            padding: 0.5rem;
+            border-radius: 5px;
+        }
+
+        .tender-status.awarded {
+            background-color: #2ecc71; /* Emerald for awarded */
+            color: #fff;
+            padding: 0.5rem;
+            border-radius: 5px;
+        }
+
+        .tender-actions a {
+            margin-right: 0.5rem;
+        }
+
+        #no-tenders-message {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #888;
+        }
+
+        /* Responsiveness */
+        @media (max-width: 768px) {
+            #tender-container {
+                padding: 1rem;
+            }
+
+            #tender-list-heading {
+                font-size: 1.5rem;
+            }
+
+            #tender-table th, .tender-row td {
+                padding: 0.8rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .tender-sn, .tender-particulars, .tender-attachment, .tender-status, .tender-remarks {
+                font-size: 0.9rem;
+            }
+
+            #tender-list-heading {
+                font-size: 1.2rem;
+            }
+
+            .tender-actions a {
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+{% endblock %}

@@ -1,0 +1,239 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block breadcrumb %}
+    <li class="breadcrumb-item active" aria-current="page">OJT</li>
+{% endblock %}
+
+{% block title %}On Job Training{% endblock %}
+
+{% block content %}
+<style>
+/* General styling for the page */
+.main {
+    padding: 20px;
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f7fc;
+}
+
+/* Heading styling */
+.on-job-training h1 {
+    font-size: 36px;
+    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.on-job-training p {
+    font-size: 18px;
+    color: #555;
+    line-height: 1.6;
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+/* Styling for the links (Headings) */
+.on-job-training h2 {
+    font-size: 24px;
+    color: #0056b3;
+    cursor: pointer;
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #f1f1f1;
+    border-radius: 5px;
+    text-align: center;
+    transition: background-color 0.3s ease;
+}
+
+.on-job-training h2:hover {
+    background-color: #ddd;
+}
+
+/* Styling for the divs under each section */
+.on-job-training .io,
+.on-job-training .fc,
+.on-job-training .cr {
+    display: none;
+    font-size: 18px;
+    color: #444;
+    padding: 15px;
+    background-color: #ffffff;
+    border: 1px solid #e1e1e1;
+    border-radius: 5px;
+    margin-top: 15px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Table Styling (Fixed) */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: #ffffff;
+}
+
+th, td {
+    padding: 12px 20px;
+    text-align: left;
+    font-size: 16px;
+    color: #333;
+}
+
+th {
+    background-color: #28a745;  /* Green background */
+    color: #fff;
+    font-weight: bold;
+    border-bottom: 2px solid #0056b3;
+    text-align: center;
+}
+
+tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+tr:hover {
+    background-color: #f1f1f1;
+    cursor: pointer;
+}
+
+td {
+    text-align: center;
+}
+
+/* Styling for the remarks input field */
+.remarks-input {
+    width: 100%;
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+    background-color: #f9f9f9;
+}
+
+.remarks-input:focus {
+    outline: none;
+    border-color: #007bff;
+}
+
+/* Table container styling */
+.table-container {
+    margin-top: 30px;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    overflow-x: auto;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .on-job-training h1 {
+        font-size: 28px;
+    }
+
+    .on-job-training h2 {
+        font-size: 20px;
+    }
+
+    .on-job-training p {
+        font-size: 16px;
+    }
+
+    table {
+        font-size: 14px;
+    }
+
+    th, td {
+        padding: 8px 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .on-job-training h1 {
+        font-size: 24px;
+    }
+
+    .on-job-training h2 {
+        font-size: 18px;
+    }
+
+    .on-job-training p {
+        font-size: 14px;
+    }
+
+    table {
+        font-size: 12px;
+    }
+
+    th, td {
+        padding: 6px 10px;
+    }
+}
+
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const headings = document.querySelectorAll('.on-job-training h2');
+        headings.forEach(function (heading) {
+            heading.addEventListener('click', function () {
+                const contentDiv = this.nextElementSibling;
+                if (contentDiv.style.display === 'none' || contentDiv.style.display === '') {
+                    contentDiv.style.display = 'block';
+                } else {
+                    contentDiv.style.display = 'none';
+                }
+            });
+        });
+    });
+</script>
+
+<div class="main">
+    <div class="on-job-training">
+        <h1>On Job Training Page</h1>
+        <p>Our On Job Training program provides real-world experience in various industries to complement theoretical learning.</p>
+        
+        <h2>{{ ojt_content.link_1_text }}</h2>
+        <div class="io">{{ ojt_content.div_1_content }}</div>
+
+        <h2>{{ ojt_content.link_2_text }}</h2>
+        <div class="fc">{{ ojt_content.div_2_content }}</div>
+
+        <h2>{{ ojt_content.link_3_text }}</h2>
+        <div class="cr">{{ ojt_content.div_3_content }}</div>
+    </div>
+    
+    <div class="table-container">
+        <h2>Trainee Details</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>SN</th>
+                    <th>Name</th>
+                    <th>OJT Location</th>
+                    <th>Trade</th>
+                    <th>Remarks</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for trainee in trainees %}
+                    <tr>
+                        <td>{{ trainee.sn }}</td>
+                        <td>{{ trainee.name }}</td>
+                        <td>{{ trainee.ojt_location }}</td>
+                        <td>{{ trainee.trade }}</td>
+                        <td>{{ trainee.remarks }}</td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="5">No trainees available.</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+{% endblock %}

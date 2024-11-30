@@ -1,0 +1,265 @@
+{% extends "base.html" %}
+{% block breadcrumb %}
+    <li class="breadcrumb-item active" aria-current="page">Add Marks and Attendance</li>
+{% endblock %}
+{% block content %}
+<style>
+    .container1 {
+        max-width: 1200px;
+        margin: 20px auto;
+        padding: 20px;
+        background-color: white;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        overflow: hidden;
+    }
+
+    h1 {
+        color: #9e0707;
+        font-size: 2rem;
+        margin-bottom: 20px;
+    }
+
+    .alert {
+        margin-bottom: 20px;
+    }
+
+    .form-row {
+        display: flex;
+        gap: 20px;
+        flex-wrap: wrap;
+        margin-bottom: 20px;
+    }
+
+    .form-row .col {
+        flex: 1;
+        min-width: 200px;
+    }
+
+    label {
+        font-weight: bold;
+        margin-bottom: 5px;
+        display: block;
+    }
+
+    select, textarea, input[type="number"], input[type="text"] {
+        width: 100%;
+        padding: 10px;
+        font-size: 1rem;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        margin-bottom: 10px;
+        background-color: #f8f8f8;
+        transition: border-color 0.3s ease;
+    }
+
+    select:focus, input:focus, textarea:focus {
+        border-color: #007bff;
+        outline: none;
+        box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+    }
+
+    .scrollable-container {
+        overflow-x: auto;
+        margin-top: 20px;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        min-width: 800px;
+    }
+
+    th, td {
+        padding: 12px;
+        text-align: left;
+        border: 1px solid #ddd;
+    }
+
+    th {
+        background-color: #007bff;
+        color: white;
+    }
+
+    tr:nth-child(even) td {
+        background-color: #f1f1f1;
+    }
+
+    tr:hover {
+        background-color: #f0f0f0;
+    }
+
+    .btn {
+        background-color: #28a745;
+        color: white;
+        padding: 10px 20px;
+        font-size: 1rem;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .btn:disabled {
+        background-color: #ddd;
+        cursor: not-allowed;
+    }
+
+    .btn:hover:enabled {
+        background-color: #218838;
+    }
+
+    @media (max-width: 768px) {
+        .form-row {
+            flex-direction: column;
+        }
+
+        table {
+            font-size: 0.9rem;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 12px;
+        }
+    }
+</style>
+
+<div class="container1">
+    <h1 class="mt-4">Add Marks</h1>
+
+    {% if messages %}
+        <div class="alert alert-danger">
+            {% for message in messages %}
+                <p>{{ message }}</p>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <div class="form-row">
+        <div class="col">
+            <label for="trade-filter">Filter by Trade</label>
+            <select id="trade-filter" class="form-control">
+                <option value="">-- Select Trade --</option>
+                <option value="COPA">COPA</option>
+                <option value="MMV">MMV</option>
+            </select>
+        </div>
+        <div class="col">
+            <label for="session-filter">Filter by Session</label>
+            <select id="session-filter" class="form-control">
+                <option value="">-- Select Session --</option>
+                {% for year in year_range %}
+                    <option value="{{ year }}">{{ year }}</option>
+                {% endfor %}
+            </select>
+            
+        </div>
+    </div>
+
+    <form method="post">
+        {% csrf_token %}
+        <div class="scrollable-container">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>SN</th>
+                        <th>Name</th>
+                        <th>Father Name</th>
+                        <th>Trade</th>
+                        <th>Session</th>
+                        <th>Monthly Attendance</th>
+                        <th>Trade Theory Marks</th>
+                        <th>Trade Practical Marks</th>
+                        <th>ES Marks</th>
+                        <th>WS Marks</th>
+                        <th>Total Marks</th>
+                        <th>Remarks</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for trainee in trainees %}
+                    <tr data-trade="{{ trainee.trade }}" data-session="{{ trainee.session }}">
+                        <td>{{ trainee.sn }}</td>
+                        <td>{{ trainee.name }}</td>
+                        <td>{{ trainee.fathername }}</td>
+                        <td>{{ trainee.trade }}</td>
+                        <td>{{ trainee.session }}</td>
+                        <td><input type="text" name="monthly_attendance_{{ trainee.sn }}"></td>
+                        <td><input type="number" name="trade_theory_marks_{{ trainee.sn }}"></td>
+                        <td><input type="number" name="trade_practical_marks_{{ trainee.sn }}"></td>
+                        <td><input type="number" name="es_marks_{{ trainee.sn }}"></td>
+                        <td><input type="number" name="ws_marks_{{ trainee.sn }}"></td>
+                        <td><input type="number" name="total_marks_{{ trainee.sn }}"></td>
+                        <td><textarea name="remarks_{{ trainee.sn }}"></textarea></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <div class="form-group">
+            <label for="month">For which month do you want to save data?</label>
+            <select name="month" id="month" class="form-control">
+                <option value="">-- Select Month --</option>
+                <option value="January">January</option>
+                <option value="February">February</option>
+                <option value="March">March</option>
+                <option value="April">April</option>
+                <option value="May">May</option>
+                <option value="June">June</option>
+                <option value="July">July</option>
+                <option value="August">August</option>
+                <option value="September">September</option>
+                <option value="October">October</option>
+                <option value="November">November</option>
+                <option value="December">December</option>
+            </select>
+        </div>
+        
+
+        <button type="submit" class="btn btn-success mt-3" id="submit-button" disabled>Submit Marks</button>
+    </form>
+</div>
+
+<script>
+    const tradeFilter = document.getElementById('trade-filter');
+    const sessionFilter = document.getElementById('session-filter');
+    const tableRows = document.querySelectorAll('tbody tr');
+
+    tradeFilter.addEventListener('change', filterTable);
+    sessionFilter.addEventListener('change', filterTable);
+
+    function filterTable() {
+        const trade = tradeFilter.value.toLowerCase();
+        const session = sessionFilter.value.toLowerCase();
+
+        tableRows.forEach(row => {
+            const rowTrade = row.dataset.trade.toLowerCase();
+            const rowSession = row.dataset.session.toLowerCase();
+
+            if (
+                (trade === '' || rowTrade.includes(trade)) &&
+                (session === '' || rowSession.includes(session))
+            ) {
+                row.style.display = '';
+            } else {
+                row.style.display = 'none';
+            }
+        });
+    }
+    const monthDropdown = document.getElementById('month');
+    const submitButton = document.getElementById('submit-button');
+
+    function toggleSubmitButton() {
+        if (monthDropdown.value) {
+            submitButton.disabled = false;
+        } else {
+            submitButton.disabled = true;
+        }
+    }
+
+    monthDropdown.addEventListener('change', toggleSubmitButton);
+    toggleSubmitButton();
+</script>
+{% endblock %}

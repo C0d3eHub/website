@@ -1,0 +1,255 @@
+{% extends 'base.html' %}
+
+{% block breadcrumb %}
+    <li class="breadcrumb-item"><a href="{% url 'trainee_list' %}">Trainees</a></li>
+    <li class="breadcrumb-item active" aria-current="page">{{ trainee.name }}</li>
+{% endblock %}
+
+{% block title %}Trainee Details - {{ trainee.name }}{% endblock %}
+
+{% block content %}
+<style>
+    .trainee-detail-container {
+        display: flex;
+        flex-direction: column; /* Stacks items vertically by default */
+        align-items: center;
+        background-color: #1E2A47;
+        color: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        margin: 20px;
+    }
+
+    .photo-container {
+        width: 200px; /* Adjusted for smaller screens */
+        height: 200px;
+        margin-bottom: 20px; /* Space below photo */
+    }
+
+    .trainee-photo {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 15px;
+        box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    .details-container {
+        display: grid;
+        grid-template-columns: 1fr; /* Single column for smaller screens */
+        gap: 15px;
+        width: 100%;
+    }
+
+    .details-group {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 10px;
+    }
+
+    .details-label {
+        font-weight: bold;
+        color: #E1F2FB;
+    }
+
+    .details-value {
+        color: rgb(183, 98, 18);
+    }
+
+    /* Button Styles */
+    .button-container {
+        display: flex;
+        flex-wrap: wrap; /* Allows wrapping on smaller screens */
+        justify-content: center;
+        gap: 10px;
+        margin-top: 10px;
+    }
+
+    .button-container a {
+        text-decoration: none;
+        padding: 10px 20px;
+        font-size: 16px;
+        border-radius: 5px;
+        text-align: center;
+        color: white;
+        background-color: #4CAF50;
+        transition: background-color 0.3s ease;
+    }
+
+    .button-container a:hover {
+        background-color: #45a049;
+    }
+
+    .previous-btn {
+        background-color: #2196F3;
+    }
+
+    .previous-btn:hover {
+        background-color: #0b7dda;
+    }
+
+    .next-btn {
+        background-color: #FF5722;
+    }
+
+    .next-btn:hover {
+        background-color: #e64a19;
+    }
+
+    .close-btn {
+        background-color: #9E9E9E;
+    }
+
+    .close-btn:hover {
+        background-color: #757575;
+    }
+
+    a.disabled {
+        pointer-events: none;
+        background-color: #BDBDBD;
+        color: #9E9E9E;
+        cursor: not-allowed;
+    }
+
+    /* Media Queries for Responsiveness */
+    @media (min-width: 768px) {
+        .trainee-detail-container {
+            flex-direction: row; /* Side-by-side on medium screens and larger */
+            align-items: flex-start;
+        }
+
+        .photo-container {
+            width: 250px;
+            height: 250px;
+            margin-right: 20px; /* Space on the side */
+            margin-bottom: 0;
+        }
+
+        .details-container {
+            grid-template-columns: 1fr 1fr; /* Two-column layout for medium and large screens */
+        }
+    }
+
+    @media (min-width: 1024px) {
+        .button-container {
+            justify-content: flex-start; /* Align buttons to the left on larger screens */
+        }
+    }
+</style>
+
+
+</style>
+
+<!-- Button Section -->
+<!-- Button Section -->
+<div class="button-container">
+    <a href="{% if previous_trainee %}{% url 'trainee_detail' previous_trainee.pk %}{% else %}# {% endif %}" 
+       class="previous-btn {% if not previous_trainee %}disabled{% endif %}">
+       Previous Trainee
+    </a>
+
+    <a href="{% if next_trainee %}{% url 'trainee_detail' next_trainee.pk %}{% else %}# {% endif %}" 
+       class="next-btn {% if not next_trainee %}disabled{% endif %}">
+       Next Trainee
+    </a>
+
+    <a href="{% url 'trainee_list' %}" class="close-btn">Close</a>
+</div>
+
+
+
+
+<div class="trainee-detail-container">
+    <!-- Photo -->
+    <div class="photo-container">
+        <img src="{{ trainee.photo.url }}" alt="{{ trainee.name }}" class="trainee-photo">
+    </div>
+
+    <!-- Details -->
+    <div class="details-container">
+        <!-- Left Column -->
+        <div class="details-group">
+            <span class="details-label">Name:</span>
+            <span class="details-value">{{ trainee.name }}</span>
+        </div>
+        <div class="details-group">
+            <span class="details-label">Father's Name:</span>
+            <span class="details-value">{{ trainee.fathername }}</span>
+        </div>
+        <div class="details-group">
+            <span class="details-label">Mother's Name:</span>
+            <span class="details-value">{{ trainee.mothername }}</span>
+        </div>
+        <div class="details-group">
+            <span class="details-label">Gender:</span>
+            <span class="details-value">{{ trainee.gender }}</span>
+        </div>
+        <div class="details-group">
+            <span class="details-label">Address:</span>
+            <span class="details-value">{{ trainee.address }}</span>
+        </div>
+        <div class="details-group">
+            <span class="details-label">Phone No:</span>
+            <span class="details-value">
+                {% if is_admin %}
+                    {{ trainee.phoneno }}
+                {% elif trainee.gender == 'Female' %}
+                    ******{{ trainee.phoneno|slice:":4" }}
+                {% else %}
+                    {{ trainee.phoneno }}
+                {% endif %}
+            </span>
+        </div>
+
+        <!-- Right Column -->
+        <div class="details-group">
+            <span class="details-label">Aadhar Card:</span>
+            <span class="details-value">
+                {% if is_admin %}
+                    {{ trainee.aadharcard }}
+                {% else %}
+                    ******{{ trainee.aadharcard|slice:":4" }}
+                {% endif %}
+            </span>
+        </div>
+        <div class="details-group">
+            <span class="details-label">Trade:</span>
+            <span class="details-value">{{ trainee.trade }}</span>
+        </div>
+        <div class="details-group">
+            <span class="details-label">Session:</span>
+            <span class="details-value">{{ trainee.session }}</span>
+        </div>
+        <div class="details-group">
+            <span class="details-label">Result:</span>
+            <span class="details-value">{{ trainee.result }}</span>
+        </div>
+        <div class="details-group">
+            <span class="details-label">Remarks:</span>
+            <span class="details-value">{{ trainee.remarks }}</span>
+        </div>
+        <div class="details-group">
+            <span class="details-label">Highest Qualification:</span>
+            <span class="details-value">{{ trainee.highest_qualification }}</span>
+        </div>
+        <div class="details-group">
+            <span class="details-label">10th Marks:</span>
+            <span class="details-value">{{ trainee.marks_10th }}</span>
+        </div>
+        <div class="details-group">
+            <span class="details-label">12th Marks:</span>
+            <span class="details-value">{{ trainee.marks_12th }}</span>
+        </div>
+        <div class="details-group">
+            <span class="details-label">Hobbies:</span>
+            <span class="details-value">{{ trainee.hobbies }}</span>
+        </div>
+        <div class="details-group">
+            <span class="details-label">Work Experience:</span>
+            <span class="details-value">{{ trainee.work_experience }}</span>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

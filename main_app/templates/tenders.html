@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block breadcrumb %}
+    <li class="breadcrumb-item active" aria-current="page">Tenders</li>
+{% endblock %}
+{% block content %}
+<div class="tender-container">
+    <h2 class="tender-heading">Tender List</h2>
+    <div class="table-responsive">
+        <table class="tender-table">
+            <thead>
+                <tr>
+                    <th>SN</th>
+                    <th>Tender Name</th>
+                    <th>Attachment</th>
+                    <th>Status</th>
+                    <th>Remarks</th>
+                </tr>
+            </thead>
+            <tbody class="tender-body">
+                {% if tenders %}
+                    {% for tender in tenders %}
+                    <tr class="tender-row">
+                        <td class="tender-sn">{{ forloop.counter }}</td>
+                        <td class="tender-name">{{ tender.particulars }}</td>
+                        <td class="tender-attachment">
+                            {% if tender.attachment %}
+                                <a href="{{ tender.attachment.url }}" target="_blank" class="tender-attachment-link">Download</a>
+                            {% else %}
+                                No Attachment
+                            {% endif %}
+                        </td>
+                        <td class="tender-status 
+                            {% if tender.status == 'Re-Open' %}
+                                status-reopen
+                            {% else %}
+                                status-{{ tender.status|lower|slugify }}
+                            {% endif %}
+                        ">
+                            {{ tender.status }}
+                        </td>
+                        <td class="tender-remarks">{{ tender.remarks }}</td>
+                    </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr class="no-tenders">
+                        <td colspan="5" style="text-align: center;">No tenders available</td>
+                    </tr>
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
+
+
+    
+

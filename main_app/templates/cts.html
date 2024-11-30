@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% load static %}
+{% block breadcrumb %}
+    <li class="breadcrumb-item active" aria-current="page">Craftsman Training Scheme</li>
+{% endblock %}
+{% block title %}Craftsman Training Scheme{% endblock %}
+
+{% block content %}
+<div class="main">
+    <div class="craftsman-training-scheme">
+        <h1>Craftsman Training Scheme</h1>
+        <p>Our Craftsman Training Scheme offers comprehensive training in various trades to build a skilled workforce.</p>
+        
+        <ul>
+            {% for section in content %}
+                <li><a href="#" onclick="toggleParagraph('{{ section.slug }}')">{{ section.title }}</a></li>
+            {% endfor %}
+        </ul>
+        
+        <div id="content-container">
+            {% for section in content %}
+                <div class="section-content" id="{{ section.slug }}" style="display:none;">
+                    <p>{{ section.content }}</p>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<script>
+    function toggleParagraph(slug) {
+        var element = document.getElementById(slug);
+        if (element.style.display === "none") {
+            element.style.display = "block";
+        } else {
+            element.style.display = "none";
+        }
+    }
+</script>
+{% endblock %}

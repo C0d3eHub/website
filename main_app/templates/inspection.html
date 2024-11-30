@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block breadcrumb %}
+    <li class="breadcrumb-item active" aria-current="page">Inspection</li>
+{% endblock %}
+
+{% block title %}Inspection{% endblock %}
+
+{% block content %}
+<style>
+    body {
+        font-family: Arial, sans-serif;
+    }
+
+    .table-container {
+        overflow-x: auto;
+        margin-top: 20px;
+    }
+
+    .custom-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .custom-table th, .custom-table td {
+        padding: 12px 15px;
+        text-align: left;
+        border: 1px solid #ddd;
+    }
+
+    .custom-table th {
+        background-color: #4CAF50;
+        color: white;
+    }
+
+    .custom-table tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+
+    .custom-table tr:hover {
+        background-color: #ddd;
+    }
+
+    .text-center {
+        text-align: center;
+        color: #888;
+    }
+
+    /* Responsive design for smaller screens */
+    @media screen and (max-width: 768px) {
+        .custom-table th, .custom-table td {
+            padding: 8px;
+            font-size: 12px;
+        }
+
+        .custom-table {
+            font-size: 12px;
+        }
+    }
+</style>
+<div class="inspection">
+    <h1>Inspection Details</h1>
+   
+    <!-- Table for displaying inspection data -->
+    <div class="table-container">
+        <table class="custom-table">
+            <thead>
+                <tr>
+                    <th>SN</th>
+                    <th>Inspection Name</th>
+                    <th>Agency</th>
+                    <th>Date</th>
+                    <th>Result (PDF)</th>
+                    <th>Remarks</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for inspection in inspections %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ inspection.inspection_name }}</td>
+                        <td>{{ inspection.agency }}</td>
+                        <td>{{ inspection.date }}</td>
+                        <td>
+                            {% if inspection.result %}
+                                <a href="{{ inspection.result.url }}" target="_blank">View Result</a>
+                            {% else %}
+                                No Result Uploaded
+                            {% endif %}
+                        </td>
+                        <td>{{ inspection.remarks }}</td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="6" class="text-center">No inspection data available.</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
+
+
+

@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block breadcrumb %}
+    <li class="breadcrumb-item active" aria-current="page">Study Material</li>
+{% endblock %}
+
+{% block content %}
+<div class="study-material-container">
+    <h1 class="study-material-title">Study Material</h1>
+
+    <!-- Trade Filter Dropdown -->
+    <form method="get" class="filter-form">
+        <label for="trade">Filter by Trade:</label>
+        <select name="trade" id="trade" class="trade-dropdown" onchange="this.form.submit()">
+            <option value="">All Trades</option>
+            {% for trade in trades %}
+                <option value="{{ trade }}" {% if trade == selected_trade %}selected{% endif %}>
+                    {{ trade }}
+                </option>
+            {% endfor %}
+        </select>
+    </form>
+
+    <!-- Study Material Table -->
+    <table class="study-material-table">
+        <thead>
+            <tr>
+                <th>SN</th>
+                <th>Trade</th>
+                <th>Topic</th>
+                <th>Material</th>
+                <th>Remarks</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for material in materials %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ material.trade }}</td>
+                    <td>{{ material.topic }}</td>
+                    <td>
+                        <a href="{{ material.material.url }}" target="_blank" class="material-link">Download</a>
+                    </td>
+                    <td>{{ material.remarks }}</td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="5">No study material found for the selected trade.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

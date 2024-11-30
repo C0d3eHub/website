@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block breadcrumb %}
+    <li class="breadcrumb-item active" aria-current="page">Institute Infrastructure</li>
+{% endblock %}
+{% block content %}
+
+
+<h1>Institute Infrastructure</h1>
+<p>Details about the infrastructure of the institute.</p>
+
+<!-- Responsive Table -->
+<div class="table-responsive">
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>SN</th>
+                <th>Name</th>
+                <th>Quantity</th>
+                <th>Trade</th>
+                <th>Remarks</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in infrastructure_data %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ item.name }}</td>
+                <td>{{ item.quantity }}</td>
+                <td>{{ item.trade }}</td>
+                <td>{{ item.remarks }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

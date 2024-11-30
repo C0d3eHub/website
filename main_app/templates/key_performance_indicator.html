@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block breadcrumb %}
+    <li class="breadcrumb-item active" aria-current="page">KPI</li>
+{% endblock %}
+
+{% block content %}
+<head>
+    <style>
+        /* CSS styles for the KPI page */
+        .kpih1 h1 {
+            text-align: center; /* Center the heading */
+            margin-bottom: 20px; /* Add space below the heading */
+        }
+
+        .kpip  {
+            margin: 0 20px; /* Add margin from both sides (left and right) */
+            text-align: justify; /* Justify the text in the paragraph */
+            padding-bottom: 10px;
+        }
+    </style>
+</head>
+
+    <!-- Display old header content -->
+    
+
+    <!-- If KPI content is available, render it dynamically -->
+    {% if kpi_content %}
+        <h1 class="kpih1">{{ kpi_content.header }}</h1>
+        <p class="kpip">{{ kpi_content.description }}</p>
+        <p style="color: rgb(16, 21, 165);">Last updated on: {{ kpi_content.updated_at|date:"F j, Y, g:i a" }}</p>
+    {% else %}
+        <p>No Key Performance Indicator data found.</p>
+    {% endif %}
+
+{% endblock %}

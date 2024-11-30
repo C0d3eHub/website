@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="testresult_container">
+    <h1 class="testresult_header">Test Results</h1>
+
+    <div class="testresult_summary">
+        <p><strong>Total Questions Loaded:</strong> {{ total_questions }}</p>
+        <p><strong>Questions Attempted:</strong> {{ actual_num_questions }}</p>
+        <p><strong>Unattempted Questions:</strong> {{ unattempted_questions }}</p>
+        <p><strong>Correct Answers:</strong> {{ correct_answers_count }}</p>
+        <p><strong>Score:</strong> {{ score }} / {{ total_questions }}</p>
+    </div>
+
+    <h3 class="testresult_key_header">Answer Key:</h3>
+    <ul class="testresult_key">
+        {% for answer in correct_answers %}
+        <li class="testresult_key_item">
+            <strong>Question:</strong> {{ answer.question }}<br>
+            <strong>Your Answer:</strong>
+            <span class="{% if answer.user_answer == answer.correct_answer %}testresult_correct{% else %}testresult_incorrect{% endif %}">
+                {{ answer.user_answer }}
+            </span><br>
+            <strong>Correct Answer:</strong>
+            <span class="testresult_correct">{{ answer.correct_answer }}</span>
+        </li>
+        {% endfor %}
+    </ul>
+
+    <div class="testresult_buttons">
+        <a href="{% url 'index' %}" class="testresult_home_button">Home</a>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,11 @@
+python -m pip install --upgrade pip
+pip install django
+pip install django-cms
+python -m pip install Pillow
+pip install python-decouple
+pip install python-dotenv
+pip install django-jet
+pip install whitenoise
+pip install pandas openpyxl
+pip install django-ipware
+

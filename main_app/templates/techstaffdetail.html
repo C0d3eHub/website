@@ -1,0 +1,165 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block breadcrumb %}
+<li class="breadcrumb-item">
+    <a href="{% url 'techstaff_list' %}">Technical Staff</a>
+</li>
+<li class="breadcrumb-item active" aria-current="page">Technical Staff Detail</li>
+{% endblock %}
+
+{% block title %}Tech Staff Detail{% endblock %}
+
+{% block content %}
+<style>
+    .techstaff-detail-page {
+        display: flex;
+        flex-direction: row;
+        align-items: flex-start;
+        justify-content: center;
+        margin: 20px auto;
+        width: 90%;
+        max-width: 1200px;
+        background-color: #f9f9f9;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        border-radius: 8px;
+    }
+
+    .techstaff-photo-container {
+        flex: 1;
+        text-align: center;
+        margin-right: 20px;
+    }
+
+    .techstaff-photo-detail {
+        width: 100%;
+        max-width: 200px;
+        height: auto;
+        object-fit: cover;
+        border-radius: 10px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    }
+
+    .techstaff-details {
+        flex: 2;
+        font-size: 16px;
+        line-height: 1.6;
+    }
+
+    .techstaff-details h2 {
+        color: #2c3e50;
+        margin-bottom: 20px;
+    }
+
+    .techstaff-details p {
+        margin: 8px 0;
+    }
+
+    .detail-buttons {
+        margin-top: 20px;
+    }
+
+    .detail-buttons a {
+        text-decoration: none;
+        padding: 10px 20px;
+        margin: 5px;
+        color: #fff;
+        background-color: #3498db;
+        border-radius: 5px;
+        transition: background-color 0.3s;
+    }
+
+    .detail-buttons a:hover {
+        background-color: #2980b9;
+    }
+
+    .detail-buttons .close-button {
+        background-color: #e74c3c;
+    }
+
+    .detail-buttons .close-button:hover {
+        background-color: #c0392b;
+    }
+
+    @media (max-width: 768px) {
+        .techstaff-detail-page {
+            flex-direction: column;
+            align-items: center;
+            padding: 15px;
+        }
+
+        .techstaff-photo-container {
+            margin-bottom: 20px;
+            margin-right: 0;
+        }
+
+        .techstaff-details {
+            text-align: center;
+        }
+
+        .detail-buttons a {
+            display: block;
+            margin: 10px 0;
+            width: 100%;
+            text-align: center;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .techstaff-details h2 {
+            font-size: 1.5em;
+        }
+
+        .techstaff-details p {
+            font-size: 14px;
+        }
+
+        .detail-buttons a {
+            padding: 10px;
+            font-size: 14px;
+        }
+    }
+</style>
+
+<div class="techstaff-detail-page">
+    <!-- Photo Section -->
+    <div class="techstaff-photo-container">
+        {% if staff.photo %}
+            <img src="{{ staff.photo.url }}" alt="Photo of {{ staff.name }}" class="techstaff-photo-detail">
+        {% else %}
+            <img src="{% static 'images/default-photo.png' %}" alt="Default Photo" class="techstaff-photo-detail">
+        {% endif %}
+    </div>
+
+    <!-- Details Section -->
+    <div class="techstaff-details">
+        <h2>{{ staff.name }}</h2>
+        <p><strong>Serial Number:</strong> {{ staff.serial_number }}</p>
+        <p><strong>Designation:</strong> {{ staff.designation }}</p>
+        <p><strong>Date of Joining:</strong> {{ staff.date_of_joining }}</p>
+        <p><strong>Phone Number:</strong> {{ staff.phone_number }}</p>
+        <p><strong>Father's Name:</strong> {{ staff.father_name }}</p>
+        <p><strong>Gender:</strong> {{ staff.gender }}</p>
+        <p><strong>Aadhar Card:</strong> 
+            {{ masked_aadhar|default:"Not Provided" }}
+        </p>
+        <p><strong>Total Experience:</strong> {{ staff.total_experience }} years</p>
+        <p><strong>Qualification:</strong> {{ staff.qualification }}</p>
+        <p><strong>Hobbies:</strong> {{ staff.hobbies }}</p>
+        <p><strong>Last Working Place:</strong> {{ staff.last_working_place }}</p>
+        <p><strong>Remarks:</strong> {{ staff.remarks }}</p>
+
+        <!-- Navigation Buttons -->
+        <div class="detail-buttons">
+            {% if previous_staff %}
+                <a href="{% url 'techstaff_detail' previous_staff.serial_number %}">Previous</a>
+            {% endif %}
+            {% if next_staff %}
+                <a href="{% url 'techstaff_detail' next_staff.serial_number %}">Next</a>
+            {% endif %}
+            <a href="{% url 'techstaff_list' %}" class="close-button">Close</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

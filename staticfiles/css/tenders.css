@@ -1,0 +1,175 @@
+/* General Styling for Table */
+.tender-container {
+    background-color: #f7f7f7; /* Light background color for the entire container */
+    padding: 3rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.tender-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 2rem;
+}
+
+/* Header Row */
+.tender-table th {
+    background-color: #4caf50; /* Vibrant Green for the header */
+    color: white;
+    padding: 1.5rem;
+    text-align: left;
+    text-transform: uppercase;
+    font-size: 1.1rem;
+    font-weight: bold;
+    border-bottom: 2px solid #333;
+}
+
+/* Header Hover Effect */
+.tender-table th:hover {
+    background-color: #388e3c; /* Darker green on hover */
+}
+
+/* Table Row Hover Effect */
+.tender-table tr:hover {
+    background-color: #73726d; /* Bright Yellow for the full row hover */
+    color: #333; /* Dark text on hover for better contrast */
+}
+
+/* Specific Status Colors */
+.tender-status {
+    font-weight: bold;
+    padding: 0.8rem 1.2rem;
+    border-radius: 20px;
+    text-align: center;
+    text-transform: capitalize;
+}
+
+.status-opened {
+    background-color: #4caf50; /* Green */
+    color: white;
+}
+
+.status-open-soon {
+    background-color: #66bb6a; /* Lighter Green */
+    color: white;
+}
+
+.status-upcoming {
+    background-color: #ffca28; /* Bright Yellow */
+    color: white;
+}
+
+.status-reopen {
+    background-color: #ff7043; /* Orange */
+    color: white;
+}
+
+.status-under-review {
+    background-color: #fbc02d; /* Bright Yellow */
+    color: white;
+}
+
+.status-awarded {
+    background-color: #388e3c; /* Dark Green */
+    color: white;
+}
+
+.status-closed {
+    background-color: #e53946; /* Red */
+    color: white;
+}
+
+.status-pending {
+    background-color: #ffb300; /* Yellow Orange */
+    color: white;
+}
+
+.status-in-progress {
+    background-color: #fbc02d; /* Bright Yellow/Gold */
+    color: white;
+}
+
+.status-completed {
+    background-color: #388e3c; /* Dark Green */
+    color: white;
+}
+
+/* Table Row Colors */
+.tender-table tr:nth-child(even) {
+    background-color: #f2f2f2; /* Light gray for even rows */
+}
+
+.tender-table tr:nth-child(odd) {
+    background-color: #ffffff; /* White for odd rows */
+}
+
+/* Table Cell Styling */
+.tender-table td {
+    font-size: 1rem;
+    padding: 1.2rem;
+    text-align: left;
+    color: #555;
+}
+
+/* Link Styling */
+.tender-table td a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.tender-table td a:hover {
+    color: #ff5722; /* Bright orange when hovered */
+}
+
+/* No Tender Message */
+.no-tenders td {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #888;
+    text-align: center;
+}
+
+/* Full Width Hover for Row */
+.tender-table tr:hover td {
+    background-color: #ffeb3b; /* Bright Yellow for row hover */
+    color: #333; /* Darker text for readability */
+}
+
+/* Responsiveness */
+@media (max-width: 768px) {
+    .tender-container {
+        padding: 2rem;
+    }
+
+    .tender-table th,
+    .tender-table td {
+        font-size: 0.9rem;
+    }
+
+    .tender-table td {
+        padding: 0.8rem;
+    }
+}
+
+/* Make the table more colorful */
+.tender-container {
+    background-color: #f7f7f7;
+    padding: 3rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Add some contrast with a border for the table */
+.tender-table {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.tender-table th,
+.tender-table td {
+    border: 1px solid #ddd;
+    padding: 1rem;
+    text-align: left;
+}
+

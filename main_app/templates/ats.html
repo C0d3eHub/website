@@ -1,0 +1,124 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block breadcrumb %}
+    <li class="breadcrumb-item active" aria-current="page">Apprenticeship Training Scheme</li>
+{% endblock %}
+
+{% block title %}Apprenticeship Training Scheme{% endblock %}
+
+{% block content %}
+<script>
+    function toggleSection(sectionName) {
+        // Hide all paragraphs
+        const paragraphs = document.querySelectorAll('.section-para');
+        paragraphs.forEach(para => para.style.display = 'none');
+
+        // Show the clicked section's paragraph
+        const selectedParagraph = document.getElementById('para-' + sectionName);
+        if (selectedParagraph) {
+            selectedParagraph.style.display = 'block';
+        }
+    }
+</script>
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+    }
+
+    .apprenticeship-training-scheme h1 {
+        font-size: 2em;
+        color: #333;
+    }
+
+    .apprenticeship-training-scheme p {
+        font-size: 1.1em;
+        color: #555;
+    }
+
+    #sections-list {
+        list-style: none;
+        padding: 0;
+    }
+
+    #sections-list li {
+        margin: 10px 0;
+    }
+
+    #sections-list a {
+        color: #4CAF50;
+        text-decoration: none;
+        font-size: 1.2em;
+    }
+
+    #sections-list a:hover {
+        text-decoration: underline;
+    }
+
+    .section-para {
+        padding: 20px;
+        margin-top: 20px;
+        border-radius: 8px;
+        font-size: 1.1em;
+        color: #333;
+    }
+
+    /* Beautiful colors for each section */
+    .section-para:nth-of-type(1) {
+        background-color: #FFFAF0; /* Light yellow */
+    }
+
+    .section-para:nth-of-type(2) {
+        background-color: #E8F5E9; /* Light green */
+    }
+
+    .section-para:nth-of-type(3) {
+        background-color: #E3F2FD; /* Light blue */
+    }
+
+    /* Responsive Design */
+    @media screen and (max-width: 768px) {
+        .apprenticeship-training-scheme h1 {
+            font-size: 1.6em;
+        }
+
+        .apprenticeship-training-scheme p {
+            font-size: 1em;
+        }
+
+        .section-para {
+            font-size: 1em;
+        }
+    }
+</style>
+<div class="main">
+    <div class="apprenticeship-training-scheme">
+        <h1>Apprenticeship Training Scheme</h1>
+        <p>Explore our Apprenticeship Training Scheme designed to enhance practical skills and provide valuable work experience.</p>
+        
+        <!-- Links for Sections -->
+        <ul id="sections-list">
+            {% for section in sections %}
+                <li>
+                    <a href="#" onclick="toggleSection('{{ section.section_name }}')">{{ section.section_name }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+
+        <!-- Paragraphs for each section (hidden initially) -->
+        <div id="sections-content">
+            {% for section in sections %}
+                <div id="para-{{ section.section_name }}" class="section-para" style="display: none; background-color: {{ section.color }};">
+                    <p>{{ section.content }}</p>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+<!-- JavaScript to toggle sections -->
+

@@ -1,0 +1,68 @@
+/* Table styling */
+.results-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  font-family: Arial, sans-serif;
+}
+
+.results-table th,
+.results-table td {
+  padding: 10px;
+  text-align: left;
+  border: 1px solid #ddd;
+}
+
+.results-table th {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.results-table tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.results-table tr:hover {
+  background-color: #ddd;
+}
+
+/* Responsive Design for small screens */
+@media (max-width: 768px) {
+  .results-table th, .results-table td {
+    font-size: 12px;
+    padding: 8px;
+  }
+
+  .results-table {
+    font-size: 14px;
+  }
+}
+
+/* Styling for the select dropdown */
+select {
+  padding: 10px;
+  margin: 20px 0;
+  font-size: 16px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  background-color: #fff;
+  cursor: pointer;
+}
+
+/* Styling the form and labels */
+form {
+  margin-bottom: 20px;
+}
+
+label {
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+/* Styling for the no data message */
+.results-table td[colspan="6"] {
+  text-align: center;
+  color: #888;
+  font-style: italic;
+}
+

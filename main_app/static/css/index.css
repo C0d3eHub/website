@@ -1,0 +1,436 @@
+/* Content Section */
+.content {
+    display: flex !important;
+    flex-direction: row !important; /* For large screens, items are in a row */
+    flex-wrap: wrap !important; /* Allows the divs to wrap when necessary */
+    padding: 30px;
+}
+
+/* Individual Sections */
+.news-alerts, 
+.principal-desk {
+    border-radius: 5px;
+    overflow: hidden;
+    border: 2px solid #006400;
+    width: calc(18%);
+    height: 385px;
+    background-color: #f9f9f9;
+    padding: 10px;
+    margin: 10px;
+    flex: 1;
+    
+}
+.news-alerts
+{
+    overflow-y: auto !important;
+}
+.photo-slider {
+    position: relative;
+    width: calc(52%);
+    height: 420px;
+    margin: 10px;
+    overflow: hidden;
+    border-radius: 5px;
+    border: 2px solid #006400;
+}
+
+/* Slider Images */
+.slider img {
+    width: 100%;
+    height: 385px;
+    object-fit: cover;
+}
+
+/* Navigation Buttons */
+.navigation {
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    transform: translateY(-50%);
+}
+
+.prev,
+.next {
+    background-color: rgba(255, 255, 255, 0.8);
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    padding: 10px;
+}
+
+/* Indicators */
+.indicator {
+    text-align: center;
+    padding-top: 10px;
+}
+
+.dot {
+    display: inline-block;
+    height: 12px;
+    width: 12px;
+    margin: 0 5px;
+    border-radius: 50%;
+    background-color: #bbb;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.dot.active {
+    background-color: #717171;
+}
+
+.dot:hover {
+    background-color: #666;
+}
+/*principal post */
+
+   
+    .principal-post {
+        background-color: #fff; /* Maintain existing background */
+        padding: 10px; /* Keep existing padding */
+        margin-bottom: 20px; /* Keep existing margin */
+        padding-bottom: 10px; /* Add some space at the bottom */
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Add shadow */
+        border-radius: 5px; /* Rounded corners */
+        border: 1px solid #ddd; /* Border to separate each post */
+        max-height: 250px; /* Set a max height for the div */
+        overflow-y: auto; /* Enable vertical scrolling if content overflows */
+        
+    }
+
+
+/* Style for Principal's Image */
+.principal-desk {
+   
+    position: relative; /* Set position to relative for child positioning */
+    overflow: visible; /* Ensure the image can overflow outside this div */
+    
+}
+
+/* Style for Principal's Image */
+.principal-desk {
+    position: relative; /* Positioning context for absolute positioning */
+    text-align: center; /* Center text within the div */
+    padding: 40px 0; /* Add top and bottom padding for spacing */
+    border: 3px solid #25924d; /* Optional: border around the entire div */
+    border-radius: 10px; /* Optional: rounded corners */
+}
+
+.principal-image {
+    display: block;
+    margin: 0 auto; /* Center the image horizontally */
+    width: 100px; /* Base width */
+    height: 100px; /* Base height */
+    border-radius: 50%; /* Circular image */
+    object-fit: cover; /* Ensure the image fits well */
+    border: 3px solid #25924d; /* Optional: add a matching border */
+    position: relative; /* Keep image positioned within the div */
+    top: -50px; /* Pull the image up to center it above the border */
+}
+
+.principal-header {
+    margin: -40px 0 1px; /* Reduced space above and below the header */
+    padding: 0; /* Reset padding */
+    text-align: center; /* Center align */
+}
+
+.principal-post {
+    margin-top: 10px; /* Adjust spacing between posts */
+    text-align: center; /* Center align text if desired */
+    
+}
+h2
+{
+    color: red;
+    padding: 0;
+}
+/* Ensure other h2 styles do not affect the principal-header */
+
+.principal-post p {
+    font-size: 1em;
+    color: #351d82;
+    font-weight: bold;
+    font-size: 0.85em;
+    line-height: 1.6; /* Adjust line height for better readability */
+    text-align: justify; /* Justify text */
+    overflow-y: auto; /* Ensure the <p> can scroll if needed */
+    margin-bottom: 2px; /* Ensure small space at the bottom of the text */
+    padding-bottom: 5px; /* Add padding to ensure space from the bottom */
+    
+
+}
+
+
+/* Circular Images Section */
+.circular-images-section {
+    background-color: #165BB6;
+    padding: 20px;
+    text-align: center;
+}
+
+.circular-images {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.card {
+    width: 220px;
+    margin: 15px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+.card img {
+    width: 100%;
+    height: 220px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.card h3 {
+    margin: 10px 0 5px;
+    font-size: 18px;
+}
+
+.card p {
+    margin: 5px 0 15px;
+    font-size: 14px;
+    color: #333;
+}
+
+.know-more-button {
+    display: inline-block;
+    padding: 10px 15px;
+    background-color: #0044cc;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.know-more-button:hover {
+    background-color: #003399;
+}
+/* For News Alerts with marquee */
+.news-alerts {
+    background-color: #f9f9f9;
+    padding: 20px;
+    margin-bottom: 30px;
+    font-family: Arial, sans-serif;
+}
+
+.news-item {
+    border-bottom: 1px solid #ccc;
+    padding: 15px 0;
+}
+
+.news-item h3 {
+    font-size: 1em;
+    color: #141ba6;
+    text-align: center;
+    padding: 0;
+    margin: 0;
+}
+
+.news-item p {
+    font-size: 0.85em;
+    color: #09ec5c;
+    font-weight: bold;
+}
+
+.news-item a {
+    color: #f50707;
+    text-decoration: underline;
+}
+
+.news-marquee-container {
+    overflow: hidden;
+    position: relative;
+    background-color: #fff;
+    padding: 10px;
+}
+
+.news-marquee {
+    display: block;
+    white-space: nowrap;
+    animation: scroll-news 15s linear infinite;
+}
+
+@keyframes scroll-news {
+    0% {
+        transform: translateY(100%);
+    }
+    100% {
+        transform: translateY(-100%);
+    }
+}
+
+/* Separate each marquee news item vertically */
+.news-marquee p {
+    margin-bottom: 15px;
+}
+
+/* For Principal Desk Posts */
+.principal-desk {
+    background-color: #f1f1f1;
+    padding: 20px;
+    margin-bottom: 30px;
+}
+
+.principal-post {
+    background-color: #fff;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Adding shadow */
+    border-radius: 5px;
+    border: 1px solid #ddd; /* Border to separate each post */
+}
+
+.principal-post h3 {
+    font-size: 1em;
+    color: #18511a;
+}
+.principal-post h2 {
+    
+    color: #a77216;
+}
+
+.principal-post p {
+    font-size: 1em;
+    color: #351d82;
+    font-weight: bold;
+    font-size: 0.85em;
+}
+
+/* Add a line between posts */
+.principal-post + .principal-post {
+    border-top: 2px solid #ccc;
+    padding-top: 20px;
+}
+.h2cir
+{
+    color: white;
+}
+
+/* Responsive Design for Small Screens */
+@media (max-width: 877px) {
+    .content {
+        flex-direction: column; /* Change to column for small screens */
+        flex-wrap: wrap; /* Ensure content wraps downwards */
+        align-items: center; /* Center the content for a clean look */
+    }
+
+    .news-alerts,
+    .photo-slider,
+    .principal-desk {
+        width: 100%; /* Make sections full width for small screens */
+        height: auto; /* Let the height adjust according to content */
+        margin: 10px 0; /* Add margin for spacing */
+    }
+
+    .slider img {
+        height: auto; /* Let image height adjust for small screens */
+    }
+    
+    
+}
+@media (max-width: 1130px) and (min-width: 877px) {
+    .principal-desk {
+        position: relative; /* Required for absolute positioning of the image */
+        padding: 30px 10px 10px; /* Adjust padding to make space for the image */
+        overflow: visible; /* Allow the image to overflow outside the div */
+        background-color: #f1f1f1; /* Optional background color */
+    }
+
+    .principal-image {
+        position: absolute; /* Position the image outside the div */
+        top: -50px; /* Half outside the div */
+        left: 50%; /* Center horizontally */
+        transform: translateX(-50%); /* Perfectly center the image */
+        width: 120px; /* Adjust the width of the image */
+        height: 120px; /* Adjust the height of the image */
+        border-radius: 50%; /* Circular image */
+        object-fit: cover; /* Ensure the image fits well */
+        border: 3px solid #25924d; /* Optional border */
+        z-index: 10; /* Keep the image above content */
+    }
+
+    /* Title (Principal's Desk) */
+    .principal-header {
+        text-align: center; /* Center the title */
+        font-size: 1.5rem; /* Adjust font size */
+        color: #a77216; /* Adjust the color */
+        margin-top: 60px; /* Add top margin to avoid overlap with the image */
+    }
+
+    /* Principal Post - Content */
+    .principal-post {
+        background-color: #fff; /* Background color for content */
+        padding: 20px;
+        margin-top: 20px; /* Space between image and content */
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Shadow for the content */
+        border-radius: 5px;
+        border: 1px solid #ddd;
+        max-height: 220px; /* Adjust height */
+        overflow-y: auto; /* Vertical scrolling for overflow */
+    }
+
+    /* Smaller font sizes for post content */
+    .principal-post p {
+        font-size: 0.9rem; /* Adjust the font size */
+        line-height: 1.6; /* Line height for better readability */
+        color: #351d82; /* Text color */
+    }
+
+    /* Date styling for post */
+    .principal-post .date {
+        font-size: 0.9rem;
+        color: #09ec5c; /* Date color */
+        margin-bottom: 10px;
+        text-align: center;
+    }
+}
+
+
+@media (max-width: 768px) {
+    .principal-image {
+        width: 80px; /* Smaller width for mobile */
+        height: 80px; /* Smaller height for mobile */
+        top: -40px; /* Adjust vertical positioning */
+    }
+
+    .principal-header {
+        margin: 15px 0 5px; /* Adjust margins for smaller screens */
+    }
+
+    .principal-post {
+        margin-top: 15px; /* Adjust spacing between posts */
+    }
+}
+
+@media (max-width: 480px) {
+    .principal-image {
+        width: 60px; /* Even smaller width for very small screens */
+        height: 60px; /* Even smaller height for very small screens */
+        top: -30px; /* Adjust vertical positioning */
+    }
+
+    .principal-header {
+        margin: 10px 0 5px; /* Adjust margins for very small screens */
+    }
+
+    .principal-post {
+        margin-top: 10px; /* Adjust spacing between posts */
+    }
+}

@@ -1,0 +1,133 @@
+{% extends 'base.html' %}
+
+{% block breadcrumb %}
+    <li class="breadcrumb-item active" aria-current="page">Meetings</li>
+{% endblock %}
+
+{% block content %}
+<style>
+    /* General Styles */
+
+
+.page-title {
+    text-align: center;
+    margin: 20px 0;
+    color: #333;
+    font-size: 2rem;
+}
+
+/* Table Styles */
+.table-container {
+    width: 90%;
+    margin: 0 auto;
+    overflow-x: auto;
+    background: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+.custom-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+}
+
+.custom-table th, .custom-table td {
+    padding: 12px 15px;
+    text-align: left;
+    border: 1px solid #ddd;
+}
+
+.custom-table th {
+    background-color: #007bff;
+    color: #fff;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+}
+
+.custom-table td {
+    font-size: 0.9rem;
+    color: #333;
+}
+
+.custom-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.custom-table tr:hover {
+    background-color: #f1f1f1;
+}
+
+.custom-table .empty td {
+    text-align: center;
+    color: #999;
+    font-style: italic;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .page-title {
+        font-size: 1.5rem;
+    }
+
+    .custom-table th, .custom-table td {
+        font-size: 0.8rem;
+        padding: 10px;
+    }
+
+    .table-container {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .custom-table th, .custom-table td {
+        font-size: 0.7rem;
+        padding: 8px;
+    }
+}
+
+</style>
+
+<h1 class="page-title">Meetings</h1>
+
+<!-- Meetings Table -->
+<div class="table-container">
+    <table class="custom-table">
+        <thead>
+            <tr>
+                <th>SN</th>
+                <th>Agenda</th>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Minutes</th>
+                <th>Attachment</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for meeting in meetings %}
+            <tr>
+                <td>{{ meeting.sn }}</td>
+                <td>{{ meeting.agenda }}</td>
+                <td>{{ meeting.date }}</td>
+                <td>{{ meeting.time }}</td>
+                <td>{{ meeting.minutes }}</td>
+                <td>
+                    {% if meeting.attachment %}
+                        <a href="{{ meeting.attachment.url }}" target="_blank">View Attachment</a>
+                    {% else %}
+                        No attachment
+                    {% endif %}
+                </td>
+            </tr>
+            {% empty %}
+            <tr class="empty">
+                <td colspan="6">No meetings found.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}

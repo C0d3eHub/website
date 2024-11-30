@@ -1,0 +1,39 @@
+/* admin_custom.css */
+
+#custom-admin-dashboard {
+    background-color: #f5f5f5; /* Light background color */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+#site-name {
+    font-size: 24px;
+    color: #333; /* Dark text color */
+}
+
+/* Example for tables */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td {
+    padding: 10px;
+    border: 1px solid #ddd;
+}
+
+th {
+    background-color: #080808; /* Bootstrap primary color */
+    color: white;
+    font-size: 16px;
+}
+
+tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+tr:hover {
+    background-color: #f1f1f1; /* Highlight on hover */
+}

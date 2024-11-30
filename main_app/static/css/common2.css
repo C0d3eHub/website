@@ -1,0 +1,19 @@
+/* common2.css */
+
+/* Styles for Admin Staff Page */
+.admin-staff {
+    background-color: #f0f0f0; /* light gray */
+    padding: 20px;
+}
+
+/* Styles for Tech Staff Page */
+.tech-staff {
+    background-color: #e0f7fa; /* light cyan */
+    padding: 20px;
+}
+
+/* Styles for RTI Page */
+.rti {
+    background-color: #ffe0b2; /* light orange */
+    padding: 20px;
+}

@@ -1,0 +1,321 @@
+{% extends 'base.html' %}
+
+{% block breadcrumb %}
+    <li class="breadcrumb-item active" aria-current="page">HPKVN</li>
+{% endblock %}
+
+{% block title %}HPKVN{% endblock %}
+
+{% block content %}
+<style>
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f7fb;
+    color: #333;
+}
+
+a {
+    text-decoration: none;
+    color: #1a73e8;
+}
+
+a:hover {
+    color: #0c5a99;
+}
+
+/* Header Styles */
+
+
+/* Main Section */
+.main {
+    padding: 30px;
+}
+
+/* HPKVN Section */
+.hpkvn {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 40px;
+    margin: 20px 0;
+}
+
+.hpkvn h1 {
+    font-size: 2.5em;
+    color: #2a3d8d;
+    margin-bottom: 15px;
+}
+
+.hpkvn p {
+    font-size: 1.1em;
+    line-height: 1.8;
+    color: #555;
+}
+
+.hpkvn ul {
+    padding: 0;
+    list-style-type: none;
+    margin-top: 20px;
+}
+
+.hpkvn ul li {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+}
+
+.hpkvn ul li a {
+    color: #2a3d8d;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.hpkvn ul li a:hover {
+    color: #0c5a99;
+}
+
+/* Section (Dynamic Content Area) */
+.dynamic-section {
+    display: none;
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Training Program Section */
+.training-program, .enrollment-process, .placement, .trainees {
+    display: none; /* Hidden by default */
+}
+
+.training-program h2, .enrollment-process h2, .placement h2, .trainees h2 {
+    font-size: 2em;
+    margin-bottom: 15px;
+    color: #2a3d8d;
+}
+
+.training-program p, .enrollment-process p, .placement p, .trainees p {
+    font-size: 1.1em;
+    line-height: 1.8;
+    color: #555;
+}
+
+/* Table Styles */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+table, th, td {
+    border: 1px solid #ddd;
+}
+
+th, td {
+    padding: 10px;
+    text-align: left;
+    font-size: 1em;
+}
+
+th {
+    background-color: #2a3d8d;
+    color: white;
+}
+
+tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .main {
+        padding: 20px;
+    }
+
+    .hpkvn {
+        padding: 20px;
+    }
+
+    .hpkvn ul li {
+        font-size: 1.1em;
+    }
+
+    .dynamic-section {
+        padding: 15px;
+    }
+
+    table, th, td {
+        font-size: 0.9em;
+    }
+}
+
+@media (max-width: 480px) {
+    header h1 {
+        font-size: 2em;
+    }
+
+    .hpkvn h1 {
+        font-size: 2em;
+    }
+
+    .hpkvn p, .dynamic-section p {
+        font-size: 1em;
+    }
+
+    table, th, td {
+        font-size: 0.8em;
+    }
+}
+</style>
+<script>
+    function toggleVisibility(sectionId) {
+        const section = document.getElementById(sectionId);
+        if (section.style.display === "none") {
+            section.style.display = "block";
+        } else {
+            section.style.display = "none";
+        }
+    }
+</script>
+
+<div class="main">
+    <div class="hpkvn">
+        <h1>HPKVN Page</h1>
+        <p>The HPKVN (Himachal Pradesh Kaushal Vikas Nigam) aims to enhance employability through skill development.</p>
+        
+        <ul>
+            <li><a href="javascript:void(0);" onclick="toggleVisibility('training-programs')">Training Programs</a></li>
+            <li><a href="javascript:void(0);" onclick="toggleVisibility('enrollment-process')">Enrollment Process</a></li>
+            <li><a href="javascript:void(0);" onclick="toggleVisibility('placements')">Placements</a></li>
+            <li><a href="javascript:void(0);" onclick="toggleVisibility('trainees')">Trainees</a></li>
+        </ul>
+
+        <div id="training-programs" class="section-content" style="display: none;">
+            <h2>Training Programs</h2>
+            <div class="table-container">
+                <table class="custom-table">
+                    <thead>
+                        <tr>
+                            <th>SN</th>
+                            <th>Program Name</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for program in training_programs %}
+                            <tr>
+                                <td>{{ forloop.counter }}</td>
+                                <td>{{ program.name }}</td>
+                                <td>{{ program.description }}</td>
+                            </tr>
+                        {% empty %}
+                            <tr>
+                                <td colspan="3">No data available.</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div id="enrollment-process" class="section-content" style="display: none;">
+            <h2>Enrollment Process</h2>
+            <div class="table-container">
+                <table class="custom-table">
+                    <thead>
+                        <tr>
+                            <th>SN</th>
+                            <th>Step</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for process in enrollment_process %}
+                            <tr>
+                                <td>{{ forloop.counter }}</td>
+                                <td>{{ process.step }}</td>
+                                <td>{{ process.description }}</td>
+                            </tr>
+                        {% empty %}
+                            <tr>
+                                <td colspan="3">No data available.</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div id="placements" class="section-content" style="display: none;">
+            <h2>Placements</h2>
+            <div class="table-container">
+                <table class="custom-table">
+                    <thead>
+                        <tr>
+                            <th>SN</th>
+                            <th>Company Name</th>
+                            <th>Placement Date</th>
+                            <th>Remarks</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for placement in placements %}
+                            <tr>
+                                <td>{{ forloop.counter }}</td>
+                                <td>{{ placement.company_name }}</td>
+                                <td>{{ placement.placement_date }}</td>
+                                <td>{{ placement.remarks }}</td>
+                            </tr>
+                        {% empty %}
+                            <tr>
+                                <td colspan="4">No data available.</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div id="trainees" class="section-content" style="display: none;">
+            <h2>Trainees</h2>
+            <div class="table-container">
+                <table class="custom-table">
+                    <thead>
+                        <tr>
+                            <th>SN</th>
+                            <th>Name</th>
+                            <th>Phone Number</th>
+                            <th>Course</th>
+                            <th>Remarks</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for trainee in trainees %}
+                            <tr>
+                                <td>{{ forloop.counter }}</td>
+                                <td>{{ trainee.name }}</td>
+                                <td>{{ trainee.phone_number }}</td>
+                                <td>{{ trainee.course }}</td>
+                                <td>{{ trainee.remarks }}</td>
+                            </tr>
+                        {% empty %}
+                            <tr>
+                                <td colspan="5">No data available.</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+
+

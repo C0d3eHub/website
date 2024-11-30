@@ -1,0 +1,137 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="selecttest_container">
+    <p id="error-message" class="error-message" style="color: red; display: none; font-size: 16px;"></p>
+    <h1 class="selecttest_header">Select Test</h1>
+    <form method="GET" id="test-form" class="selecttest_form" onsubmit="return validateForm()">
+        {% csrf_token %}
+        <!-- User Name -->
+        <div class="selecttest_form_group">
+            <label for="user-name" class="selecttest_label">Enter Your Name:</label>
+            <input type="text" id="user-name" name="user_name" class="selecttest_input" value="{{ request.GET.user_name|default:'' }}" required>
+        </div>
+
+        <div class="selecttest_form_group">
+            <label for="iti-name" class="selecttest_label">Enter ITI Name:</label>
+            <input type="text" id="iti-name" name="iti_name" class="selecttest_input" value="{{ request.GET.iti_name|default:'' }}" required>
+        </div>
+
+        <!-- Trade Selection -->
+        <div class="selecttest_form_group">
+            <label for="trade-select" class="selecttest_label">Select Trade:</label>
+            <select id="trade-select" name="trade_id" class="selecttest_select" onchange="updateTopics()">
+                <option value="">Select Trade</option>
+                {% for trade in trades %}
+                    <option value="{{ trade.id }}" {% if trade.id|stringformat:"s" == selected_trade_id %}selected{% endif %}>
+                        {{ trade.name }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <!-- Topic Selection -->
+        <div class="selecttest_form_group">
+            <label for="topic-select" class="selecttest_label">Select Topic:</label>
+            <select id="topic-select" name="topic_id" class="selecttest_select">
+                <option value="">Select Topic</option>
+                {% if topics.exists %}
+                    <option value="all" {% if selected_topic_id == "all" %}selected{% endif %}>All Topics</option>
+                    {% for topic in topics %}
+                        <option value="{{ topic.id }}" {% if topic.id|stringformat:"s" == selected_topic_id %}selected{% endif %}>
+                            {{ topic.name }}
+                        </option>
+                    {% endfor %}
+                {% else %}
+                    <option value="all" {% if selected_topic_id == "all" %}selected{% endif %}>All Topics</option>
+                {% endif %}
+            </select>
+        </div>
+
+        <!-- Number of Questions -->
+        <div class="selecttest_form_group">
+            <label for="num-questions" class="selecttest_label">Number of Questions:</label>
+            <select id="num-questions" name="num_questions" class="selecttest_select">
+                <option value="5" {% if num_questions|stringformat:"s" == "5" %}selected{% endif %}>5</option>
+                <option value="10" {% if num_questions|stringformat:"s" == "10" %}selected{% endif %}>10</option>
+                <option value="25" {% if num_questions|stringformat:"s" == "25" %}selected{% endif %}>25</option>
+                <option value="50" {% if num_questions|stringformat:"s" == "50" %}selected{% endif %}>50</option>
+            </select>
+        </div>
+
+        <!-- Submit -->
+        <button type="submit" class="selecttest_button">Start Test</button>
+    </form>
+</div>
+
+<script>
+    function updateTopics() {
+        const tradeId = document.getElementById('trade-select').value;
+        const topicSelect = document.getElementById('topic-select');
+
+        if (!tradeId) {
+            topicSelect.innerHTML = '<option value="">Select Topic</option>';
+            return;
+        }
+
+        // Make AJAX request to fetch topics
+        fetch(`/fetch-topics/?trade_id=${tradeId}`)
+            .then(response => response.json())
+            .then(data => {
+                topicSelect.innerHTML = '<option value="">Select Topic</option>'; // Reset options
+                if (data.topics.length > 0) {
+                    topicSelect.innerHTML += '<option value="all">All Topics</option>';
+                    data.topics.forEach(topic => {
+                        topicSelect.innerHTML += `<option value="${topic.id}">${topic.name}</option>`;
+                    });
+                } else {
+                    topicSelect.innerHTML += '<option value="all">All Topics</option>';
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching topics:', error);
+            });
+    }
+
+    function validateForm() {
+        const tradeSelect = document.getElementById('trade-select');
+        const topicSelect = document.getElementById('topic-select');
+        const userNameInput = document.getElementById('user-name'); // New field
+        const itiNameInput = document.getElementById('iti-name'); // New field
+        const errorMessage = document.getElementById('error-message');
+
+        // Check if "Enter Your Name" is empty
+        if (userNameInput.value.trim() === "") {
+            errorMessage.textContent = "Please enter your name.";
+            errorMessage.style.display = "block";
+            return false; // Prevent form submission
+        }
+
+        // Check if "Enter ITI Name" is empty
+        if (itiNameInput.value.trim() === "") {
+            errorMessage.textContent = "Please enter your ITI name.";
+            errorMessage.style.display = "block";
+            return false; // Prevent form submission
+        }
+
+        // Check if "Select Trade" is not selected
+        if (tradeSelect.value === "") {
+            errorMessage.textContent = "Please select a trade.";
+            errorMessage.style.display = "block";
+            return false; // Prevent form submission
+        }
+
+        // Check if "Select Topic" is not selected
+        if (topicSelect.value === "") {
+            errorMessage.textContent = "Please select a topic.";
+            errorMessage.style.display = "block";
+            return false; // Prevent form submission
+        }
+
+        // Clear error message if all validations pass
+        errorMessage.style.display = "none";
+        return true; // Allow form submission
+    }
+</script>
+{% endblock %}

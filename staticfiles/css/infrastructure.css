@@ -1,0 +1,45 @@
+
+    /* Styling for the table */
+    .table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 20px 0;
+    }
+    .table th, .table td {
+        padding: 12px;
+        text-align: left;
+        border: 1px solid #ddd;
+    }
+    .table th {
+        background-color: #2980b9;
+        color: white;
+    }
+    .table td {
+        background-color: #f9f9f9;
+    }
+
+    /* Hover effect for rows */
+    .table tbody tr:hover {
+        background-color: #f1f1f1;
+    }
+
+    /* Responsive table */
+    .table-responsive {
+        overflow-x: auto;
+    }
+
+    /* Style the select dropdown */
+    select {
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        width: 200px;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+        .table th, .table td {
+            font-size: 14px;
+            padding: 8px;
+        }
+    }

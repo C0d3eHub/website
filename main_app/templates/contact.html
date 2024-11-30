@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+
+{% load static %}
+{% block breadcrumb %}
+    <li class="breadcrumb-item active" aria-current="page">Contact us </li>
+{% endblock %}
+
+{% block title %}Contact Us{% endblock %}
+
+{% block content %}
+<style>
+    .alertthis {
+        margin: 20px 0;
+        padding: 10px;
+        border: 1px solid #c3e6cb; /* Adjust colors as needed */
+        background-color: #d4edda;
+        color: #155724;
+    }
+</style>
+<div class="main contact-page">
+    <h1>Contact Us</h1>
+    <p>If you have any questions or inquiries, please fill out the form below:</p>
+
+    <!-- Display success/error messages -->
+    <div id="message" class="alertthis" style="display: none;"></div>  <!-- Initially hidden -->
+    
+    <form id="contactForm" action="{% url 'contact' %}" method="post">
+        {% csrf_token %}
+        <div>
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+        </div>
+        <div>
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+        </div>
+        <div>
+            <label for="phone">Phone Number:</label> <!-- Added phone number field -->
+            <input type="tel" id="phone" name="phone" required>
+        </div>
+        <div>
+            <label for="message">Message:</label>
+            <textarea id="message" name="message" rows="4" required></textarea>
+        </div>
+        <div>
+            <button type="submit">Submit</button>
+        </div>
+    </form>
+</div>
+
+<script>
+    document.getElementById('contactForm').addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevent default form submission
+
+        const formData = new FormData(this);
+        const xhr = new XMLHttpRequest();
+        
+        xhr.open('POST', this.action, true);
+        
+        xhr.onload = function() {
+            if (xhr.status === 200) {
+                // Show success message
+                const messageDiv = document.getElementById('message');
+                messageDiv.style.display = 'block'; // Show the message div
+                
+                let countdown = 10; // Countdown starting from 10
+                messageDiv.innerHTML = `<p>Form submitted successfully! Reloading Page in ${countdown} Sec...!!</p>`; // Initial message
+                
+                // Countdown function
+                const countdownInterval = setInterval(function() {
+                    countdown--; // Decrease countdown
+                    messageDiv.innerHTML = `<p>Form submitted successfully! Reloading Page in ${countdown} Sec...!!</p>`; // Update message
+                    if (countdown <= 0) {
+                        clearInterval(countdownInterval); // Clear the interval when countdown reaches 0
+                        window.location.reload(); // Reload the page
+                    }
+                }, 1000); // Update every second
+
+                // Clear the form fields
+                document.getElementById('contactForm').reset();
+            } else {
+                // Optionally handle error responses
+                const messageDiv = document.getElementById('message');
+                messageDiv.style.display = 'block'; // Show the message div
+                messageDiv.innerHTML = '<p>Error submitting the form. Please try again.</p>'; // Error message
+            }
+        };
+
+        xhr.send(formData); // Send the form data
+    });
+</script>
+{% endblock %}
+
+
+

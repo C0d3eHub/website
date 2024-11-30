@@ -1,0 +1,13 @@
+<!-- success.html -->
+{% extends 'base.html' %}
+{% block breadcrumb %}
+    <li class="breadcrumb-item active" aria-current="page">marks Saved Successfully</li>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>Data Saved Successfully!</h1>
+    <p>The marks data has been saved successfully.</p>
+    <a href="{% url 'add_marks' %}" class="btn btn-primary">Go Back to Add Marks</a>
+</div>
+{% endblock %}

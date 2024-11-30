@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block breadcrumb %}
+    <li class="breadcrumb-item active" aria-current="page">Admission Criteria</li>
+{% endblock %}
+{% block content %}
+<h1 style="color: brown;">Admission Criteria</h1>
+{% if criteria %}
+    <p>{{ criteria.content }}</p>
+{% else %}
+    <p>No admission criteria available.</p>
+{% endif %}
+{% endblock %}

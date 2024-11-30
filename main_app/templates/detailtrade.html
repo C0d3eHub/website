@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+
+{% block breadcrumb %}
+    <li class="breadcrumb-item"><a href="{% url 'trades' %}">Trades</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Trade Details</li>
+{% endblock %}
+
+{% block content %}
+<style>
+    /* Responsive Table Styling */
+    .stream-table-container {
+        max-width: 100%;
+        margin: 20px auto;
+        overflow-x: auto;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        background-color: #f9f9f9;
+        padding: 20px;
+    }
+
+    .stream-table {
+        width: 100%;
+        border-collapse: collapse;
+        text-align: left;
+        margin: 10px 0;
+    }
+
+    .stream-table th, .stream-table td {
+        padding: 12px 15px;
+        border: 1px solid #ddd;
+    }
+
+    .stream-table th {
+        background-color: #2c3e50;
+        color: #ffffff;
+        font-size: 1rem;
+        text-transform: uppercase;
+    }
+
+    .stream-table td {
+        font-size: 0.9rem;
+        color: #34495e;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+        .stream-table th, .stream-table td {
+            font-size: 0.8rem;
+            padding: 10px;
+        }
+    }
+</style>
+
+<div class="stream-table-container">
+    <h1 class="text-center">Stream Details</h1>
+    <table class="stream-table">
+        <thead>
+            <tr>
+                <th>SN</th>
+                <th>Trade</th>
+                <th>Intake Capacity</th>
+                <th>Filled</th>
+                <th>Unit</th>
+                <th>Shift</th>
+                <th>Syllabus</th>
+                <th>Remarks</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for stream in streams %}
+            <tr>
+                <td data-label="SN">{{ forloop.counter }}</td>
+                <td data-label="Trade">{{ stream.name }}</td>
+                <td data-label="Intake Capacity">{{ stream.intake_capacity|default:"-" }}</td>
+                <td data-label="Filled">{{ stream.filled|default:"-" }}</td>
+                <td data-label="Unit">{{ stream.unit|default:"-" }}</td>
+                <td data-label="Shift">{{ stream.shift|default:"-" }}</td>
+                <td data-label="Syllabus">
+                    {% if stream.syllabus %}
+                        <a href="{{ stream.syllabus.url }}" target="_blank">Download</a>
+                    {% else %}
+                        Not Available
+                    {% endif %}
+                </td>
+                <td data-label="Remarks">{{ stream.remarks|default:"-" }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

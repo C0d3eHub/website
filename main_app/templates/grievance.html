@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block breadcrumb %}
+    <li class="breadcrumb-item active" aria-current="page">Grievances</li>
+{% endblock %}
+
+{% block content %}
+<div class="grievance-container">
+    <h1 class="grievance-title">Grievance Portal</h1>
+
+    <!-- Grievance Submission Form -->
+    <div class="grievance-card grievance-form-card">
+        <div class="grievance-card-header">
+            <h2>Submit Your Grievance</h2>
+        </div>
+        <div class="grievance-card-body">
+            <form method="POST" action="">
+                {% csrf_token %}
+                
+                <!-- Applying custom class for form fields -->
+                <p class="grievance-form-field">
+                    {{ form.title }}
+                </p>
+                <p class="grievance-form-field">
+                    {{ form.description }}
+                </p>
+                
+                <!-- Submit Button -->
+                <button type="submit" class="grievance-btn-submit">Submit</button>
+            </form>
+            
+        </div>
+    </div>
+
+    <!-- List of Grievances -->
+    <div class="grievance-card grievance-list-card">
+        <div class="grievance-card-header">
+            <h2>All Grievances</h2>
+        </div>
+        <div class="grievance-card-body">
+            {% for grievance in grievances %}
+                <div class="grievance-item">
+                    <h3 class="grievance-item-title">{{ grievance.title }}</h3>
+                    <p class="grievance-item-description">{{ grievance.description }}</p>
+                    <p><strong>Status:</strong> 
+                        <span class="grievance-status 
+                            {% if grievance.status == 'Resolved' %}grievance-status-resolved{% elif grievance.status == 'In Progress' %}grievance-status-in-progress{% else %}grievance-status-pending{% endif %}">
+                            {{ grievance.status }}
+                        </span>
+                    </p>
+                    {% if grievance.response %}
+                        <p><strong>Response:</strong> {{ grievance.response }}</p>
+                    {% else %}
+                        <p><strong>Response:</strong> <span class="grievance-text-muted">Awaiting response...</span></p>
+                    {% endif %}
+                    <p class="grievance-item-date">Submitted on {{ grievance.created_at|date:"d M Y, H:i" }}</p>
+                </div>
+            {% empty %}
+                <p class="grievance-no-items">No grievances found.</p>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

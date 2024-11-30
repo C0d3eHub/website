@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+{% block title %}Photo Gallery{% endblock %}
+
+{% block content %}
+<div class="gallery-container">
+    {% for image in images %}
+        <div class="thumbnail">
+            <img src="{{ image.image.url }}" alt="{{ image.title }}" onclick="openFullscreen({{ forloop.counter0 }})">
+        </div>
+    {% endfor %}
+</div>
+
+<!-- Modal for Fullscreen and Slideshow -->
+<!-- Modal for Fullscreen and Slideshow -->
+<div id="fullscreenModal" class="modal">
+    <span class="close" onclick="closeFullscreen()">&times;</span>
+    <img class="modal-content" id="fullImage" alt="Fullscreen Image">
+    <div id="caption"></div>
+
+    <!-- Slideshow Controls -->
+    <a class="prev" onclick="changeSlide(-1)">&#10094;</a>
+    <a class="next" onclick="changeSlide(1)">&#10095;</a>
+</div>
+
+
+<script>
+   
+   let images = [
+    {% for image in images %}
+        "{{ image.image.url }}",
+    {% endfor %}
+];
+let currentSlideIndex = 0;
+function openFullscreen(index) {
+    const modal = document.getElementById("fullscreenModal");
+    const modalImg = document.getElementById("fullImage");
+    const captionText = document.getElementById("caption");
+
+    // Hide the header by adding a class
+    document.querySelector("header").classList.add("hidden");
+
+    // Set the current slide index
+    currentSlideIndex = index;
+
+    // Display the modal
+    modal.style.display = "block";
+
+    // Set the image source and caption
+    modalImg.src = images[currentSlideIndex];
+    modalImg.alt = document.getElementsByClassName("thumbnail")[index].getElementsByTagName("img")[0].alt;
+    captionText.innerHTML = modalImg.alt || "Image";
+}
+
+function closeFullscreen() {
+    const modal = document.getElementById("fullscreenModal");
+
+    // Show the header by removing the class
+    document.querySelector("header").classList.remove("hidden");
+
+    // Hide the modal
+    modal.style.display = "none";
+}
+
+function changeSlide(direction) {
+    // Update slide index
+    currentSlideIndex += direction;
+
+    // Wrap around if at the beginning or end
+    if (currentSlideIndex < 0) {
+        currentSlideIndex = images.length - 1;
+    } else if (currentSlideIndex >= images.length) {
+        currentSlideIndex = 0;
+    }
+
+    // Update modal image and caption
+    const modalImg = document.getElementById("fullImage");
+    const captionText = document.getElementById("caption");
+
+    modalImg.src = images[currentSlideIndex];
+    captionText.innerHTML = document.getElementsByClassName("thumbnail")[currentSlideIndex].getElementsByTagName("img")[0].alt || "Image";
+}
+
+
+
+</script>
+{% endblock %}

@@ -1,0 +1,178 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{{ page_title }}{% endblock %}</title>
+    {% load static %}
+    <link rel="icon" type="image/x-icon" href="{% static 'images/favicon.png' %}">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+    <link rel="stylesheet" href="{% static 'css/common.css' %}">
+    <link rel="stylesheet" href="{% static 'css/common2.css' %}">
+    <link rel="stylesheet" href="{% static 'css/common3.css' %}">
+    <link rel="stylesheet" href="{% static 'css/c1.css' %}">
+    <link rel="stylesheet" href="{% static 'css/trainee.css' %}">    
+    <link rel="stylesheet" type="text/css" href="{% static 'admin/css/custom_admin.css' %}">
+    <link rel="stylesheet" href="{% static 'css/gallery.css' %}">
+    <link rel="stylesheet" href="{% static 'css/amenities.css' %}">
+    <link rel="stylesheet" href="{% static 'css/infrastructure.css' %}">
+    <link rel="stylesheet" href="{% static 'css/overall.css' %}">
+    <link rel="stylesheet" href="{% static 'css/reach.css' %}">
+    <link rel="stylesheet" href="{% static 'css/grievance.css' %}">
+    <link rel="stylesheet" href="{% static 'css/chairman_desk.css' %}">
+    <link rel="stylesheet" href="{% static 'css/study_material.css' %}">
+    <link rel="stylesheet" href="{% static 'css/select_test.css' %}">
+    <link rel="stylesheet" href="{% static 'css/starttest.css' %}">
+    <link rel="stylesheet" href="{% static 'css/test_result.css' %}">
+    <link rel="stylesheet" href="{% static 'css/tenders.css' %}">
+    <link rel="stylesheet" href="{% static 'css/animation.css' %}">
+
+    <script src="{% static 'js/script.js' %}"></script>
+    <script src="{% static 'js/script1.js' %}" defer></script>
+</head>
+<body>
+    
+    <!-- Header Section -->
+    <header id="header">
+        <div class="container">
+            <img src="{{ header_content.logo.url }}" alt="Logo" class="logo">
+            <div class="header-text">
+                <h1>{{ header_content.h1 }}</h1>
+                <h2>{{ header_content.h2 }}</h2>
+                <p>{{ header_content.paragraph1 }}</p>
+                <p>{{ header_content.paragraph2 }}</p>
+                <p>{{ header_content.paragraph3 }}</p>
+            </div>
+            <div class="buttons">
+                <a href="{{ header_content.button1_url }}" class="donation-button" target="_blank">{{ header_content.button1_text }}</a>
+                <a href="{{ header_content.button2_url }}" class="admission-button">{{ header_content.button2_text }}</a>
+            </div>
+            <img src="{{ header_content.right_logo.url }}" alt="Logo" class="logo right-logo"> <!-- New right logo -->
+        </div>
+    </header>
+
+    
+    
+
+    <!-- Navigation Section -->
+    <nav>
+        <div class="hamburger" id="hamburger">
+            &#9776; <!-- Hamburger icon -->
+        </div>
+        <nav id="navbar">
+            <ul>
+                <li><a href="{% url 'index' %}">Home</a></li>
+                <li>
+                    <a href="#">Institute</a>
+                    <ul>
+                        <li><a href="{% url 'about_institute' %}">About Institute</a></li>
+                        <li><a href="{% url 'electric_power_supply' %}">Electric Power Supply</a></li>
+                        <li><a href="{% url 'key_performance_indicator' %}">Key Performance Indicator</a></li>
+                        <li><a href="{% url 'institute_amenities' %}">Institute Amenities</a></li>
+                        <li><a href="{% url 'institute_infrastructure' %}">Institute Infrastructure</a></li>
+                        <li><a href="{% url 'gallery' %}">Photo Gallery</a></li>
+                        <li><a href="{% url 'video' %}">Videos</a></li>
+
+
+                    </ul>
+                </li>
+                <li>
+                    <a href="#" id="trg">Training</a>
+                    <ul>
+                        <li><a href="{% url 'trainee_list' %}">Trainees</a></li>
+                        <li><a href="{% url 'trades' %}">Trades</a></li>
+                        <li><a href="{% url 'report_card' %}">Report Card</a></li>
+                        <li><a href="{% url 'admission_criteria' %}">Admission Criteria</a></li>
+                        <li><a href="{% url 'trades_ncvt' %}">Trades Affiliated to NCVT</a></li>
+                        <li><a href="{% url 'overall_results' %}">Overall Results</a></li>
+                        <li><a href="{% url 'trade_wise_result' %}">Trade Wise Result</a></li>
+                        <li><a href="{% url 'session_wise_result' %}">Session Wise Result</a></li>                        
+                        <li><a href="{% url 'trade_infrastructure' %}">Trade Wise Infrastructure</a></li>
+                        <li><a href="{% url 'placement' %}">Placement</a></li>
+                        <li><a href="{% url 'eca' %}">ECA</a></li>
+                        <li><a href="{% url 'industry_collaboration' %}">Industry Collaboration</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#">Administration</a>
+                    <ul>
+                        <li><a href="{% url 'chairman_desk' %}">Chairman Desk</a></li>
+                        <li><a href="{% url 'adminstaff' %}">Administrative Staff</a></li>
+                        <li><a href="{% url 'techstaff' %}">Technical Staff</a></li>
+                        <li><a href="{% url 'rti' %}">Right to Information</a></li>
+                        <li><a href="{% url 'inspection' %}">Inspection</a></li>
+                        <li><a href="{% url 'meetings' %}">Meetings</a></li>
+
+                    </ul>
+                </li>
+                <li>
+                    <a href="#">Schemes</a>
+                    <ul>
+                        <li><a href="{% url 'ats' %}">Apprenticeship Training Scheme</a></li>
+                        <li><a href="{% url 'cts' %}">Craftsman Training Scheme</a></li>
+                        <li><a href="{% url 'imc' %}">IMC</a></li>
+                        <li><a href="{% url 'hpkvn' %}">HPKVN</a></li>
+                        <li><a href="{% url 'ojt' %}">On Job Training</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#">Other Links</a>
+                    <ul>
+                        <li><a href="https://eakadamik.in/hptsb_2024_iti/" target="_blank">Admission Portal</a></li>
+                        <li><a href="https://admin.skillindiadigital.gov.in/login" target="_blank">Skill Digital India Portal</a></li>
+                        <li><a href="https://techedu.hp.gov.in/" target="_blank">DTE Sundernagar Portal</a></li>
+                        <li><a href="https://dgt.gov.in/" target="_blank">DGT Portal</a></li>
+                        <li><a href="{% url 'tender_list' %}">Tenders</a></li>
+                        <li><a href="{% url 'social_media' %}">Social Media</a></li>
+
+                    </ul>
+                     
+                </li>
+                <li><a href="#">Help</a>
+                <ul>
+                    <li><a href="{% url 'contact' %}">Contact Us</a></li>
+                    <li><a href="{% url 'reach_us' %}">Reach Us</a></li>
+                    <li><a href="{% url 'grievance' %}">Grievance</a></li>
+                    <li><a href="{% url 'study_material' %}">Study Material</a></li>
+                    <li><a href="{% url 'select_test' %}">Online Test</a></li>
+
+
+
+
+                    
+                </ul> </li>
+            </ul>
+        </nav>
+    </nav>
+    <div class="sitemap">
+        <nav aria-label="breadcrumb" class="breadcrumb-container">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'index' %}">Home</a></li>
+                {% block breadcrumb %}
+                <li class="breadcrumb-item active" aria-current="page">{{ page_title }}</li>
+                {% endblock %}
+            </ol>
+        </nav>
+    </div>
+    
+    
+    
+    
+    <main>
+        {% block content %}
+        <p>Default content goes here.</p>
+        {% endblock %}
+    </main>
+    <a href="#header" id="scrollToTop" title="Back to Top">&#8679;</a>
+    <!-- Footer Section -->
+    <footer>
+        <div class="footer-container">
+            <p>&copy; 2024 Govt Industrial Training Institute, Krishangarh (Kuthar). All rights reserved.</p>
+            <p id="vcount">Visitor Counter: <span id="visitor-counter">Loading...</span></p>
+        </div>
+    </footer>
+    
+    <script src="{% static 'js/sc.js' %}"></script> 
+    <script src="{% static 'js/counter.js' %}"></script> 
+</body>
+</html>

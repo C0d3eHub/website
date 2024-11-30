@@ -1,0 +1,147 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block breadcrumb %}
+    <li class="breadcrumb-item active" aria-current="page">IMC</li>
+{% endblock %}
+
+{% block title %}IMC{% endblock %}
+
+{% block content %}
+<style>
+    body {
+        font-family: Arial, sans-serif;
+    }
+
+    .main {
+        padding: 20px;
+        background-color: #f9f9f9;
+    }
+
+    .imc {
+        background-color: white;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+        color: #333;
+        font-size: 2rem;
+        margin-bottom: 15px;
+    }
+
+    h2 {
+        color: #4CAF50;
+        font-size: 1.5rem;
+        margin-top: 30px;
+        margin-bottom: 20px;
+    }
+
+    p {
+        color: #555;
+        font-size: 1rem;
+        line-height: 1.6;
+    }
+
+    .table-container {
+        overflow-x: auto;
+        margin-top: 20px;
+    }
+
+    .custom-table {
+        width: 100%;
+        border-collapse: collapse;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .custom-table th, .custom-table td {
+        padding: 12px 15px;
+        text-align: left;
+        border: 1px solid #ddd;
+    }
+
+    .custom-table th {
+        background-color: #4CAF50;
+        color: white;
+        text-align: center;
+    }
+
+    .custom-table td {
+        text-align: center;
+    }
+
+    .custom-table tr:nth-child(even) {
+        background-color: #f9f9f9;
+    }
+
+    .custom-table tr:hover {
+        background-color: #f1f1f1;
+    }
+
+    .text-center {
+        text-align: center;
+    }
+
+    /* Responsive design for smaller screens */
+    @media screen and (max-width: 768px) {
+        .custom-table th, .custom-table td {
+            padding: 10px;
+            font-size: 12px;
+        }
+
+        .custom-table {
+            font-size: 12px;
+        }
+    }
+</style>
+<div class="main">
+    <div class="imc">
+        <h1>IMC (Industry Management Committee)</h1>
+        <p>The IMC (Industry Management Committee) connects students with industry leaders for hands-on mentorship. The committee members contribute valuable industry insights and guidance to shape the future workforce.</p>
+        
+        <h2>Committee Members</h2>
+        
+        <!-- Responsive table for displaying committee members -->
+        <div class="table-container">
+            <table class="custom-table">
+                <thead>
+                    <tr>
+                        <th>SN</th>
+                        <th>Name</th>
+                        <th>Designation</th>
+                        <th>Address</th>
+                        <th>Phone No</th>
+                        <th>Email ID</th>
+                        <th>Remarks</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for member in committee_members %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ member.name }}</td>
+                            <td>{{ member.designation }}</td>
+                            <td>{{ member.address }}</td>
+                            <td>{{ member.phone_no }}</td>
+                            <td>{{ member.email }}</td>
+                            <td>{{ member.remarks }}</td>
+                        </tr>
+                    {% empty %}
+                        <tr>
+                            <td colspan="7" class="text-center">No committee members available.</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Achievements Section -->
+        <h2>Achievements</h2>
+        <p>{{ achievement.description }}</p>
+    </div>
+</div>
+{% endblock %}
+
+

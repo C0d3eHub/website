@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block breadcrumb %}
+    <li class="breadcrumb-item active" aria-current="page">Chairman's Desk</li>
+{% endblock %}
+
+{% block content %}
+<div class="chairman-desk-container">
+    <h1 class="chairman-desk-title">Message from the Chairman</h1>
+    
+    <!-- Chairman's Photo and Message Section -->
+    <div class="chairman-desk-content">
+        <div class="chairman-photo">
+            <img src="{{ chairman.image.url }}" alt="Chairman Photo" class="chairman-img">
+        </div>
+        <div class="chairman-message">
+            <h2 class="chairman-name">{{ chairman.name }}</h2>
+            <p class="chairman-position">{{ chairman.position }}</p>
+            <p class="message-text">{{ chairman.message }}</p>
+        </div>
+    </div>
+</div>
+{% endblock %}

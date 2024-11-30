@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block breadcrumb %}
+    <li class="breadcrumb-item active" aria-current="page">Electric Power Supply</li>
+{% endblock %}
+
+{% block content %}
+<h1>Electric Power Supply</h1>
+<p>Details about the electric power supply to the institute. The institute ensures optimal load distribution and adherence to sanctioned limits for effective power management.</p>
+
+<table style="width: 100%; border-collapse: collapse; margin-top: 20px;">
+    <thead>
+        <tr>
+            <th style="border: 1px solid #ddd; padding: 8px;">SN</th>
+            <th style="border: 1px solid #ddd; padding: 8px;">Name of Trade</th>
+            <th style="border: 1px solid #ddd; padding: 8px;">Available Load (KW)</th>
+            <th style="border: 1px solid #ddd; padding: 8px;">Sanction Load (KW)</th>
+            <th style="border: 1px solid #ddd; padding: 8px;">Remarks</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for power_supply in power_supplies %}
+        <tr>
+            <td style="border: 1px solid #ddd; padding: 8px;">{{ forloop.counter }}</td>
+            <td style="border: 1px solid #ddd; padding: 8px;">{{ power_supply.name_of_trade }}</td>
+            <td style="border: 1px solid #ddd; padding: 8px;">{{ power_supply.available_load_kw }}</td>
+            <td style="border: 1px solid #ddd; padding: 8px;">{{ power_supply.sanction_load_kw }}</td>
+            <td style="border: 1px solid #ddd; padding: 8px;">{{ power_supply.remarks }}</td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="5" style="text-align: center; border: 1px solid #ddd; padding: 8px;">No data available</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<style>
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        text-align: center;
+    }
+    th, td {
+        border: 1px solid #ddd;
+        padding: 8px;
+    }
+    th {
+        background-color: #f2f2f2;
+    }
+    tr:nth-child(even) {
+        background-color: #f9f9f9;  /* Light gray for even rows */
+    }
+    tr:nth-child(odd) {
+        background-color: #ffffff;  /* White for odd rows */
+    }
+    tr:hover {
+        background-color: #ddd;  /* Highlight on hover */
+    }
+</style>
+<p style="color: rgb(139, 13, 95);">Addition Electricity Supply is for IT lab , Office and other trades</p>
+{% endblock %}

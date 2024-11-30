@@ -1,0 +1,112 @@
+{% extends "base.html" %}
+{% load static %}
+{% block breadcrumb %}
+    <li class="breadcrumb-item active" aria-current="page">Technical Staff</li>
+{% endblock %}
+{% block title %}Tech Staff{% endblock %}
+
+{% block content %}
+<style>
+    .tech-staff-page {
+        margin: 20px auto;
+        width: 90%; /* Set a wider width for better usability */
+        text-align: center;
+    }
+
+    .techstaff-title {
+        color: #2c3e50;
+        font-size: 24px;
+        margin-bottom: 20px;
+        font-weight: bold;
+    }
+
+    .table-container {
+        overflow-x: auto; /* Enable horizontal scrolling if the table overflows */
+    }
+
+    .techstaff-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 0 auto;
+        background-color: #f9f9f9; /* Light background */
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+        min-width: 900px; /* Ensure a minimum width for usability */
+    }
+
+    .techstaff-th, .techstaff-td {
+        border: 1px solid #ddd;
+        padding: 12px;
+        text-align: center;
+    }
+
+    .techstaff-th {
+        background-color: #f2f2f2;
+        font-weight: bold;
+        text-transform: uppercase;
+    }
+
+    .techstaff-td {
+        vertical-align: middle;
+    }
+
+    .techstaff-photo {
+        width: 60px;
+        height: 60px;
+        object-fit: cover;
+        border-radius: 50%;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+        .techstaff-th, .techstaff-td {
+            padding: 8px;
+        }
+
+        .techstaff-photo {
+            width: 40px;
+            height: 40px;
+        }
+    }
+</style>
+
+<div class="tech-staff-page">
+    <h1 class="techstaff-title">Tech Staff Information</h1>
+    <div class="table-container">
+        <table class="techstaff-table">
+            <thead>
+                <tr>
+                    <th class="techstaff-th">Sr No</th>
+                    <th class="techstaff-th">Name</th>
+                    <th class="techstaff-th">Designation</th>
+                    <th class="techstaff-th">Date of Joining</th>
+                    <th class="techstaff-th">Phone No</th>
+                    <th class="techstaff-th">Photo</th>
+                    <th class="techstaff-th">Details</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for staff in tech_staff_list %}
+                <tr>
+                    <td class="techstaff-td">{{ staff.serial_number }}</td>
+                    <td class="techstaff-td">{{ staff.name }}</td>
+                    <td class="techstaff-td">{{ staff.designation }}</td>
+                    <td class="techstaff-td">{{ staff.date_of_joining }}</td>
+                    <td class="techstaff-td">{{ staff.phone_number }}</td>
+                    <td class="techstaff-td">
+                        {% if staff.photo %}
+                            <img src="{{ staff.photo.url }}" alt="Photo" class="techstaff-photo">
+                        {% else %}
+                            <img src="{% static 'images/default-photo.png' %}" alt="Default" class="techstaff-photo">
+                        {% endif %}
+                    </td>
+                    <td class="techstaff-td">
+                        <a href="{% url 'techstaff_detail' staff.serial_number %}" class="btn btn-primary btn-sm">Show Details</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% endblock %}

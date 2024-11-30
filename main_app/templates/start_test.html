@@ -1,0 +1,152 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load custom_filters %}
+
+{% block content %}
+<div class="starttest_container">
+    
+        <h2>Welcome:</h2> <p>{{ user_name }}</p> 
+        <h2>From:</h2> <p>{{ iti_name }}</p>
+    
+
+
+    
+    <!-- Timer Display -->
+    <div class="starttest_timer" id="timer">
+        <strong>Time Remaining:</strong> <span id="timer-display"></span>
+    </div>
+    <div id="warning-message" class="warning-message" style="color: red; font-weight: bold; display: none;">
+        Last 30 seconds remaining!
+    </div></div>
+    <h1 class="starttest_header">Start Test</h1>
+
+    <div class="starttest_info">
+        <p><strong>Trade:</strong> {{ trade.name }}</p>
+        <p><strong>Topic:</strong> 
+            {% if topic %}
+                {{ topic.name }}
+            {% else %}
+                All Topics
+            {% endif %}
+        </p>
+        
+        <p><strong>Number of Questions Wanted:</strong> {{ num_questions }}</p>
+        <p><strong>Number of Questions Loaded:</strong> {{ total_loaded_questions }}</p>
+    </div>
+
+    <form method="post" action="{% url 'submit_test' %}" class="starttest_form" id="test-form">
+        {% csrf_token %}
+        <input type="hidden" name="trade_id" value="{{ trade.id }}">
+        <input type="hidden" name="topic_id" value="{% if topic %}{{ topic.id }}{% else %}all{% endif %}">
+        <input type="hidden" name="num_questions" value="{{ num_questions }}">
+
+        <!-- Display Questions -->
+        <div class="starttest_questions">
+            {% for question in questions %}
+                <div class="starttest_question">
+                    <p class="starttest_question_text">
+                        <strong>Question {{ forloop.counter }}:</strong> {{ question.text }}
+                    </p>
+                    <ul class="starttest_options">
+                        <li>
+                            <input type="radio" name="question_{{ question.id }}" value="1" id="q{{ question.id }}_1">
+                            <label for="q{{ question.id }}_1">{{ question.option1 }}</label>
+                        </li>
+                        <li>
+                            <input type="radio" name="question_{{ question.id }}" value="2" id="q{{ question.id }}_2">
+                            <label for="q{{ question.id }}_2">{{ question.option2 }}</label>
+                        </li>
+                        <li>
+                            <input type="radio" name="question_{{ question.id }}" value="3" id="q{{ question.id }}_3">
+                            <label for="q{{ question.id }}_3">{{ question.option3 }}</label>
+                        </li>
+                        <li>
+                            <input type="radio" name="question_{{ question.id }}" value="4" id="q{{ question.id }}_4">
+                            <label for="q{{ question.id }}_4">{{ question.option4 }}</label>
+                        </li>
+                    </ul>
+                </div>
+            {% endfor %}
+        </div>
+
+        <div class="starttest_buttons">
+            <button type="button" class="starttest_button" onclick="confirmSubmit()">Submit Test</button>
+            <button type="button" class="starttest_button reset_button" onclick="resetForm()">Reset</button>
+        </div>
+    </form>
+</div>
+
+<script>
+    const totalLoadedQuestions = {{ total_loaded_questions }};
+    const durationMinutes = totalLoadedQuestions * 2;  // 2 minutes per question
+    let totalTime = durationMinutes * 60; // Total time in seconds
+
+    const timerDisplay = document.getElementById('timer-display');
+    const warningMessage = document.getElementById('warning-message');
+    const form = document.getElementById('test-form');
+
+    // Format time as mm:ss
+    function formatTime(seconds) {
+        const minutes = Math.floor(seconds / 60);
+        const secs = seconds % 60;
+        return `${minutes}:${secs < 10 ? '0' : ''}${secs}`;
+    }
+
+    // Start the timer function
+    function startTimer() {
+        console.log('Timer Started');
+        const timerInterval = setInterval(() => {
+            if (totalTime <= 0) {
+                clearInterval(timerInterval);
+                form.submit(); // Auto-submit the form when the timer expires
+            } else {
+                // Show warning message in the last 30 seconds
+                if (totalTime <= 30 && totalTime > 0) {
+                    warningMessage.style.display = 'block';
+                    warningMessage.textContent = `Last ${totalTime} seconds remaining!`;
+                }
+                timerDisplay.textContent = formatTime(totalTime);
+                totalTime--;
+            }
+        }, 1000);
+    }
+
+    // Count attempted and unattempted questions
+    function countAttemptedQuestions() {
+        let attemptedCount = 0;
+        
+        // Check each question's answer
+        for (let i = 1; i <= totalLoadedQuestions; i++) {
+            let question = document.querySelector(`input[name="question_${i}"]:checked`);
+            if (question) {
+                attemptedCount++;
+            }
+        }
+
+        return {
+            attempted: attemptedCount,
+            unattempted: totalLoadedQuestions - attemptedCount
+        };
+    }
+
+    // Confirm the submission of the test
+    function confirmSubmit() {
+        // Show a confirmation dialog
+        const userConfirmed = confirm("Are you sure you want to submit the test?");
+        if (userConfirmed) {
+            // If the user clicked 'Yes', submit the form
+            document.getElementById('test-form').submit();
+        }
+        // If the user clicked 'No', nothing happens
+    }
+
+    // Reset the form function
+    function resetForm() {
+        document.getElementById('test-form').reset(); // Reset all inputs
+    }
+
+    // Start the timer when the page loads
+    window.onload = startTimer;
+</script>
+
+{% endblock %}

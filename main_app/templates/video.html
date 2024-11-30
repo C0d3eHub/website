@@ -1,0 +1,132 @@
+{% extends "base.html" %}
+
+{% block title %}Videos{% endblock %}
+
+{% block content %}
+<style>
+    /* General page styles */
+.video-container {
+    padding: 20px;
+    background-color: #f9f9f9;
+}
+
+.video-container h1 {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+/* Video item container */
+.videos {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    padding: 20px;
+}
+
+.video-item {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    text-align: center;
+    padding: 15px;
+    transition: transform 0.3s ease-in-out;
+}
+
+.video-item:hover {
+    transform: scale(1.05);
+}
+
+.video-item h3 {
+    font-size: 1.2rem;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+/* Video player style */
+video {
+    max-width: 100%;
+    border-radius: 8px;
+    background-color: #000;
+}
+
+iframe {
+    width: 100%;
+    max-width: 600px;
+    height: 350px;
+    border: none;
+    border-radius: 8px;
+    background-color: #000;
+}
+
+/* Description styling */
+.video-item p {
+    font-size: 1rem;
+    color: #666;
+    line-height: 1.6;
+    margin-top: 10px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .video-container h1 {
+        font-size: 1.6rem;
+    }
+
+    .videos {
+        grid-template-columns: 1fr; /* One column for smaller screens */
+        padding: 10px;
+    }
+
+    .video-item {
+        padding: 10px;
+    }
+
+    iframe {
+        height: 250px;
+    }
+}
+
+@media (max-width: 480px) {
+    .video-container h1 {
+        font-size: 1.4rem;
+    }
+
+    .video-item h3 {
+        font-size: 1rem;
+    }
+
+    iframe {
+        height: 200px;
+    }
+
+    .video-item p {
+        font-size: 0.9rem;
+    }
+}
+
+</style>
+<div class="video-container">
+    <h1>Videos</h1>
+
+    <!-- Displaying uploaded videos -->
+    <div class="videos">
+        {% for video in videos %}
+            <div class="video-item">
+                <h3>{{ video.title }}</h3>
+                {% if video.video_file %}
+                    <video controls width="600">
+                        <source src="{{ video.video_file.url }}" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                {% elif video.youtube_link %}
+                    <iframe width="600" height="350" src="{{ video.youtube_link }}" frameborder="0" allowfullscreen></iframe>
+                {% endif %}
+                <p>{{ video.description }}</p>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,112 @@
+/* study_material.css */
+.study-material-container {
+    margin: 20px auto;
+    max-width: 1200px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+.study-material-title {
+    text-align: center;
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.filter-form {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.filter-form label {
+    margin-right: 10px;
+    font-weight: bold;
+}
+
+.trade-dropdown {
+    padding: 5px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+
+.study-material-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+.study-material-table th,
+.study-material-table td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+}
+
+.study-material-table th {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.study-material-table tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.study-material-table tbody tr:hover {
+    background-color: #ddd;
+}
+
+.study-material-table a.material-link {
+    color: #0066cc;
+    text-decoration: none;
+}
+
+.study-material-table a.material-link:hover {
+    text-decoration: underline;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+    .study-material-container {
+        padding: 15px;
+    }
+
+    .study-material-title {
+        font-size: 24px;
+    }
+
+    .study-material-table th, .study-material-table td {
+        padding: 8px;
+    }
+
+    .filter-form {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .filter-form select {
+        margin-top: 10px;
+        width: 100%;
+    }
+
+    .study-material-table {
+        font-size: 14px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .study-material-title {
+        font-size: 20px;
+    }
+
+    .study-material-table {
+        font-size: 12px;
+    }
+
+    .study-material-table th, .study-material-table td {
+        padding: 5px;
+    }
+}

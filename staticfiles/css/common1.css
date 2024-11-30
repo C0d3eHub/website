@@ -1,0 +1,54 @@
+/* General Styles for All Pages */
+h1 {
+    color: #004d40;
+    font-size: 2em;
+    text-align: center;
+    margin-top: 20px;
+}
+
+p {
+    font-size: 1.2em;
+    line-height: 1.6;
+    color: #333;
+    text-align: justify;
+    margin: 20px auto;
+    width: 80%;
+}
+
+/* Navigation Styles */
+nav ul ul {
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    padding: 10px;
+}
+
+nav ul ul li {
+    margin: 0;
+}
+
+nav ul ul li a {
+    color: #004d40;
+    padding: 10px;
+    display: block;
+}
+
+nav ul ul li a:hover {
+    background-color: #ddd;
+}
+
+/* Specific Page Styles */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+footer {
+    text-align: center;
+    padding: 10px;
+    background-color: #004d40;
+    color: white;
+}
+
+footer p {
+    margin: 0;
+}

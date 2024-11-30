@@ -1,0 +1,115 @@
+/* General Container */
+.testresult_container {
+    max-width: 900px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: linear-gradient(135deg, #f9f9f9, #eef6ff);
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    font-family: 'Arial', sans-serif;
+}
+
+/* Header */
+.testresult_header {
+    font-size: 2.5rem;
+    text-align: center;
+    color: #2c3e50;
+    margin-bottom: 2rem;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Summary Section */
+.testresult_summary {
+    background-color: #f0f8ff;
+    padding: 1.5rem;
+    border: 1px solid #a8dadc;
+    border-radius: 10px;
+    margin-bottom: 2rem;
+    color: #34495e;
+    font-size: 1.1rem;
+    line-height: 1.6;
+}
+
+.testresult_summary p {
+    margin: 0.5rem 0;
+}
+
+/* Answer Key */
+.testresult_key_header {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    color: #1d3557;
+}
+
+.testresult_key {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.testresult_key_item {
+    background-color: #eaf4f4;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border: 1px solid #cde4e5;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.testresult_key_item strong {
+    color: #2c3e50;
+}
+
+.testresult_correct {
+    color: #1a936f; /* Green for correct answers */
+    font-weight: bold;
+}
+
+.testresult_incorrect {
+    color: #e63946; /* Red for incorrect answers */
+    font-weight: bold;
+}
+.testresult_buttons {
+    margin-top: 2rem;
+    text-align: center;
+}
+
+.testresult_home_button {
+    display: inline-block;
+    background-color: #457b9d;
+    color: #fff;
+    text-decoration: none;
+    font-size: 1.2rem;
+    padding: 0.8rem 1.5rem;
+    border-radius: 5px;
+    transition: background-color 0.3s, transform 0.2s;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.testresult_home_button:hover {
+    background-color: #1d3557;
+    transform: scale(1.05);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .testresult_container {
+        padding: 1.5rem;
+    }
+
+    .testresult_header {
+        font-size: 2rem;
+    }
+
+    .testresult_summary {
+        font-size: 1rem;
+    }
+
+    .testresult_key_header {
+        font-size: 1.5rem;
+    }
+    .testresult_home_button {
+        font-size: 1rem;
+        padding: 0.6rem 1rem;
+    }
+}

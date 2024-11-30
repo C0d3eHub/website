@@ -1,0 +1,467 @@
+/* General Body Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 5%; /* Adjusted padding for responsiveness */
+}
+
+.logo {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%; /* Make logo circular */
+    overflow: hidden; /* Hide overflow to keep the circular shape */
+}
+.right-logo
+{
+    width: 100px;
+    height: 100px;
+    border-radius: 50%; /* Make logo circular */
+    overflow: hidden; /* Hide overflow to keep the circular shape */
+}
+
+.header-text {
+    text-align: center;
+    flex-grow: 1;
+}
+
+.header-text h1, .header-text h2, .header-text p {
+    color: #010101; /* Set header text color to #010101 */
+    margin: 0; /* Reset margins */
+    padding-left: 80px;
+}
+
+.header-text h1 {
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.header-text h2 {
+    font-size: 22px;
+}
+
+.header-text p {
+    font-size: 16px;
+}
+
+/* Header */
+header {
+    background-color: #FF9933; /* Saffron color */
+    position: relative;
+    z-index: 100;
+}
+
+/* Buttons */
+.buttons {
+    display: flex;
+    gap: 10px;
+    margin-right: 100px;
+}
+
+.donation-button {
+    background-color: #0044cc;
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.admission-button {
+    background-color: #00cc44;
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.donation-button:hover, .admission-button:hover {
+    filter: brightness(90%); /* Slightly darkens the button on hover */
+    transform: scale(1.05); /* Slightly enlarges the button on hover */
+}
+
+/* Navigation Bar */
+nav {
+    background-color: #006400; /* Green */
+    padding: 15px 0;
+    text-align: center;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+nav ul li {
+    position: relative;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: white;
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #006400; /* Match nav bar color */
+    transition: background-color 0.3s ease;
+}
+
+nav ul li a:hover {
+    background-color: #32cd32; /* Highlight on hover */
+    color: #fff;
+}
+
+/* Dropdown Menu */
+nav ul li ul {
+    display: none;
+    position: absolute;
+    top: 100%; /* Shifted dropdown down */
+    left: 0;
+    background-color: white; /* White background for dropdown */
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Dropdown shadow for visibility */
+    z-index: 9999; /* Ensure it's on top */
+}
+
+nav ul li:hover > ul {
+    display: block; /* Show dropdown on hover */
+}
+
+nav ul li ul li {
+    width: 200px;
+}
+
+nav ul li ul li a {
+    padding: 10px;
+    display: block;
+    color: black;
+    background-color: white; /* Ensure dropdown text is visible */
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+nav ul li ul li a:hover {
+    background-color: #f0f0f0; /* Highlight dropdown item on hover */
+    color: #25633e;
+}
+/* sitemap */
+.sitemap {
+    background-color: rgb(245, 245, 245); /* Set the background color */
+    padding-top: 1px; /* Slight padding at the top */
+    padding-bottom: 0; /* No padding at the bottom */
+    text-align: left !important; /* Force left alignment */
+    width: 100%; /* Full width */
+    display: block; /* Ensure it behaves like a block */
+}
+
+.breadcrumb-container {
+    background-color: rgb(255, 255, 255); /* Background color */
+    padding-left: 20px; /* Shift content from the left */
+    padding-right: 10px; /* Small right padding for responsiveness */
+    padding-top: 2px; /* Slight padding at the top */
+    margin-bottom: 0; /* Remove margin */
+    width: 100%; /* Full width */
+}
+
+.breadcrumb {
+    display: block; /* Block element to ensure full width */
+    padding: 0;
+    margin: 0; /* No margins */
+    background-color: transparent;
+    color: rgb(250, 250, 250); /* Set text color */
+    text-align: left; /* Explicit left alignment */
+    width: 100%; /* Make sure it uses full width */
+}
+
+.breadcrumb a {
+    color: rgb(0, 0, 0); /* Set link text color */
+    text-decoration: none;
+    display: inline-block; /* Ensure proper spacing */
+    text-align: left !important; /* Force text alignment to left */
+}
+
+.breadcrumb-item.active {
+    color: blue; /* Set active item color */
+    display: inline-block; /* Ensure proper spacing */
+    text-align: left; /* Explicitly align left */
+}
+
+.breadcrumb ol {
+    list-style: none; /* Remove list numbering */
+    padding-left: 0; /* No left padding */
+    margin: 0; /* No margins */
+}
+
+.breadcrumb li {
+    display: inline-block; /* Keep the items inline */
+    text-align: left; /* Ensure text is left-aligned */
+}
+
+.breadcrumb li+li:before {
+    content: "> "; /* Separator */
+    padding: 0 5px;
+    color: blue; /* Set separator color */
+}
+
+/* Hamburger Menu */
+.hamburger {
+    display: none; /* Hidden by default */
+    font-size: 28px;
+    cursor: pointer;
+    margin-right: 20px; /* Add some space on the right */
+}
+
+/* Footer Styles */
+footer {
+    background-color: #006400; /* Dark green */
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+}
+
+.footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+#visitor-counter {
+    font-family: 'Courier New', Courier, monospace; /* Use a monospace font similar to the image */
+    font-size: 1.1rem; /* Adjust the font size as needed */
+    color: #000000; /* Set text color to white */
+    letter-spacing: 0.1rem; /* Add spacing between letters */
+    font-weight: bold; /* Make the font bold */
+}
+#vcount
+{
+    font-family: 'Courier New', Courier, monospace; /* Use a monospace font similar to the image */
+    font-size: 1rem; /* Adjust the font size as needed */
+    color: #000000; /* Set text color to white */
+   
+    font-weight: bold; /* Make the font bold */
+
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column; /* Stack vertically on small screens */
+        align-items: center; /* Center items */
+        padding: 10px; /* Adjust padding for mobile */
+    }
+
+    .buttons {
+        margin-right: 0; /* Remove margin for buttons */
+        justify-content: center; /* Center buttons */
+    }
+
+    nav ul {
+        flex-direction: column; /* Stack navigation items */
+        gap: 10px; /* Reduce gap */
+    }
+
+    nav ul li a {
+        padding: 10px; /* Adjust padding */
+        font-size: 14px; /* Smaller font size */
+    }
+
+    .hamburger {
+        display: block; /* Show hamburger icon */
+    }
+
+    nav ul {
+        display: none; /* Hide the navigation menu by default */
+        flex-direction: column; /* Stack items vertically */
+        width: 100%; /* Full width */
+        position: absolute; /* Position it absolutely */
+        top: 60px; /* Adjust according to your header height */
+        left: 0;
+        background-color: #006400; /* Match navbar background */
+        z-index: 1000; /* Ensure it appears above other content */
+    }
+
+    nav.active ul {
+        display: flex; /* Show menu when active */
+    }
+
+    /* Submenu Styles for Small Screens */
+    nav ul li ul {
+        background-color: #fff; /* White background for better visibility */
+        color: #000; /* Black text color */
+    }
+
+    nav ul li ul li a {
+        color: #006400; /* Green text for submenu items */
+        background-color: #fff; /* White background */
+        border-bottom: 1px solid #ddd;
+    }
+
+    nav ul li ul li a:hover {
+        background-color: #f0f0f0; /* Light grey background on hover */
+        color: #006400; /* Keep green text on hover */
+    }
+
+    /* When parent is clicked/active */
+    nav ul li.active ul li a {
+        color: #006400; /* Ensure submenu is readable when active */
+        background-color: #fff; /* Keep white background when active */
+    }
+
+    /* Ensure transition works smoothly */
+    nav ul ul {
+        transition: max-height 0.3s ease, opacity 0.3s ease;
+        overflow: hidden;
+        max-height: 0;
+        opacity: 0;
+        
+    }
+    nav ul ul {
+        transition: max-height 0.3s ease, opacity 0.3s ease;
+        overflow: hidden;
+        max-height: 0;
+        opacity: 0;
+        overflow: auto;
+    }
+
+    nav ul li.active > ul {
+        
+        max-height: 300px; /* Smooth dropdown transition */
+        opacity: 1; /* Fully visible submenu */
+    }
+
+    .logo , .right-logo{
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        overflow: hidden;
+        margin-top: 8px;
+        margin-bottom: 5px;
+    }
+    .header-text h1 {
+        font-size: 24px;
+        font-weight: bold;
+    }
+    
+    .header-text h2 {
+        font-size: 20px;
+    }
+    
+    .header-text p {
+        font-size: 16px;
+    }
+    /* Buttons */
+.buttons {
+    display: flex;
+    gap: 10px;
+    margin-right: 20px;
+    margin-top: 10px;
+}
+
+.donation-button {
+    background-color: #0044cc;
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.admission-button {
+    background-color: #00cc44;
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.donation-button:hover, .admission-button:hover {
+    filter: brightness(90%); /* Slightly darkens the button on hover */
+    transform: scale(1.05); /* Slightly enlarges the button on hover */
+}
+.header-text h1, .header-text h2, .header-text p {
+    
+    padding-left: 20px;
+}
+   
+}
+/* Responsive Design of sitemap */
+@media (max-width: 768px) {
+    .breadcrumb-container {
+        padding-left: 10px; /* Reduce left padding on smaller screens */
+        padding-right: 5px; /* Reduce right padding */
+    }
+
+    .breadcrumb {
+        font-size: 14px; /* Adjust font size for readability */
+    }
+}
+
+@media (max-width: 576px) {
+    .breadcrumb-container {
+        padding-left: 5px; /* Further reduce padding on extra-small screens */
+        padding-right: 5px;
+    }
+
+    .breadcrumb {
+        font-size: 12px; /* Adjust font size for smaller screens */
+    }
+    .logo , .right-logo{
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        overflow: hidden;
+        margin-top: 5px;
+        margin-bottom: 5px;
+    }
+    .header-text h1 {
+        font-size: 22px;
+        font-weight: bold;
+    }
+    
+    .header-text h2 {
+        font-size: 18px;
+    }
+    
+    .header-text p {
+        font-size: 14px;
+    }
+    /* Buttons */
+.buttons {
+    display: flex;
+    gap: 10px;
+    margin-right: 20px;
+    margin-top: 10px;
+}
+
+.donation-button {
+    background-color: #0044cc;
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.admission-button {
+    background-color: #00cc44;
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.donation-button:hover, .admission-button:hover {
+    filter: brightness(90%); /* Slightly darkens the button on hover */
+    transform: scale(1.05); /* Slightly enlarges the button on hover */
+}
+.header-text h1, .header-text h2, .header-text p {
+    
+    padding-left: 10px;
+}
+}

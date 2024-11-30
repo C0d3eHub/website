@@ -1,0 +1,119 @@
+{% extends 'base.html' %}
+
+{% block breadcrumb %}
+    <li class="breadcrumb-item active" aria-current="page">Trades</li>
+{% endblock %}
+
+{% block content %}
+<style>
+    /* Styling for the container holding the heading and button */
+    .trades-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 10px;
+    }
+
+    /* Styling for the trades heading */
+    .trades-heading {
+        font-size: clamp(1.5rem, 2.5vw, 2rem); /* Responsive font size */
+        font-weight: bold;
+        color: #2c3e50;
+    }
+
+    /* Styling for the button */
+    .detail-trade-button {
+        background-color: #2980b9;
+        color: #fff;
+        font-size: clamp(0.9rem, 1.5vw, 1rem); /* Responsive font size */
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        text-decoration: none;
+        transition: background-color 0.3s ease;
+    }
+
+    /* Hover effect for the button */
+    .detail-trade-button:hover {
+        background-color: #1a5276;
+    }
+
+    /* Styling for the trade items container */
+    .trades-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        justify-content: center;
+    }
+
+    /* Styling for individual trade items */
+    .trade-item {
+        background-color: #f9f9f9;
+        padding: 20px;
+        border-radius: 8px;
+        width: clamp(300px, 45%, 500px); /* Dynamic width */
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+    }
+
+    /* Hover effect for each trade item */
+    .trade-item:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+    }
+
+    /* Styling for the trade name (heading) */
+    .trade-name {
+        font-size: clamp(1.2rem, 2vw, 1.5rem); /* Responsive font size */
+        font-weight: bold;
+        color: #2980b9;
+        margin-bottom: 15px;
+    }
+
+    /* Styling for the trade description */
+    .trade-description {
+        font-size: clamp(0.9rem, 1.5vw, 1rem); /* Responsive font size */
+        color: #7f8c8d;
+        line-height: 1.5;
+    }
+
+    /* Responsive design for mobile screens */
+    @media (max-width: 768px) {
+        .trade-item {
+            width: 100%; /* Full width for small screens */
+            padding: 15px;
+        }
+
+        .trades-heading {
+            font-size: 1.5rem;
+        }
+
+        .detail-trade-button {
+            font-size: 0.9rem;
+            padding: 8px 10px;
+        }
+    }
+
+    /* Responsive design for tablets (smaller screens) */
+    @media (max-width: 1024px) {
+        .trade-item {
+            width: 100%; /* Adjust to one column for better viewability */
+        }
+    }
+</style>
+
+<div class="trades-header">
+    <h2 class="trades-heading">Trades</h2>
+    <a href="{% url 'detailtrade' %}" class="detail-trade-button">View Details</a>
+</div>
+
+<div class="trades-list">
+    {% for trade in trades %}
+        <div class="trade-item">
+            <h3 class="trade-name">{{ trade.name }}</h3>
+            <p class="trade-description">{{ trade.description }}</p>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}

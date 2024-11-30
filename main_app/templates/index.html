@@ -1,0 +1,113 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block breadcrumb %}
+    <li class="breadcrumb-item active" aria-current="page">Index </li>
+{% endblock %}
+
+{% block content %}
+<!-- Content Section -->
+<div class="content">
+    <div class="news-alerts">
+        <div class="news-list">
+            <h2 style="margin: 0; padding: 0; text-align: center;">News and Alerts</h2>
+            {% for news in news_alerts %}
+                <div class="news-item">
+                    <h3>{{ news.title }}</h3>
+                    <p style="color: black;">{{ news.published_date }}</p>
+                    <marquee direction="left">
+                        <p>{{ news.content }}</p>
+                        {% if news.attachment %}
+                            <p><a href="{{ news.attachment.url }}">Download Attachment</a></p>
+                        {% endif %}
+                    </marquee>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="photo-slider">
+        <div class="slider">
+            {% for image in images %}
+        {% if forloop.first %}
+        <img src="{{ image.image.url }}" alt="Slider Image" style="display: block;">
+     {% else %}
+            <img src="{{ image.image.url }}" alt="Slider Image" style="display: none;">
+     {% endif %}
+    {% endfor %}
+
+
+
+        </div>
+
+        <div class="navigation">
+            <button class="prev" onclick="showPreviousImage()">&#10094;</button>
+            <button class="next" onclick="showNextImage()">&#10095;</button>
+        </div>
+
+        <div class="indicator">
+            {% for image in images %}
+                <span class="dot" onclick="currentSlide('{{ forloop.counter }}')"></span>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="principal-desk">
+        {% if principal_desk_posts %}
+            {% with post=principal_desk_posts.0 %}
+                {% if post.image %}
+                    <img src="{{ post.image.url }}" alt="Principal Image" class="principal-image">
+                {% else %}
+                    <img src="{% static 'images/default_principal_image.jpg' %}" alt="Default Principal Image" class="principal-image">
+                {% endif %}
+                <h2 class="principal-header">Principal's Desk</h2>
+                <div class="principal-post">
+                    <h3>{{ post.title }}</h3>
+                    <p style="color: black;">{{ post.published_date }}</p>
+                    <p style="text-align: justify;">{{ post.content }}</p>
+                </div>
+            {% endwith %}
+        {% endif %}
+    </div>
+</div>
+
+<!-- Circular Images Section -->
+<div class="circular-images-section">
+    <h2 class="h2cir">Explore Our Programs</h2>
+    <div class="circular-images">
+        <div class="card">
+            <img src="{% static 'images/institute_trades.jpg' %}" alt="Institute Trades">
+            <h3>Institute Trades</h3>
+            <p>Learn about the various trades offered at our institute.</p>
+            <a href="{% url 'trades' %}" class="know-more-button">Know More</a>
+        </div>
+        <div class="card">
+            <img src="{% static 'images/apprenticeship.jpg' %}" alt="Apprenticeship">
+            <h3>Apprenticeship</h3>
+            <p>Discover our apprenticeship programs and how to apply.</p>
+            <a href="{% url 'ats' %}" class="know-more-button">Know More</a>
+        </div>
+        <div class="card">
+            <img src="{% static 'images/placement.jpg' %}" alt="Placement">
+            <h3>Placement</h3>
+            <p>Find out about our placement assistance for students.</p>
+            <a href="{% url 'placement' %}" class="know-more-button">Know More</a>
+        </div>
+        <div class="card">
+            <img src="{% static 'images/on_job_training.jpg' %}" alt="On Job Training">
+            <h3>On Job Training</h3>
+            <p>Explore our on-the-job training opportunities.</p>
+            <a href="{% url 'ojt' %}" class="know-more-button">Know More</a>
+        </div>
+        <div class="card">
+            <img src="{% static 'images/eca.jpg' %}" alt="ECA">
+            <h3>Extra Curricular Activities</h3>
+            <p>Explore our Extra Curricular Activities.</p>
+            <a href="{% url 'eca' %}" class="know-more-button">Know More</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+    <script src="{% static 'js/script.js' %}"></script>
+{% endblock %}
