@@ -30,6 +30,12 @@ from .forms import (
 # Utilities
 from .utils import get_header_content
 
+#view for qpr
+# views.py
+from django.shortcuts import render
+
+def qpr_view(request):
+    return render(request, 'qpr.html')
 
 # Header content view
 from django.shortcuts import render, redirect
