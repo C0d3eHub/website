@@ -1,0 +1,3149 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>QPR WebApp</title>
+  <!-- <link rel="stylesheet" href="styles.css"> -->
+   <style>
+    /* Global Styles */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background: linear-gradient(to right, #ffecd2 0%, #fcb69f 100%);
+}
+
+header {
+  background: #34495e;
+  color: white;
+  padding: 1rem;
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.content-wrapper {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+.sidebar {
+  width: 25%;
+  background: #2c3e50;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem 1rem;
+  gap: 1.5rem;
+}
+
+.sidebar button {
+  background: #3498db;
+  border: none;
+  padding: 1rem;
+  width: 100%;
+  color: #fff;
+  font-size: 1rem;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.sidebar button:hover {
+  background: #2980b9;
+  transform: scale(1.05);
+}
+
+.main-content {
+  width: 75%;
+  padding: 2rem;
+  overflow-y: auto;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.content-section {
+  display: none;
+  margin-bottom: 2rem;
+  padding: 1rem;
+  border-radius: 15px;
+  background: #ffffffc2;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.content-section.active {
+  display: block;
+}
+
+h2 {
+  font-size: 2rem;
+  color: #333;
+}
+
+.three-column {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin-top: 1rem;
+}
+.two-column {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  margin-top: 1rem;
+}
+.report-box {
+  background: #f1c40f;
+  padding: 1rem;
+  border-radius: 10px;
+  text-align: center;
+  font-weight: bold;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+.report-box:nth-child(2) {
+  background: #2ecc71;
+  color: #fff;
+}
+
+.report-box:nth-child(3) {
+  background: #e74c3c;
+  color: #fff;
+}
+
+.summary-table {
+  width: 100%;
+  margin-top: 2rem;
+  border-collapse: collapse;
+  background: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.summary-table th,
+.summary-table td {
+  padding: 1rem;
+  border-bottom: 1px solid #ddd;
+  text-align: center;
+}
+
+.summary-table th {
+  background: #34495e;
+  color: white;
+}
+
+  /* Fixed Reports Section Styles */
+  /* Fixed Reports Section Styles */
+.fixed-reports .three-column {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.fixed-reports .report-box {
+  background: #f9f9f9;
+  padding: 2rem;
+  border-radius: 15px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  text-align: left;
+  color: #333;
+  font-weight: bold;
+  position: relative;
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease;
+}
+
+.fixed-reports .report-box:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.fixed-reports .report-box h3 {
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+  color: #34495e;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2); /* Text shadow for better readability */
+}
+
+.fixed-reports .report-box ul {
+  list-style: none;
+  padding: 0;
+}
+
+.fixed-reports .report-box ul li {
+  font-size: 1.1rem;
+  color: #2c3e50; /* Darker color for better contrast */
+  margin-bottom: 0.8rem;
+  line-height: 1.5;
+}
+
+/* Color Variations for Different Report Boxes */
+.fixed-reports .report-box:nth-child(1) {
+  background: #f6d365; /* Soft Yellow */
+  background: linear-gradient(135deg, #f6d365 0%, #fda085 100%); /* Gradient: Yellow to Peach */
+  color: #2c3e50; /* Dark text color for contrast */
+}
+
+.fixed-reports .report-box:nth-child(1) h3 {
+  color: #2c3e50; /* Dark text color */
+}
+
+.fixed-reports .report-box:nth-child(2) {
+  background: #a8e063; /* Light Green */
+  background: linear-gradient(135deg, #a8e063 0%, #56ab2f 100%); /* Gradient: Light Green to Dark Green */
+  color: #2c3e50; /* Dark text color for contrast */
+}
+
+.fixed-reports .report-box:nth-child(2) h3 {
+  color: #2c3e50; /* Dark text color */
+}
+
+.fixed-reports .report-box:nth-child(3) {
+  background: #ff6a00; /* Warm Orange */
+  background: linear-gradient(135deg, #ff6a00 0%, #ee0979 100%); /* Gradient: Orange to Pink */
+  color: #2c3e50; /* Dark text color for contrast */
+}
+
+.fixed-reports .report-box:nth-child(3) h3 {
+  color: #2c3e50; /* Dark text color */
+}
+
+/* Mobile Adjustments */
+@media (max-width: 768px) {
+  .fixed-reports .three-column {
+    grid-template-columns: 1fr;
+  }
+  
+  .fixed-reports .report-box {
+    padding: 1.5rem;
+  }
+  
+  .fixed-reports .report-box ul li {
+    font-size: 1rem;
+  }
+  
+  .fixed-reports .report-box h3 {
+    font-size: 1.3rem;
+  }
+}
+
+/* Chart Section */
+.chart-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.7fr 1fr; /* Three equal columns */
+  margin-top: 2rem;
+}
+
+.chart-section {
+  grid-column: 2; /* Center column */
+}
+/* CHART SECTION TWEAKS */
+.chart-section {
+  margin-top: 2rem;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+}
+
+.chart-section canvas {
+  width: 100%;
+  max-width: 400px;  /* Make chart smaller */
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* OPTIONAL: Animate the chart in */
+@keyframes popIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.chart-section canvas {
+  animation: popIn 0.6s ease-in-out;
+}
+
+
+
+@media (max-width: 768px) {
+  .content-wrapper {
+    flex-direction: column;
+  }
+
+  .sidebar,
+  .main-content {
+    width: 100%;
+  }
+
+  .three-column {
+    grid-template-columns: 1fr;
+  }
+
+  .report-box {
+    margin-bottom: 1rem;
+  }
+
+  .summary-table th,
+  .summary-table td {
+    padding: 0.8rem;
+  }
+
+  .fixed-reports .three-column {
+    grid-template-columns: 1fr;
+  }
+
+  .sidebar {
+    padding: 1rem;
+  }
+
+  .sidebar button {
+    font-size: 0.9rem;
+    padding: 0.8rem;
+  }
+
+  header {
+    font-size: 1.3rem;
+  }
+}
+
+@media (max-width: 480px) {
+  header {
+    font-size: 1.2rem;
+  }
+
+  .sidebar button {
+    font-size: 0.8rem;
+    padding: 0.7rem;
+  }
+
+  .report-box {
+    padding: 0.8rem;
+  }
+}
+/* income css */
+#income {
+    padding: 20px;
+    background-color: #f4f4f9;
+}
+
+.income-columns {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.income-column {
+    width: 30%;
+    background-color: #ffffff;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+h3 {
+    margin-top: 0;
+}
+
+.add-numberbox-btn {
+    padding: 5px 10px;
+    margin-bottom: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.add-numberbox-btn:hover {
+    background-color: #45a049;
+}
+
+.numberbox-container {
+    margin-bottom: 15px;
+}
+
+.numberbox-container input {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+p {
+    font-weight: bold;
+}
+
+/* intreset*/
+/* Style the content section */
+.content-section {
+  padding: 20px;
+  margin: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* Style the three-column layout */
+.interest-columns {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.interest-column {
+  flex: 1;
+  padding: 15px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #ffffff;
+}
+
+h3 {
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+/* Style for number box container */
+.numberbox-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Style for the + button */
+.add-numberbox-btn {
+  display: block;
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 15px;
+  text-align: center;
+  background-color: #3498db;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.add-numberbox-btn:hover {
+  background-color: #2980b9;
+}
+
+/* Style for input fields */
+input[type="number"] {
+  padding: 8px;
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+input[type="number"]:focus {
+  border-color: #3498db;
+}
+
+/* Style for totals and grand total */
+p {
+  font-weight: bold;
+  font-size: 18px;
+}
+
+h3 {
+  font-size: 22px;
+  color: #2ecc71;
+  text-align: center;
+  margin-top: 20px;
+}
+.add-button {
+  width: 32px;
+  height: 32px;
+  border: none;
+  border-radius: 50%;
+  background-color: #2ecc71;
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+  margin-bottom: 10px;
+}
+
+.add-button:hover {
+  background-color: #27ae60;
+  transform: scale(1.1);
+}
+
+.add-button:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(46, 204, 113, 0.5);
+}
+.numberbox-container input[type="number"] {
+  display: block;
+  width: 100%;
+  max-width: 250px;
+  padding: 10px 12px;
+  margin: 10px 0;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.numberbox-container input[type="number"]:focus {
+  border-color: #3498db;
+  outline: none;
+  box-shadow: 0 0 5px rgba(52, 152, 219, 0.3);
+}
+
+ /* expenditure */
+ /* Expenditure Section Styles */
+
+.expenditure-flex {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.expenditure-column {
+  flex: 1;
+  min-width: 300px;
+  background: #f5fafe;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px #ccc;
+}
+
+.expenditure-add-btn {
+  margin-top: 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.expenditure-add-btn:hover {
+  background-color: #0056b3;
+}
+
+.expenditure-column input[type="number"] {
+  width: 90%;
+  padding: 5px;
+  margin-bottom: 8px;
+  display: block;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.expenditure-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #e8f8f8;
+}
+
+.expenditure-table th, .expenditure-table td {
+  border: 1px solid #ddd;
+  text-align: center;
+  padding: 8px;
+}
+
+.expenditure-table th {
+  background-color: #a2e3e3;
+}
+.budget-container {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.budget-container input {
+  background-color: #f0f0f0;
+  font-weight: bold;
+  color: #333;
+}
+/* bank fdr */
+.bank-columns {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.bank-column {
+  flex: 1;
+  background: linear-gradient(135deg, #d4fc79 0%, #96e6a1 100%);
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.bank-column h3 {
+  margin-bottom: 10px;
+  color: #2c3e50;
+}
+
+.bank-numberbox {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border: 2px solid #3498db;
+  border-radius: 10px;
+}
+
+.add-button {
+  margin-bottom: 10px;
+  padding: 8px 12px;
+  border: none;
+  background-color: #3498db;
+  color: #fff;
+  font-weight: bold;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.add-button:hover {
+  background-color: #2980b9;
+}
+
+#grandBankTotal {
+  font-size: 22px;
+  font-weight: bold;
+  color: #1abc9c;
+  margin-top: 20px;
+}
+@keyframes floatUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+#matchMessage {
+  display: none;
+  text-align: center;
+  padding: 15px;
+  background-color: #d4edda;
+  color: #155724;
+  font-size: 20px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
+  animation: floatUp 0.6s ease forwards;
+}
+/* reset button */
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 999;
+  left: 0; top: 0;
+  width: 100%; height: 100%;
+  background-color: rgba(0,0,0,0.5);
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background-color: white;
+  padding: 25px;
+  border-radius: 12px;
+  text-align: center;
+  max-width: 300px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.3);
+}
+
+.modal-icon {
+  font-size: 30px;
+  color: orange;
+  margin-bottom: 10px;
+}
+
+.btn {
+  padding: 8px 16px;
+  margin: 5px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.btn.reset {
+  background-color: #e74c3c;
+  color: white;
+  font-weight: bold;
+  transition: background 0.3s ease;
+}
+
+.btn.reset:hover {
+  background-color: #c0392b;
+}
+
+
+.btn.cancel {
+  background-color: #444;
+  color: white;
+}
+
+/* home */
+.home-header {
+  height: 200px;
+  background: linear-gradient(to right, #fceabb, #f8b500);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 1rem;
+  border-bottom: 3px solid #e6b800;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  flex-direction: column;
+  text-align: center;
+}
+
+.home-card {
+  background: white;
+  padding: 1.5rem 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+  text-align: center;
+  max-width: 800px;
+  width: 100%;
+}
+
+.home-card h1 {
+  margin: 0;
+  font-size: 1.8rem;
+  color: #0f4c5c;
+}
+
+.home-card p {
+  margin: 0.5rem 0;
+  font-size: 1rem;
+  color: #333;
+}
+
+.maintainer {
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.content-section {
+  display: none;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  text-align: center;
+}
+
+#home {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+}
+
+/* New class for toggling visibility */
+.hidden {
+  display: none !important;
+}
+
+/* download */
+.download-section {
+  padding: 2rem;
+  background: linear-gradient(to right, #f9f9f9, #fff);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.download-section h2 {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  color: #0f4c5c;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+}
+
+.annexure-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* Fixed 3-column layout */
+  gap: 2rem;
+  justify-items: center;
+  width: 100%;
+  max-width: 1200px;
+  padding: 1rem;
+}
+
+.annexure-card {
+  padding: 1.5rem;
+  border-radius: 16px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 300px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.annexure-card:nth-child(1) {
+  background: linear-gradient(145deg, #ffeecf, #ffdd99);
+}
+
+.annexure-card:nth-child(2) {
+  background: linear-gradient(145deg, #d0f4de, #b4e6b7);
+}
+
+.annexure-card:nth-child(3) {
+  background: linear-gradient(145deg, #e0f7fa, #b2ebf2);
+}
+
+.annexure-card:nth-child(4) {
+  background: linear-gradient(145deg, #ffccf9, #ff99d4);
+}
+
+.annexure-card:nth-child(5) {
+  background: linear-gradient(145deg, #fff3e6, #ffcc99);
+}
+
+.annexure-card:nth-child(6) {
+  background: linear-gradient(145deg, #e1bee7, #d5a6e6);
+}
+
+.annexure-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+.annexure-card h3 {
+  margin-bottom: 1rem;
+  font-size: 1.4rem;
+  color: #87431d;
+}
+
+.annexure-card button {
+  color: #fff;
+  border: none;
+  padding: 10px 1.2rem;
+  margin: 6px 8px 0 8px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.annexure-card:nth-child(1) button {
+  background: #f8b500; /* Yellow for 1st button */
+}
+
+.annexure-card:nth-child(2) button {
+  background: #67b7d1; /* Blue for 2nd button */
+}
+
+.annexure-card:nth-child(3) button {
+  background: #ff7043; /* Orange for 3rd button */
+}
+
+.annexure-card:nth-child(4) button {
+  background: #9c27b0; /* Purple for 4th button */
+}
+
+.annexure-card:nth-child(5) button {
+  background: #00c853; /* Green for 5th button */
+}
+
+.annexure-card:nth-child(6) button {
+  background: #f44336; /* Red for 6th button */
+}
+
+.annexure-card button:hover {
+  transform: scale(1.05);
+}
+
+@media (max-width: 768px) {
+  .annexure-grid {
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  }
+}
+
+/* annexure-1 table */
+
+  #annexure1 {
+    display: block;
+  }
+  #annexure1 p {
+    margin: 2px 0 0;
+    font-size: 12px;
+  }
+  #annexure1 td, #annexure1 th {
+    text-align: center;
+    vertical-align: middle;
+  }
+
+ /* end of annexure table */
+ /* ennexure-3 */
+
+.annexure-3 {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+}
+
+#a3-expenditure-table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-top: 20px;
+    border: 1px solid #000;
+}
+
+#a3-expenditure-table th,
+#a3-expenditure-table td {
+    border: 1px solid #000;
+    padding: 8px;
+    text-align: left;
+}
+
+#a3-expenditure-table th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+
+#a3-header-row th,
+#a3-subheader-row th {
+    background-color: #e6e6e6;
+}
+
+#a3-formal-title {
+    color: #333;
+    margin-bottom: 10px;
+}
+
+#a3-annual-expenditure-title {
+    color: #444;
+    margin-bottom: 5px;
+}
+
+#a3-consolidated-statement {
+    color: #666;
+    margin-bottom: 15px;
+}
+#a3-expenditure-table th,td{
+  text-align: center;
+}
+.annexure-3 {
+  font-family: Arial, sans-serif;
+  margin: 20px;
+}
+
+#a3-expenditure-table {
+  border-collapse: collapse;
+  width: 100%;
+  margin-top: 20px;
+  border: 1px solid #000;
+}
+
+#a3-expenditure-table caption,
+#a3-expenditure-table th,
+#a3-expenditure-table td {
+  text-align: center;
+  padding: 8px;
+  border: 1px solid #000;
+}
+
+#a3-expenditure-table th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+}
+
+#a3-header-row th,
+#a3-subheader-row th,
+#a3-subheader-row2 th {
+  background-color: #e6e6e6;
+}
+
+/* Specific styling for the header rows */
+#a3-expenditure-table tr:nth-child(1) th,
+#a3-expenditure-table tr:nth-child(2) th,
+#a3-expenditure-table tr:nth-child(3) th {
+  background-color: #d9d9d9;
+  font-size: 1.1em;
+  padding: 10px;
+}
+ /* end of annexure-3 */
+ 
+ /* deletethis */
+ .content-wrapper
+ {
+  overflow: visible;
+ }
+ /* delete :end */
+
+ /* annexure-6 */
+
+ #annexure6 {
+   margin: 20px 0;
+   font-family: Arial, sans-serif;
+ }
+
+ #annexure6 table {
+   width: 100%;
+   border-collapse: collapse;
+   font-size: 14px;
+ }
+
+ #annexure6 th,
+ #annexure6 td {
+   border: 1px solid #444;
+   padding: 8px;
+   text-align: center;
+   vertical-align: middle;
+ }
+
+ #annexure6 thead th {
+   background-color: #f2f2f2;
+   font-weight: bold;
+ }
+
+ #a6-format-title,
+ #a6-scheme-title,
+ #a6-table-title {
+   background-color: #d9edf7;
+   font-size: 16px;
+   font-weight: bold;
+   text-align: center;
+ }
+
+ .a6-sn {
+   background-color: #f9f9f9;
+ }
+
+ .a6-utilization-pct-capital,
+ .a6-utilization-pct-rev {
+   font-weight: bold;
+   color: #2a9d8f;
+ }
+
+ .a6-loan-released,
+ .a6-fund-utilized,
+ .a6-interest-accrued,
+ .a6-revenue-gen {
+   background-color: #fdfcdc;
+ }
+
+ @media screen and (max-width: 768px) {
+   #annexure6 table {
+     font-size: 12px;
+   }
+ }
+
+
+ /* annexure 6 ends  */
+
+/* trade unit css */
+
+.tradeunit-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.tradeunit-column {
+  background-color: #f2f8ff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.tradeunit-column h3, .tradeunit-column h4 {
+  color: #2c3e50;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.tradeunit-column label {
+  display: block;
+  margin-top: 10px;
+  font-weight: 600;
+  color: #34495e;
+}
+
+.tradeunit-column input {
+  width: 100%;
+  padding: 8px 10px;
+  margin-top: 5px;
+  border: 1px solid #ccd6dd;
+  border-radius: 6px;
+  font-size: 14px;
+  transition: border-color 0.3s;
+}
+
+.tradeunit-column input:focus {
+  outline: none;
+  border-color: #3498db;
+  background-color: #ecf6fc;
+}
+.year-line {
+  font-weight: 500;
+  color: #2c3e50;
+  margin: 4px 0;
+}
+
+
+/* trade unit css end here */
+
+/* header start here */
+
+.qpr-header {
+  background: linear-gradient(to right, #4b6cb7, #182848);
+  color: white;
+  padding: 15px 20px;
+  font-size: 20px;
+  font-family: 'Segoe UI', sans-serif;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  border-radius: 8px;
+}
+
+.qpr-header .title {
+  font-weight: bold;
+  font-size: 22px;
+}
+
+.dropdown-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.small-dropdown {
+  padding: 4px 8px;
+  font-size: 14px;
+  border-radius: 4px;
+  border: none;
+  background-color: #fff;
+  color: #333;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.range-label {
+  font-size: 14px;
+  color: #ffecb3;
+  background-color: rgba(255, 255, 255, 0.15);
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+
+
+/* header end here */
+/* excel button */
+.excel-button {
+  background-color: #28a745; /* Excel green */
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  margin-top: 10px;
+}
+
+.excel-button:hover {
+  background-color: #218838;
+  transform: scale(1.05);
+}
+
+.excel-button:active {
+  transform: scale(0.97);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+/* end excel button */
+   </style>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <header class="qpr-header">
+    <span class="title">QPR App by Shekhar Sharma</span>
+  
+    <div class="dropdown-wrapper">
+      <select id="year" class="dropdown small-dropdown"></select>
+      <select id="quarter" class="dropdown small-dropdown">
+        
+        <option value="Q1">Q1</option>
+        <option value="Q2">Q2</option>
+        <option value="Q3">Q3</option>
+        <option value="Q4">Q4</option>
+      </select>
+      <span id="quarterRange" class="range-label">April - June</span>
+      <p id="selectedOutput" class="selected-output" style="display: none;">January - March 2025</p>
+
+    </div>
+  </header>
+  
+  
+  
+  <div class="content-wrapper">
+    <div class="sidebar">
+      <button onclick="showSection('home')">Home</button>
+      <button onclick="showSection('income')">Income</button>
+      <button onclick="showSection('interest')">Interest</button>
+      <button onclick="showSection('expenditure')">Expenditure</button>
+      <button onclick="showSection('bank')">As per Bank</button>
+      <button onclick="showSection('tradeunit')">Trades Result and Detail</button>
+      <button onclick="showSection('download')">Download Reports</button>
+      <button onclick="openResetModal()">Reset</button>
+    </div>
+    <!-- Reset Button -->
+
+
+<!-- Confirmation Modal -->
+<div id="resetModal" class="modal">
+  <div class="modal-content">
+    <div class="modal-icon">❗</div>
+    <h2>Are you sure?</h2>
+    <p>This will clear all inputs!</p>
+    <button class="btn reset" onclick="resetAllInputs()">Yes, Reset!</button>
+    <button class="btn cancel" onclick="closeResetModal()">Cancel</button>
+  </div>
+</div>
+
+    <div class="main-content">
+      <div id="home" class="content-section home-header" >
+        <div class="home-card">
+          <h1>Welcome to the QPR Management App</h1>
+          <p>This web application helps manage Quarterly Progress Reports (QPR) efficiently.</p>
+          <p class="maintainer">Created and maintained by <strong>Shekhar Sharma</strong></p>
+        </div>
+      </div>
+      
+      
+      
+      
+
+      <!-- INCOME SECTION -->
+      <div id="income" class="content-section">
+        <h2>Income Details</h2>
+        <div class="income-columns">
+          <div class="income-column">
+            <h3>Income Till Last Financial Year</h3>
+            <button class="add-button" onclick="addNumberBox('lastFinancialYear')">+</button>
+            <div class="budget-container">
+              <input type="number" id="budgetAllotted" class="numberbox-container" value="25000000" readonly />
+            </div>  
+            <div id="lastFinancialYear"><input type="number" class="numberbox-container" oninput="updateTotal('lastFinancialYear')" /></div>
+            <p>Total: ₹<span id="totalLastFinancialYear">0</span></p>
+          </div>
+          <div class="income-column">
+            <h3>Income Till Last Quarter</h3>
+            <button class="add-button" onclick="addNumberBox('lastQuarter')">+</button>
+            <div id="lastQuarter"><input type="number" class="numberbox-container" oninput="updateTotal('lastQuarter')" /></div>
+            <p>Total: ₹<span id="totalLastQuarter">0</span></p>
+          </div>
+          <div class="income-column">
+            <h3>Income In This Quarter</h3>
+            <button class="add-button" onclick="addNumberBox('thisQuarter')">+</button>
+            <div id="thisQuarter"><input type="number"class="numberbox-container"  oninput="updateTotal('thisQuarter')" /></div>
+            <p>Total: ₹<span id="totalThisQuarter">0</span></p>
+          </div>
+        </div>
+        <h3>Grand Total: ₹<span id="grandTotal">0</span></h3>
+      </div>
+
+      <!-- INTEREST SECTION -->
+      <div id="interest" class="content-section">
+        <h2>Interest</h2>
+        <div class="interest-columns">
+          <div class="interest-column">
+            <h3>Interest Till Last Financial Year</h3>
+            <button class="add-button" onclick="addInterestNumberBox('interest-lastFinancialYear')">+</button>
+            <div id="interest-lastFinancialYear">
+              <input type="number" class="numberbox-container" oninput="updateInterestTotal('interest-lastFinancialYear')" />
+            </div>
+            <p>Total: ₹<span id="total-interest-lastFinancialYear">0</span></p>
+          </div>
+          <div class="interest-column">
+            <h3>Interest Till Last Quarter</h3>
+            <button class="add-button" onclick="addInterestNumberBox('interest-lastQuarter')">+</button>
+            <div id="interest-lastQuarter" class="numberbox-container">
+              <input type="number" class="numberbox-container" oninput="updateInterestTotal('interest-lastQuarter')" />
+            </div>
+            <p>Total: ₹<span id="total-interest-lastQuarter">0</span></p>
+          </div>
+          <div class="interest-column">
+            <h3>Interest In This Quarter</h3>
+            <button class="add-button" onclick="addInterestNumberBox('interest-thisQuarter')">+</button>
+            <div id="interest-thisQuarter">
+              <input class="numberbox-container" type="number" oninput="updateInterestTotal('interest-thisQuarter')" />
+            </div>
+            <p>Total: ₹<span id="total-interest-thisQuarter">0</span></p>
+          </div>
+        </div>
+        <h3>Grand Total: ₹<span id="interestGrandTotal">0</span></h3>
+      </div>
+
+      <div id="expenditure" class="content-section">
+        <h2>Expenditure</h2>
+      
+        <div class="expenditure-flex">
+          <!-- Column 1 -->
+          <div class="expenditure-column">
+            <h3>Expenditure Till Last Financial Year</h3>
+            <div id="expenditure-tlfy-inputs">
+              <input type="number" class="expenditure-tlfy-input" oninput="updateExpenditureTotals()" />
+            </div>
+            <button onclick="addExpenditureInput('tlfy')" class="expenditure-add-btn">+</button>
+            <p>Total: ₹<span id="expenditure-tlfy-total">0</span></p>
+          </div>
+      
+          <!-- Column 2 -->
+          <div class="expenditure-column">
+            <h3>Expenditure Till Last Quarter</h3>
+            <div id="expenditure-tlq-inputs">
+              <input type="number" class="expenditure-tlq-input" oninput="updateExpenditureTotals()" />
+            </div>
+            <button onclick="addExpenditureInput('tlq')" class="expenditure-add-btn">+</button>
+            <p>Total: ₹<span id="expenditure-tlq-total">0</span></p>
+          </div>
+      
+          <!-- Column 3 -->
+          <div class="expenditure-column">
+            <h3>Expenditure In This Quarter</h3>
+            <table class="expenditure-table">
+              <thead>
+                <tr>
+                  <th>S. No.</th>
+                  <th>Type of Expenditure</th>
+                  <th>Description</th>
+                  <th>Expenditure (Rs.)</th>
+                </tr>
+              </thead>
+              <tbody id="expenditure-thisq-table">
+                <tr>
+                  <td>1</td>
+                  <td>Civil Works</td>
+                  <td>--</td>
+                  <td><input type="number" class="expenditure-thisq-input" id="e1" oninput="updateExpenditureTotals();updateFinalTableBalance()" /></td>
+                </tr>
+                <tr>
+                  <td>2</td>
+                  <td>Tools, Machinery & Equipment</td>
+                  <td>M&E for new trades</td>
+                  <td><input type="number" class="expenditure-thisq-input" id="e2" oninput="updateExpenditureTotals()" /></td>
+                </tr>
+                <tr>
+                  <td>3</td>
+                  <td>Furniture & Furnishing</td>
+                  <td>Furniture for new trades</td>
+                  <td><input type="number" class="expenditure-thisq-input" id="e3" oninput="updateExpenditureTotals()" /></td>
+                </tr>
+                <tr>
+                  <td>4</td>
+                  <td>Books and Learning Resources</td>
+                  <td>--</td>
+                  <td><input type="number" class="expenditure-thisq-input" id="e4" oninput="updateExpenditureTotals()" /></td>
+                </tr>
+                <tr>
+                  <td>5</td>
+                  <td>Additional Man Power</td>
+                  <td>Remuneration/Honorarium to Staff</td>
+                  <td><input type="number" class="expenditure-thisq-input" id="e5" oninput="updateExpenditureTotals()" /></td>
+                </tr>
+                <tr>
+                  <td>6</td>
+                  <td>Consumables, Maintenance and Training Material</td>
+                  <td>Material for training, maintenance etc.</td>
+                  <td><input type="number" class="expenditure-thisq-input" id="e6" oninput="updateExpenditureTotals()" /></td>
+                </tr>
+                <tr>
+                  <td>7</td>
+                  <td>Miscellaneous Expenditure</td>
+                  <td>Rent, T.A., Bill etc.</td>
+                  <td><input type="number" class="expenditure-thisq-input" id="e7" oninput="updateExpenditureTotals()" /></td>
+                </tr>
+                <td>8</td>
+                  <td>Fund utilized from the interest/ revenue</td>
+                  <td>interest/ revenue</td>
+                  <td><input type="number" class="expenditure-thisq-input" id="e8" oninput="updateExpenditureTotals()" /></td>
+                </tr>
+              </tbody>
+            </table>
+            <p>Total: ₹<span id="expenditure-thisq-total">0</span></p>
+          </div>
+        </div>
+      
+        <hr />
+        <h3>Grand Total: ₹<span id="expenditure-grand-total">0</span></h3>
+      </div>
+      
+      
+      
+      <div id="bank" class="content-section">
+        <h2>As per Bank</h2>
+        <div class="bank-columns">
+      
+          <!-- Bank Balance Column -->
+          <div class="bank-column">
+            <h3>Bank Balance</h3>
+            <button class="add-button" onclick="addBankNumberBox('bankBalanceSection')">+</button>
+            <div id="bankBalanceSection">
+              <input type="number" class="bank-numberbox" oninput="updateBankTotal('bankBalanceSection')" placeholder="Enter Bank Balance" />
+            </div>
+            <p>Total Bank Balance: ₹<span id="bankBalanceTotal">0</span></p>
+          </div>
+      
+          <!-- FDR Balance Column -->
+          <div class="bank-column">
+            <h3>FDR Balance</h3>
+            <button class="add-button" onclick="addBankNumberBox('fdrBalanceSection')">+</button>
+            <div id="fdrBalanceSection">
+              <input type="number" class="bank-numberbox" oninput="updateBankTotal('fdrBalanceSection')" placeholder="Enter FDR Balance" />
+            </div>
+            <p>Total FDR Balance: ₹<span id="fdrBalanceTotal">0</span></p>
+          </div>
+      
+        </div>
+      
+        <!-- Grand Total -->
+        <h3>Grand Total (Bank + FDR): ₹<span id="grandBankTotal">0</span></h3>
+      </div>
+      <!-- tradeunit start here -->
+      <div id="tradeunit" class="content-section" >
+        
+        <h2 class="section-title">Trade Unit Details</h2>
+        <div class="tradeunit-grid">
+        
+          <!-- Column 1 -->
+          <div class="tradeunit-column">
+            <h3>General Information</h3>
+            <label>1) Corresponding intake capacity (incl. supernumerary)</label>
+            <input type="number" id="tdetail-intake-capacity" oninput="updateExpenditureTotals()">
+            <label>2) Candidates Appeared (last financial year)</label>
+            <input type="number" id="tdetail-candidates-appeared" oninput="updateExpenditureTotals()">
+            <label>3) Candidates Passed (last financial year)</label>
+            <input type="number" id="tdetail-candidates-passed" oninput="updateExpenditureTotals()">
+            <label>4) Total seats available for admission (last financial year)</label>
+            <input type="number" id="tdetail-total-seats-available" oninput="updateExpenditureTotals()">
+            <label>5) Seats with fee > Rs. 5000/-</label>
+            <input type="number" id="tdetail-seats-fee-above-5000" oninput="updateExpenditureTotals()">
+            <label>6) Seats actually filled with fee > Rs. 5000/-</label>
+            <input type="number" id="tdetail-seats-filled-fee-above-5000" oninput="updateExpenditureTotals()">
+          </div>
+        
+          <!-- Column 2 -->
+          <div class="tradeunit-column">
+            <h3>At the Time of Release of Loan</h3>
+            <label>1) Total number of trades</label>
+            <input type="number" value=2 disabled id="tdetail-trades-at-release">
+            <label>2) Total number of units (all trades)</label>
+            <input type="number" value="2" disabled id="tdetail-units-at-release">
+            <label>3) Seating capacity</label>
+            <input type="number" value="47" disabled id="tdetail-seating-capacity-at-release">
+            <label>4) Total Seats Filled</label>
+            <input type="number" value="45" disabled id="tdetail-seats-filled-at-release">
+            <label>5) Total Passout</label>
+            <input type="number" value="26" disabled id="tdetail-passout-at-release">
+            <button class="excel-button" onclick="updateExpenditureTotals()">Add Data to Excel</button>
+
+        
+            <h3>As on Date</h3>
+            <label>1) Total number of trades (as on date)</label>
+            <input type="number" id="tdetail-trades-current" oninput="updateExpenditureTotals()">
+            <label>2) Total units available (as on date)</label>
+            <input type="number" id="tdetail-units-current" oninput="updateExpenditureTotals()">
+            <label>3) Total seating capacity (as on date)</label>
+            <input type="number" id="tdetail-seating-capacity-current" oninput="updateExpenditureTotals()">
+          </div>
+        
+          <!-- Column 3 -->
+          <div class="tradeunit-column">
+            <h3>Last 3 Years Summary</h3>
+        
+            <h4><p id="yearDisplay1" class="year-line">Last Year: <span></span></p></h4>
+            <label>1) Total seats available</label>
+            <input type="number" id="tdetail-ava-lastyear" oninput="updateExpenditureTotals()">
+            <label>2) Total seats Filled</label>
+            <input type="number" id="tdetail-fill-lastyear" oninput="updateExpenditureTotals()">
+            <label>3) Total Passed</label>
+            <input type="number" id="tdetail-passcount-lastyear" oninput="updateExpenditureTotals()">
+        
+            <h4><p id="yearDisplay2" class="year-line">Year: <span></span></p></h4>
+            <label>1) Total seats available</label>
+            <input type="number" id="tdetail-ava-last2" oninput="updateExpenditureTotals()">
+            <label>2) Total seats filled</label>
+            <input type="number" id="tdetail-fill-last2" oninput="updateExpenditureTotals()">
+            <label>3) Total Passed</label>
+            <input type="number" id="tdetail-passcount-last2" oninput="updateExpenditureTotals()">
+        
+            <h4><p id="yearDisplay3" class="year-line">Year: <span></span></p></h4>
+            <label>1) Total seats Available</label>
+            <input type="number" id="tdetail-ava-last3" oninput="updateExpenditureTotals()">
+            <label>2) Total seats filled</label>
+            <input type="number" id="tdetail-fill-last3" oninput="updateExpenditureTotals()">
+            <label>3) Total Passed</label>
+            <input type="number" id="tdetail-passcount-last3" oninput="updateExpenditureTotals()">
+          </div>
+        
+        </div>
+      </div>
+      
+      
+      
+      <!-- trade unit end here -->
+      
+      
+      <!-- download stat here -->
+      <div id="download" class="content-section download-section" style="display: none;">
+        <h2>Download Reports</h2>
+        <div class="download-grid">
+          <div class="annexure-grid">
+            <div class="annexure-card">
+              <h3>Annexure I</h3>
+              <button onclick="generateDownload('Annexure I', 'excel')">Download Excel</button>
+              <button onclick="generateDownload('Annexure I', 'pdf')">Download PDF</button>
+            </div>
+            <div class="annexure-card">
+              <h3>Annexure II</h3>
+              <button onclick="generateDownload('Annexure II', 'excel')">Download Excel</button>
+              <button onclick="generateDownload('Annexure II', 'pdf')">Download PDF</button>
+            </div>
+            <div class="annexure-card">
+              <h3>Annexure III</h3>
+              <button onclick="generateDownload('Annexure III', 'excel')">Download Excel</button>
+              <button onclick="generateDownload('Annexure III', 'pdf')">Download PDF</button>
+            </div>
+            
+            <div class="annexure-card">
+              <h3>Annexure IV</h3>
+              <button onclick="generateDownload('Annexure IV', 'excel')">Download Excel</button>
+              <button onclick="generateDownload('Annexure IV', 'pdf')">Download PDF</button>
+            </div>
+            <div class="annexure-card">
+              <h3>Annexure V</h3>
+              <button onclick="generateDownload('Annexure V', 'excel')">Download Excel</button>
+              <button onclick="generateDownload('Annexure V', 'pdf')">Download PDF</button>
+            </div>
+            <div class="annexure-card">
+              <h3>Annexure VI</h3>
+              <button onclick="generateDownload('Annexure VI', 'excel')">Download Excel</button>
+              <button onclick="generateDownload('Annexure VI', 'pdf')">Download PDF</button>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+      
+      
+      
+
+      <!-- SUMMARY -->
+      <div class="all-data-view content-section" style="display: block;">
+        <h2>All Data View</h2>
+        <div class="three-column">
+          <div class="report-box">Income ₹<span id="incomeTotal">0</span></div>
+          <div class="report-box">Total Interest: ₹<span id="interestReportTotal">0</span></div>
+          <div class="report-box">Expenditure: ₹<span id="report-expenditure-total">0</span></div>
+        </div>
+      </div>
+
+      <div class="fixed-reports content-section" style="display: block;">
+        <h2>Fixed Reports</h2>
+        
+          <div id="matchMessage" style="display:none; text-align:center; padding:15px; background-color:#d4edda; color:#155724; font-size:20px; border-radius:10px; margin-bottom:20px; box-shadow: 0px 4px 10px rgba(0,0,0,0.1);">
+            🎉 Congratulations! Your QPR and Bank Balance Match Perfectly! 🎉
+          </div>
+          <div class="two-column">
+          <div class="report-box">
+            <h3>As per Total QPR</h3>
+            <ul>
+              <li>Total Income: ₹<span id="incomeListTotal">0</span></li>
+              <li>Total Interest: ₹<span id="interestListTotal">0</span></li>
+              <li>Total Expenditure : ₹<span id="li-expenditure-total">0</span></li>
+              <li>Balance as per QPR: ₹<span id="balanceQPR">0</span></li>
+            </ul>
+          </div>
+          <div class="report-box">
+            <h3>As per Bank</h3>
+            <ul>
+              <li>Total of Bank: ₹<span id="bankListTotal">0</span></li>
+              <li>Total of FDR: ₹<span id="fdrListTotal">0</span></li>
+              <li>Balance as per Banks: ₹<span id="bankGrandListTotal">0</span></li>
+            </ul>
+            
+          </div>
+          
+        </div>
+      </div>
+      
+      <div class="chart-grid">
+        <div class="chart-section content-section" style="display: block;">
+          <h2>Financial Overview Chart</h2>
+          <canvas id="qprChart" width="400" height="200"></canvas>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+  <!-- annexure-1 -->
+  <div id="annexure1" class="annexure1" style="display: none;">
+    <table border="1" cellspacing="0" cellpadding="5" >
+      <thead>
+        <tr>
+          <th colspan="16">Format 1</th>
+        </tr>
+        <tr>
+          <th colspan="16">Report For the Quarter ending <span id="a1yerdisplay"></span></th>
+        </tr>
+        <tr>
+          <th>Unique Code</th>
+          <th>State/UT</th>
+          <th>S.No</th>
+          <th>Name of the ITI</th>
+          <th>Financial Year in which the interest free loan was released</th>
+          <th>Amount released (in Rupees)</th>
+          <th>Interest received till the beginning of current Financial Year</th>
+          <th>Revenue generated till last Financial Year</th>
+          <th>Expenditure incurred till the end of last Financial Year</th>
+          <th>Opening Balance for current financial year</th>
+          <th>Revenue generated in this Financial Year</th>
+          <th>Expenditure incurred till last quarter of current financial year</th>
+          <th>Expenditure incurred in this quarter</th>
+          <th>Total expenditure incurred</th>
+          <th>Balance fund available at the end of this quarter</th>
+          <th>Amount Kept as Seed Money</th>
+        </tr>
+        <tr>
+          <th></th>
+          <th></th>
+          <th>1.</th>
+          <th>2.</th>
+          <th>3.</th>
+          <th>4.</th>
+          <th>5.</th>
+          <th>6.</th>
+          <th>7.</th>
+          <th>8=4+5+6-7</th>
+          <th>9.</th>
+          <th>10.</th>
+          <th>11.</th>
+          <th>12=10+11</th>
+          <th>13=(8+9)-(12)</th>
+          <th></th>
+          
+        </tr>
+
+      </thead>
+      <tbody>
+        <!-- Data row -->
+        <tr>
+          <td>1396HP08090399</td>
+          <td>Himachal Pradesh</td>
+          <td>308</td>
+          <td>ITI, Rajgarh</td>
+          <td id="release-yr">2008--09</td>
+          <td id="base-amount">25000000</td> 
+          <td><span id="total-interest-lastFinancialYear1">0</span></td> 
+          <td><span id="totalLastFinancialYear1">0</span></td> 
+          <td><span id="expenditure-tlfy-total1">0</span></td> 
+          <td id="final-tablebalance">0</td> 
+          
+          <td id="rev-this-fy">0</td> 
+          <td id="td-expenditure-tlq">0</td> 
+          <td id="td-expenditure-thisq">0</td> 
+          <td id="td-expenditure-total-sum">0</td> 
+          <td id="td-final-balance">0</td> 
+          
+          <td>50</td> 
+        </tr>
+        <tr style="height: 15px; border: none;"><td colspan="16" ></td></tr>
+        <tr style="height: 15px; border: none;"><td colspan="16"></td></tr>
+        <tr style="height: 15px; border: none;"><td colspan="16"></td></tr>
+        <tr><td colspan="13"></td>
+        <td>Principal</td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr><td colspan="13"></td>
+        <td>Govt ITI Rajgarh</td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr><td colspan="13"></td>
+        <td>Distt Sirmour (H.P)</td>
+        <td></td>
+        <td></td>
+      </tr>
+        
+  
+        
+      </tbody>
+    </table>
+  
+  </div>
+  <!-- end of ennexure-1 -->
+  
+
+  <!-- annexure-2 -->
+  <div id="annexure2" class="annexure2" style="display: none;" >
+    <!-- <h3 style="text-align: center;">Report for the Quarter ending <span id="a2yeaddisplay"></span></h3> -->
+    <!-- <h4 style="text-align: center;">Format-2<br>Annual physical progress report</h4> -->
+  
+    <table border="1" cellspacing="0" cellpadding="5" style="border-collapse: collapse; width: 100%;">
+      <thead>
+        <tr><th colspan="14" style="text-align: center;">Report for the Quarter ending <span id="a2yeaddisplay"></span></th></tr>
+        <tr>
+          <tr><th colspan="14" style="text-align: center;">Format-2</th></tr>
+          <tr><th colspan="14" style="text-align: center;">Annual physical progress report</th></tr>
+        <tr>
+          <th>Unique Code</th>
+          <th>State/UT</th>
+          <th>S.No</th>
+          <th>Name of the ITI</th>
+          <th>Financial Year in which the interest free loan was released</th>
+          <th>Candidates Appeared in the last financial year</th>
+          <th>Candidates passed in the last financial year</th>
+          <th>Corresponding intake capacity including supernumerary seats</th>
+          <th>% of appeared V/S intake capacity</th>
+          <th>% of passed V/S appeared</th>
+          <th>Total No. of seats available of admissions in last Financial Year</th>
+          <th>Number of seats for which fee fixed was more than Rs. 5000/-</th>
+          <th>Number of seats actually filled with a fee of more than Rs. 5000/-</th>
+          <th>% of admissions made with a fee more than Rs. 5000/-</th>
+        </tr>
+        <tr>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+          
+        </tr>
+        <tr>
+          <th></th>
+          <th></th>
+          <th>1</th>
+          <th>2</th>
+          <th>3</th>
+          <th>4</th>
+          <th>5</th>
+          <th>6</th>
+          <th>7.   = (4. ÷ 6.) X 100</th>
+          <th>8.   = (5. ÷ 4.) X 100</th>
+          <th>9</th>
+          <th>10</th>
+          <th>11</th>
+          <th>12. = (11 ÷ 9.) X 100</th>
+          
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td id="a2-unique-code">1396HP080903</td>
+          <td id="a2-state">Himachal Pradesh</td>
+          <td id="a2-serial-no">308</td>
+          <td id="a2-iti-name">ITI, Rajgarh</td>
+          <td id="a2-fin-year">2008-09</td>
+          <td id="a2-candidates-appeared">0</td>
+          <td id="a2-candidates-passed">0</td>
+          <td id="a2-intake-capacity">0</td>
+          <td id="a2-percent-appeared">0</td>
+          <td id="a2-percent-passed">0</td>
+          <td id="a2-total-seats">0</td>
+          <td id="a2-fee-5000-seats">0</td>
+          <td id="a2-seats-filled-5000">0</td>
+          <td id="a2-percent-admission-5000">0</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  
+  <!-- end of annexure-2 -->
+  <!-- annexure-3 -->
+  <div class="annexure-3" style="display: none;"">
+    <table id="a3-expenditure-table" border="1" cellspacing="0" cellpadding="5">
+      <thead>
+        <tr>
+          <th colspan="14" style="text-align: center;">Formal-3</th>
+        </tr>
+        <tr>
+          <th colspan="14" style="text-align: center;">Annual expenditure report</th>
+        </tr>
+        <tr>
+          <th colspan="14" style="text-align: center;">
+            Consolidated statement on fund utilized for the financial year ending <span id="a3yeardisplay"></span>
+          </th>
+        </tr>
+        <tr id="a3-header-row">
+          <th id="a3-header-unique-code">Unique Code</th>
+          <th id="a3-header-state">State/UT</th>
+          <th id="a3-header-sno">S.No</th>
+          <th id="a3-header-iti-name">Name of the ITI</th>
+          <th id="a3-header-financial-year">Financial Year in which the interest free loan was released</th>
+          <th id="a3-header-opening-balance">Opening Balance at the beginning of financial year</th>
+          <th id="a3-header-interest-received">Interest received + revenue generated during the financial year</th>
+          <th id="a3-header-expenditure-breakup" colspan="5">Breakup of expenditure incurred during the financial year</th>
+          <th id="a3-header-balance-fund">Balance fund available at the end of the financial year</th>
+        </tr>
+        <tr id="a3-subheader-row">
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th id="a3-subheader-civil-works">Civil works</th>
+          <th id="a3-subheader-tools">Tools, equipment, machinery and furniture</th>
+          <th id="a3-subheader-manpower">Manpower</th>
+          <th id="a3-subheader-other">All other expenditures including miscellaneous</th>
+          <th id="a3-subheader-total">Total expenditure incurred</th>
+          <th></th>
+        </tr>
+        <tr id="a3-subheader-row2">
+          <th></th>
+          <th></th>
+          <th>1</th>
+          <th>2</th>
+          <th>3</th>
+          <th>4</th>
+          <th>5</th>
+          <th>6</th>
+          <th>7</th>
+          <th>8</th>
+          <th>9</th>
+          <th>10 = 6+7+8+9</th>
+          <th>11 = (4+5) - 10</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr id="a3-data-row-1">
+          <td id="a3-unique-code-1">1396HP080903</td>
+          <td id="a3-state-1">Himachal Pradesh</td>
+          <td id="a3-sno-1">308</td>
+          <td id="a3-iti-name-1">ITI, Raiganh</td>
+          <td id="a3-financial-year-1">2008&09</td>
+          <td id="a3-opening-balance-1">0</td>
+          <td id="a3-interest-received-1">0</td>
+          <td id="a3-civil-works-1">0</td>
+          <td id="a3-tools-1">0</td>
+          <td id="a3-manpower-1">0</td>
+          <td id="a3-other-expenditures-1">0</td>
+          <td id="a3-total-expenditure-1">0</td>
+          <td id="a3-balance-fund-1">0</td>
+        </tr>
+        <tr>
+          <td colspan="10"></td>
+          <td>Principal</td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td colspan="10"></td>
+          <td>Govt ITI Rajgarh</td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td colspan="10"></td>
+          <td>Distt Sirmour (H.P)</td>
+          <td></td>
+          <td></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+
+  <!-- end of annexure-3 -->
+  <!-- annexure-4 -->
+  <div id="annexure4" class="annexure4">
+    <!-- <h3 style="text-align: center;">Format-4</h3> -->
+    <!-- <h4 style="text-align: center;">
+      Scheme upgradation of 1396 Government ITIs through PPP<br>
+      <u>Expansion (Trades and units)</u>
+    </h4> -->
+  
+    <table border="1" cellspacing="0" cellpadding="5" style="border-collapse: collapse; width: 100%; text-align: center; display: none;">
+      <thead>
+        <tr>
+          <th colspan="12">Format-4</th>
+        </tr>
+        <tr><th colspan="12">Scheme upgradation of 1396 Government ITIs through PPP</th></tr>
+        <tr><th colspan="12">Expansion (Trades and units)</th></tr>
+        <tr>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th colspan="3">At the time of release of loan</th>
+          <th colspan="3">As on date</th>
+          <th colspan="3">Expansion/Increase in %</th>
+        </tr>
+        <tr>
+          <th>S.No</th>
+          <th>Name of the ITI</th>
+          <th>Year of release of interest free loan</th>
+          <th>Total number of trades </th>
+          <th>Total number of units of all trades</th>
+          <th>Seating capacity</th>
+          <th>Total number of trades as on date</th>
+          <th>Total number of units available as on date</th>
+          <th>Total seating capacity as on date</th>
+          <th>Trades </th>
+          <th>units</th>
+          <th>Seating capacity</th>
+        </tr>
+        <tr>
+          <th>[1]</th>
+          <th>[2]</th>
+          <th>[3]</th>
+          <th>[4]</th>
+          <th>[5]</th>
+          <th>[6]</th>
+          <th>[7]</th>
+          <th>[8]</th>
+          <th>[9]</th>
+          <th>[10]={[7] minus [4]} Divided by [4] X 100</th>
+          <th>[11]={[8] minus [5]} Divided by [5] X 100</th>
+          <th>[12]={[9] minus [6]} Divided by [6] X 100</th>
+        </tr>
+        
+      </thead>
+      <tbody>
+        <tr>
+          <td id="a4-serial">1</td>
+          <td id="a4-iti-name">Govt. ITI Rajgarh</td>
+          <td id="a4-loan-year">2008-09</td>
+  
+          <td id="a4-initial-trades">0</td>
+          <td id="a4-initial-units">0</td>
+          <td id="a4-initial-seating">0</td>
+  
+          <td id="a4-current-trades">0</td>
+          <td id="a4-current-units">0</td>
+          <td id="a4-current-seating">0</td>
+  
+          <td id="a4-percent-trades">0</td>
+          <td id="a4-percent-units">0</td>
+          <td id="a4-percent-seating">0</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td>Principal</td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr><tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td>Govt ITI Rajgarh</td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr><tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td>Distt Sirmour (H.P)</td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+        
+      </tbody>
+    </table>
+  </div>
+  
+  <!-- end of annexure-4 -->
+  
+  <!-- annexure-5 -->
+  <div id="annexure5" class="annexure5" style="display: none;">
+    
+    
+  
+    <table border="1" cellspacing="0" cellpadding="5" style="border-collapse: collapse; width: 100%; text-align: center;">
+      <thead>
+        <tr><th colspan="23">Format-5</th></tr>
+        <tr><th colspan="23">Scheme upgradation of 1396 Government ITIs through PPP</th></tr>
+        <tr><th colspan="23">Seat utilization and pass percentage of last 3 years</th></tr>
+        <tr>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th colspan="5">During year of release</th>
+  
+          <!-- 2015-16 -->
+          <th colspan="5"><span id="tabley1"></span></th>
+  
+          <!-- 2016-17 -->
+          <th colspan="5"><span id="tabley2"></span></th>
+  
+          <!-- 2017-18 -->
+          <th colspan="5"><span id="tabley3"></span></th>
+        </tr>
+        <tr>
+          <th>S.No</th>
+          <th>Name of the ITI </th>
+          <th>Year of release of Interest free loan</th>
+
+          <th>Total seats available (cumulative of both August and Feb Session) </th>
+          <th>Total  seats filled/admiited</th>
+          <th>Seat utilization in %</th>
+          <th>Pass-out</th>
+          <th>Pass-out percentage</th>
+          <th>Total seats available (cumulative of both August and Feb Session) </th>
+          <th>Total  seats filled/admiited</th>
+          <th>Seat utilization in %</th>
+          <th>Pass-out</th>
+          <th>Pass-out percentage</th>
+          <th>Total seats available (cumulative of both August and Feb Session) </th>
+          <th>Total  seats filled/admiited</th>
+          <th>Seat utilization in %</th>
+          <th>Pass-out</th>
+          <th>Pass-out percentage</th>
+          <th>Total seats available (cumulative of both August and Feb Session) </th>
+          <th>Total  seats filled/admiited</th>
+          <th>Seat utilization in %</th>
+          <th>Pass-out</th>
+          <th>Pass-out percentage</th>  
+          
+        </tr>
+        <tr>
+          <th>1</th>
+          <th>2</th>
+          <th>3</th>
+          <th>4</th>
+          <th>5</th>
+          <th>[6]={[5] Divided by [4]} multiply by 100</th>
+          <th>7</th>
+          <th>[8]={[7] Divided by [5]} multiply by 100</th>
+          <th>9</th>
+          <th>10</th>
+          <th>[11]= {[10] Divided by [9]} multiply by 100</th>
+          <th>12</th>
+          <th>[13]={[12] Divided by [10]} multiply by 100</th>
+          <th>14</th>
+          <th>15</th>
+          <th>[16]={[15] Divided by [14]} multiply by 100</th>
+          <th>17</th>
+          <th>[18]={[17] Divided by [15]} multiply by 100</th>
+          <th>19</th>
+          <th>20</th>
+          <th>[21]={[20] Divided [19]} multiply by 100</th>
+          <th>22</th>
+          <th>[23]={[22] Divided by [20]} multiply by 100</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td id="a5-serial">1</td>
+          <td id="a5-iti-name">Govt ITI Rajgarh</td>
+          <td id="a5-loan-year">2008-09</td>
+  
+          <!-- During release -->
+          <td id="a5-yrrel-totalseats">47</td>
+          <td id="a5-yrrel-filled">45</td>
+          <td id="a5-yrrel-util">95.74%</td>
+          <td id="a5-yrrel-passout">26</td>
+          <td id="a5-yrrel-passoutpercent">57.78%</td>
+          <!-- 2015-16 -->
+          <td id="a5-yrrel-nextseats">0</td>         
+          <td id="a5-2015-totalfilled">0</td>
+          <td id="a5-2015-util">0</td>
+          <td id="a5-2015-passout">0</td>
+          <td id="a5-2015-passoutpercent">0</td>
+          <!-- 2016-17 -->
+          <td id="a5-2015-nextseats">0</td>          
+          <td id="a5-2016-totalfilled">0</td>
+          <td id="a5-2016-util">0</td>
+          <td id="a5-2016-passout">0</td>
+          <td id="a5-2016-passoutpercent">0</td>
+          <!-- 2017-18 -->
+          <td id="a5-2016-nextseats">0</td>          
+          <td id="a5-2017-totalfilled">0</td>
+          <td id="a5-2017-util">0</td>
+          <td id="a5-2017-passout">0</td>
+          <td id="a5-2017-passoutpercent">0</td>
+        </tr>
+      
+      <tr>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>        
+      <td>Principal</td>        
+      <td></td>
+      <td></td>
+      <td></td>
+      </tr>
+      <tr><td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>        
+        <td>Govt ITI Rajgarh</td>        
+        <td></td>
+        <td></td>
+        <td></td>
+        </tr>
+        <tr><td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>        
+          <td>Distt Sirmour (H.P)</td>        
+          <td></td>
+          <td></td>
+          <td></td>
+          </tr>
+      </tbody>
+    </table>
+  </div>
+  
+  <!-- end of annexure-5 -->
+  
+  
+
+
+  <!-- annexure-6 -->
+<div id="annexure6" class="annexure6" style="display: none;">
+  <table border="1" cellspacing="0" cellpadding="5">
+    <thead>
+      <tr>
+        <th colspan="13" id="a6-format-title">Format-6</th>
+      </tr>
+      <tr>
+        <th colspan="13" id="a6-scheme-title">Scheme upgradation of 1396 Government ITIs through PPP</th>
+      </tr>
+      <tr>
+        <th colspan="13" id="a6-table-title">Utilization breakup against the interest free loan and Interest/Revenue generated</th>
+      </tr>
+      <tr>
+        <th id="a6-sn">S.No<br>[1]</th>
+        <th id="a6-iti-name">Name of the ITI<br>[2]</th>
+        <th id="a6-loan-year">Year of release of interest free loan<br>[3]</th>
+        <th id="a6-financial-year">Reporting Financial Year<br>[4]</th>
+        <th id="a6-quarter">Reporting Quarter<br>[5]</th>
+        <th colspan="3" id="a6-capital">Capital</th>
+        <th colspan="4" id="a6-interest-revenue">Interest & Revenue Generated</th>
+      </tr>
+      <tr>
+        <th colspan="5"></th>
+        <th id="a6-loan-released">Interest free loan released Rs. in Lakh<br>[6]</th>
+        <th id="a6-fund-utilized">Fund utilized as on date Rs. in Lakh<br>[7]</th>
+        <th id="a6-utilization-pct-capital">% of utilization<br>[8=([7] ÷ [6]) × 100]</th>
+        <th id="a6-interest-accrued">Interest accrued Rs. in Lakh<br>[9]</th>
+        <th id="a6-revenue-gen">Revenue generated Rs. in Lakh<br>[10]</th>
+        <th id="a6-fund-used-from-rev">Fund utilized from the interest/revenue generated Rs. in Lakh<br>[11]</th>
+        <th id="a6-utilization-pct-rev">% of utilization<br>[12=([11] ÷ ([9]+[10])) × 100]</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="a6-sn">1</td>
+        <td class="a6-iti-name">Govt ITI Rajgarh</td>
+        <td class="a6-loan-year">2008-09</td>
+        <td class="a6-financial-year">2019-20</td>
+        <td class="a6-quarter">July-2019 to Sept-2019</td>
+        <td class="a6-loan-released">250</td>
+        <td class="a6-fund-utilized" id="a6fundutilizedid">0</td>
+        <td class="a6-utilization-pct-capital" id="a6fundpercapital">0</td>
+        <td class="a6-interest-accrued" id="a6totalintrest">0</td>
+        <td class="a6-revenue-gen" id="a6totalrevnew">0</td>
+        <td class="a6-fund-used-from-rev" id="expfromintreseta6">0</td>
+        <td class="a6-utilization-pct-rev" id="a6percolumn">0</td>
+      </tr>
+      <tr>
+        <td colspan="10"></td>
+        <td class="a6-principal">Principal</td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td colspan="10"></td>
+        <td class="a6-iti-label">Govt ITI Rajgarh</td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td colspan="10"></td>
+        <td class="a6-location">Distt Sirmour (H.P)</td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<!-- end of annexure-6 -->
+
+
+  
+  
+  
+  
+  
+  <script src="script.js"></script>
+  <!-- SheetJS for Excel -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+
+<!-- jsPDF for PDF -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.23/jspdf.plugin.autotable.min.js"></script>
+<script>
+    function showSection(id) {
+  const section = document.getElementById(id);
+  const isHome = id === 'home';
+
+  // Hide all sections
+  document.querySelectorAll('.content-section').forEach(sec => {
+    if (!sec.classList.contains('all-data-view') &&
+        !sec.classList.contains('fixed-reports') &&
+        !sec.classList.contains('chart-section')) {
+      sec.style.display = 'none';
+    }
+  });
+
+  // Show the clicked section
+  section.style.display = isHome ? 'flex' : 'block';
+
+  // SCROLL to section smoothly
+  setTimeout(() => {
+    section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, 50);
+}
+
+
+
+  // home script 
+  
+  
+  
+  // chart
+  let qprChart;
+  document.addEventListener('DOMContentLoaded', () => {
+    const ctx = document.getElementById('qprChart').getContext('2d');
+    qprChart = new Chart(ctx, {
+
+      type: 'bar',
+      data: {
+        labels: ['Income', 'Interest', 'Expenditure'],
+        datasets: [{
+          label: 'Amount',
+          data: [0, 0, 0],
+          backgroundColor: ['#f1c40f', '#2ecc71', '#e74c3c']
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: { display: false }
+        },
+        scales: {
+          y: { beginAtZero: true }
+        }
+      }
+    });
+  
+    document.addEventListener('input', () => {
+      const income = parseFloat(document.getElementById('incomeTotal').innerText.replace(/,/g, '')) || 0;
+      const interest = parseFloat(document.getElementById('interestReportTotal').innerText.replace(/,/g, '')) || 0;
+      const expenditure = parseFloat(document.getElementById('expenditure-grand-total').innerText.replace(/,/g, '')) || 0;
+  
+      qprChart.data.datasets[0].data[0] = income;
+      qprChart.data.datasets[0].data[1] = interest;
+      qprChart.data.datasets[0].data[2] = expenditure;
+      qprChart.update();
+    });
+  });
+  
+  
+  // ========== INCOME ==========
+  function addNumberBox(section) {
+    const container = document.getElementById(section);
+    const input = document.createElement('input');
+    input.type = 'number';
+    input.placeholder = 'Enter amount';
+    input.oninput = () => updateTotal(section);
+    container.appendChild(input);
+    
+  }
+  
+  function updateTotal(section) {
+    const inputs = document.querySelectorAll(`#${section} input`);
+    let total = 0;
+    inputs.forEach(input => total += parseFloat(input.value) || 0);
+  
+    // If updating 'lastFinancialYear', add Budget Allotted
+    if (section === 'lastFinancialYear') {
+      const budgetAllotted = parseFloat(document.getElementById('budgetAllotted').value) || 0;
+      total += budgetAllotted;
+    }
+  
+    const totalValue = total.toFixed(2);
+  
+    // Update main span
+    document.getElementById(`total${capitalizeFirstLetter(section)}`).innerText = totalValue;
+  
+    // Update second span (with "1" suffix) if it exists
+    const secondSpan = document.getElementById(`total${capitalizeFirstLetter(section)}1`);
+    if (secondSpan) {
+      secondSpan.innerText = totalValue-25000000;
+    }
+  
+    updateGrandTotal();
+    updateIncomeTotal();
+    updateFinalTableBalance();
+    
+
+  }
+  
+  
+  
+  function updateGrandTotal() {
+    const total = ['lastFinancialYear', 'lastQuarter', 'thisQuarter'].reduce((sum, id) =>
+      sum + (parseFloat(document.getElementById(`total${capitalizeFirstLetter(id)}`).innerText) || 0), 0
+    );
+    document.getElementById('grandTotal').innerText = total.toFixed(2);
+  }
+  
+  function updateIncomeTotal() {
+    const total = ['lastFinancialYear', 'lastQuarter', 'thisQuarter'].reduce((sum, id) =>
+      sum + (parseFloat(document.getElementById(`total${capitalizeFirstLetter(id)}`).innerText) || 0), 0
+    );
+    document.getElementById('incomeTotal').innerText = total.toFixed(2);
+    document.getElementById('incomeListTotal').innerText = total.toFixed(2);
+    updateBalanceQPR();
+  }
+  
+  function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
+  
+  // ========== INTEREST ==========
+  function addInterestNumberBox(sectionId) {
+    const container = document.getElementById(sectionId);
+    const input = document.createElement('input');
+    input.type = 'number';
+    input.placeholder = 'Enter amount';
+    input.oninput = () => updateInterestTotal(sectionId);
+    container.appendChild(input);
+  }
+  
+  function updateInterestTotal(sectionId) {
+    const inputs = document.querySelectorAll(`#${sectionId} input`);
+    let total = 0;
+    inputs.forEach(input => total += parseFloat(input.value) || 0);
+    const formattedTotal = total.toFixed(2);
+  
+    // Update first span
+    const span1 = document.getElementById(`total-${sectionId}`);
+    if (span1) span1.innerText = formattedTotal;
+  
+    // Update second span
+    const span2 = document.getElementById(`total-${sectionId}1`);
+    if (span2) span2.innerText = formattedTotal;
+  
+    updateInterestGrandTotal();
+    updateFinalTableBalance()
+  }
+  
+  
+  function updateInterestGrandTotal() {
+    const ids = ['interest-lastFinancialYear', 'interest-lastQuarter', 'interest-thisQuarter'];
+    let total = 0;
+    ids.forEach(id => {
+      total += parseFloat(document.getElementById(`total-${id}`).innerText) || 0;
+    });
+    document.getElementById('interestGrandTotal').innerText = total.toFixed(2);
+    document.getElementById('interestReportTotal').innerText = total.toFixed(2);
+    document.getElementById('interestListTotal').innerText = total.toFixed(2);
+    updateBalanceQPR();
+  }
+// expenditure
+
+function addExpenditureInput(type) {
+  const container = document.getElementById(`expenditure-${type}-inputs`);
+  const input = document.createElement('input');
+  input.type = 'number';
+  input.className = `expenditure-${type}-input`;
+  input.oninput = updateExpenditureTotals;
+  container.appendChild(input);
+}
+
+function updateExpenditureTotals() {
+  let tlfyTotal = 0;
+  document.querySelectorAll('.expenditure-tlfy-input').forEach(inp => {
+    tlfyTotal += Number(inp.value) || 0;
+  });
+  document.getElementById('expenditure-tlfy-total').innerText = tlfyTotal.toLocaleString();
+  document.getElementById('expenditure-tlfy-total1').innerText = tlfyTotal.toLocaleString();
+
+  let tlqTotal = 0;
+  document.querySelectorAll('.expenditure-tlq-input').forEach(inp => {
+    tlqTotal += Number(inp.value) || 0;
+  });
+  document.getElementById('expenditure-tlq-total').innerText = tlqTotal.toLocaleString();
+
+  let thisqTotal = 0;
+  document.querySelectorAll('.expenditure-thisq-input').forEach(inp => {
+    thisqTotal += Number(inp.value) || 0;
+  });
+  document.getElementById('expenditure-thisq-total').innerText = thisqTotal.toLocaleString();
+
+  const grandTotal = tlfyTotal + tlqTotal + thisqTotal;
+  const grandTotalFormatted = grandTotal.toLocaleString();
+  document.getElementById('expenditure-grand-total').innerText = grandTotalFormatted;
+
+  // Update extra locations
+  const reportBoxSpan = document.getElementById('report-expenditure-total');
+  const liSpan = document.getElementById('li-expenditure-total');
+  if (reportBoxSpan) reportBoxSpan.innerText = grandTotalFormatted;
+  if (liSpan) liSpan.innerText = grandTotalFormatted;
+  updateBalanceQPR();
+  updateFinalTableBalance();
+  
+}
+// qpr balance
+function updateBalanceQPR() {
+  const income = parseFloat(document.getElementById('incomeListTotal').innerText.replace(/,/g, '')) || 0;
+  const interest = parseFloat(document.getElementById('interestListTotal').innerText.replace(/,/g, '')) || 0;
+  const expenditure = parseFloat(document.getElementById('li-expenditure-total').innerText.replace(/,/g, '')) || 0;
+
+  const balance = (income + interest) - expenditure;
+
+  document.getElementById('balanceQPR').innerText = balance.toFixed(2);
+  checkQPRMatch();
+}
+ // bank and fdr
+ function addBankNumberBox(section) {
+  const container = document.getElementById(section);
+  const input = document.createElement('input');
+  input.type = 'number';
+  input.className = 'bank-numberbox';
+  input.placeholder = section === 'bankBalanceSection' ? 'Enter Bank Balance' : 'Enter FDR Balance';
+  input.oninput = () => updateBankTotal(section);
+  container.appendChild(input);
+}
+
+function updateBankTotal(section) {
+  const inputs = document.querySelectorAll(`#${section} input`);
+  let total = 0;
+  inputs.forEach(input => total += parseFloat(input.value) || 0);
+
+  if (section === 'bankBalanceSection') {
+    document.getElementById('bankBalanceTotal').innerText = total.toFixed(2);
+  } else if (section === 'fdrBalanceSection') {
+    document.getElementById('fdrBalanceTotal').innerText = total.toFixed(2);
+  }
+
+  updateGrandBankTotal();
+}
+
+function updateGrandBankTotal() {
+  const bankTotal = parseFloat(document.getElementById('bankBalanceTotal').innerText.replace(/,/g, '')) || 0;
+  const fdrTotal = parseFloat(document.getElementById('fdrBalanceTotal').innerText.replace(/,/g, '')) || 0;
+  const grandTotal = bankTotal + fdrTotal;
+
+  document.getElementById('grandBankTotal').innerText = grandTotal.toFixed(2);
+  document.getElementById('bankListTotal').innerText = bankTotal.toFixed(2);
+  document.getElementById('fdrListTotal').innerText = fdrTotal.toFixed(2);
+  document.getElementById('bankGrandListTotal').innerText = grandTotal.toFixed(2);
+
+  updateBalanceQPR(); 
+  checkQPRMatch();
+}
+// qpr match
+function checkQPRMatch() {
+  const qprBalance = parseFloat(document.getElementById('balanceQPR').innerText.replace(/,/g, '')) || 0;
+  const bankBalance = parseFloat(document.getElementById('bankGrandListTotal').innerText.replace(/,/g, '')) || 0;
+
+  const matchMessage = document.getElementById('matchMessage');
+
+  if (qprBalance !== 0 && bankBalance !== 0 && Math.abs(qprBalance - bankBalance) < 0.01) {
+    matchMessage.style.display = 'block';
+  } else {
+    matchMessage.style.display = 'none';
+  }
+}
+// reset 
+
+
+function resetAllInputs() {
+  // Reset number inputs (except readonly)
+  document.querySelectorAll('input[type="number"]:not([readonly])').forEach(input => {
+    input.value = '';
+  });
+
+  // Reset totals (span elements with ₹ inside or ending with "Total")
+  document.querySelectorAll('span[id]').forEach(span => {
+    span.textContent = '0';
+  });
+
+  // Remove dynamically added input boxes (keep one default if needed)
+  const dynamicSections = [
+    'lastFinancialYear',
+    'lastQuarter',
+    'thisQuarter',
+    'interest-lastFinancialYear',
+    'interest-lastQuarter',
+    'interest-thisQuarter',
+    'bankBalanceSection',
+    'fdrBalanceSection',
+    'expenditure-tlfy-inputs',
+    'expenditure-tlq-inputs',
+  ];
+
+  dynamicSections.forEach(sectionId => {
+    const section = document.getElementById(sectionId);
+    if (section) {
+      const inputs = section.querySelectorAll('input');
+      inputs.forEach((input, index) => {
+        // Keep first input, remove the rest
+        if (index > 0) input.remove();
+      });
+    }
+  });
+
+  // Reset Expenditure Table inputs
+  document.querySelectorAll('#expenditure-thisq-table input').forEach(input => {
+    input.value = '';
+  });
+
+  // Hide congratulatory message if shown
+  const matchMessage = document.getElementById('matchMessage');
+  if (matchMessage) matchMessage.style.display = 'none';
+
+  // Optional: Reset Chart.js chart (if you're rendering one)
+  if (typeof qprChart !== 'undefined' && qprChart instanceof Chart) {
+    qprChart.data.datasets.forEach(dataset => {
+      dataset.data = [0,0,0];
+      
+    });
+    qprChart.update();
+    
+  }
+
+  // Close modal
+  closeResetModal();
+}
+function openResetModal() {
+  document.getElementById('resetModal').style.display = 'flex';
+}
+
+function closeResetModal() {
+  document.getElementById('resetModal').style.display = 'none';
+}
+
+// download excel and pdf
+function generateDownload(fileName, type) {
+  // Map fileName to corresponding table ID or class
+  const tableMap = {
+    "Annexure I": "#annexure1 table",
+    "Annexure II": "#annexure2 table",
+    "Annexure III": "#a3-expenditure-table",
+    "Annexure IV": "#annexure4 table",
+    "Annexure V": "#annexure5 table",
+    "Annexure VI": "#annexure6 table",
+  };
+
+  // Get the table selector based on the fileName
+  const tableSelector = tableMap[fileName];
+  if (!tableSelector) {
+    console.error(`No table mapping found for "${fileName}".`);
+    return;
+  }
+
+  // Select the table element
+  const table = document.querySelector(tableSelector);
+  if (!table) {
+    console.error(`Table for "${fileName}" not found.`);
+    return;
+  }
+
+  if (type === "excel") {
+    const workbook = XLSX.utils.table_to_book(table, { sheet: fileName });
+    XLSX.writeFile(workbook, `${fileName}.xlsx`);
+  } else if (type === "pdf") {
+    try {
+      const { jsPDF } = window.jspdf;
+      const pdf = new jsPDF({
+        orientation: "landscape", // Set landscape mode for better table fit
+        unit: "mm",
+        format: "a4",
+      });
+
+      // Extract headers and rows dynamically from the table
+      const headers = Array.from(table.querySelectorAll("thead tr")).map((tr) =>
+        Array.from(tr.querySelectorAll("th")).map((th) => ({
+          content: th.innerText.trim(),
+          colSpan: th.colSpan || 1,
+        }))
+      );
+
+      const rows = Array.from(table.querySelectorAll("tbody tr")).map((tr) =>
+        Array.from(tr.querySelectorAll("td")).map((td) => td.innerText.trim())
+      );
+
+      // Convert headers into a format compatible with jsPDF
+      const formattedHeaders = headers.map((headerRow) =>
+        headerRow.map((header) => ({
+          content: header.content,
+          colSpan: header.colSpan,
+        }))
+      );
+
+      // Generate the PDF table
+      pdf.autoTable({
+        head: formattedHeaders,
+        body: rows,
+        startY: 10, // Start table after margin
+        theme: "grid",
+        styles: {
+          fontSize: 8, // Use smaller font size for better fit
+          cellPadding: 2,
+        },
+        columnStyles: {
+          0: { cellWidth: 30 }, // Example: Set specific column width
+        },
+        didDrawCell: (data) => {
+          // Handle merged cells or custom rendering logic if needed
+          if (data.cell.raw && data.cell.colSpan > 1) {
+            const { x, y, width, height } = data.cell;
+            pdf.rect(x, y, width, height, "S");
+          }
+        },
+        pageBreak: "auto", // Automatically handle page breaks
+      });
+
+      pdf.save(`${fileName}.pdf`);
+    } catch (error) {
+      console.error("Error generating PDF:", error);
+    }
+  }
+}
+//end download excel and pdf here here
+
+
+//annexure-1
+
+// Utility function to fetch and parse numeric value from an element by ID
+function getNumericValueById(elementId) {
+  const element = document.getElementById(elementId);
+  if (!element) return 0;
+  // Remove non-numeric characters and parse as float
+  return parseFloat(element.innerText.replace(/[^0-9.-]+/g, '')) || 0;
+}
+
+// Utility function to update the text content of an element by ID
+function updateElementById(elementId, value) {
+  const element = document.getElementById(elementId);
+  if (element) {
+    element.innerText = value.toFixed(2); // Format to 2 decimal places
+  }
+}
+//for numberbox
+function getNumericValueByIds(elementId) {
+  const element = document.getElementById(elementId);
+  if (!element) return 0;
+  // Parse the value of the input field as a float
+  return parseFloat(element.value) || 0; // Default to 0 if the value is not a valid number
+}
+
+// Utility function to update the text content of an element by ID
+function updateElementByIds(elementId, value) {
+  const element = document.getElementById(elementId);
+  if (element) {
+    element.innerText = value.toFixed(2); // Format to 2 decimal places
+  }
+}
+
+// not decilal
+function fetchNumericValueById(elementId) {
+  const element = document.getElementById(elementId);
+  if (!element) return 0;
+  // Parse and return the value as an integer (no decimals)
+  return Math.floor(parseFloat(element.value) || 0); // Round down to integer
+}
+function updateFetchElementById(elementId, value) {
+  const element = document.getElementById(elementId);
+  if (element) {
+    element.innerText = Math.floor(value); // Ensure no decimals by rounding down
+  }
+}
+// for percentage 
+function updateElementByIdforpercentage(elementId, value) {
+  const element = document.getElementById(elementId);
+  if (element) {
+    element.innerText = value;
+  }
+}
+
+// Main function to update the final table balance
+function updateFinalTableBalance() {
+  // Fetch and parse all required numeric values
+  const totalInterestLastFinancialYear1 = getNumericValueById("total-interest-lastFinancialYear1");
+  const totalLastFinancialYear1 = getNumericValueById("totalLastFinancialYear1");
+  const expenditureTLFYTotal1 = getNumericValueById("expenditure-tlfy-total1");
+  const baseAmount = getNumericValueById("base-amount");
+  const totalLastQuarter = getNumericValueById("totalLastQuarter");
+  const totalThisQuarter = getNumericValueById("totalThisQuarter");
+  const expenditureLastQuarter = getNumericValueById("expenditure-tlq-total");
+  const expenditureThisQuarter = getNumericValueById("expenditure-thisq-total");
+  const intrestLastQuarter = getNumericValueById("total-interest-lastQuarter");
+  const intrestThisQuarter = getNumericValueById("total-interest-thisQuarter");
+  const totalrevnewfora6 = getNumericValueById("grandTotal");
+  const totalintresta6 = getNumericValueById("interestGrandTotal");
+  
+  
+
+  // Update expenditure-related table cells
+  updateElementById("td-expenditure-tlq", expenditureLastQuarter);
+  updateElementById("td-expenditure-thisq", expenditureThisQuarter);
+
+  // Calculate and update total expenditure
+  const totalExpenditure = expenditureLastQuarter + expenditureThisQuarter;
+  updateElementById("td-expenditure-total-sum", totalExpenditure);
+  
+  
+
+  // Calculate and update revenue for the current financial year
+  const totalThisFY = totalLastQuarter + totalThisQuarter;
+  updateElementById("rev-this-fy", totalThisFY);
+
+  // Calculate the opening balance for the current financial year
+  const openingForCurFinalCianYear = 
+    (baseAmount + totalInterestLastFinancialYear1 + totalLastFinancialYear1) - expenditureTLFYTotal1;
+  updateElementById("final-tablebalance", openingForCurFinalCianYear);
+  updateElementById("a3-opening-balance-1", openingForCurFinalCianYear);
+
+  // Calculate interest + revenue
+  const intrestPluseIncome = totalLastQuarter + totalThisQuarter + intrestLastQuarter + intrestThisQuarter;
+  updateElementById("a3-interest-received-1", intrestPluseIncome);
+
+  // Individual expenditures
+  const Civilworkexp = getNumericValueByIds("e1");
+  const toolandMandE = getNumericValueByIds("e2");
+  const addiitonmanpowerexp = getNumericValueByIds("e5");
+  const furnitureexp = getNumericValueByIds("e3");
+  const booksexp = getNumericValueByIds("e4");  
+  const consumableexp = getNumericValueByIds("e6");
+  const misccExp = getNumericValueByIds("e7");
+  const expfromintreset = getNumericValueByIds("e8");
+  const allothermisc = furnitureexp + booksexp + consumableexp + misccExp;
+  const totalofannexure3 = Civilworkexp +toolandMandE+addiitonmanpowerexp+allothermisc;
+  const balanceattheendoffyearanthree = ((openingForCurFinalCianYear + intrestPluseIncome)-totalofannexure3)
+
+  updateElementByIds("a3-civil-works-1", Civilworkexp);
+  updateElementByIds("a3-tools-1", toolandMandE);
+  updateElementByIds("a3-manpower-1", addiitonmanpowerexp);
+  updateElementByIds("a3-other-expenditures-1", allothermisc);
+  updateElementByIds("a3-total-expenditure-1", totalofannexure3);
+  updateElementByIds("a3-balance-fund-1", balanceattheendoffyearanthree);
+  updateElementByIds("expfromintreseta6", expfromintreset);
+ 
+
+  // Calculate the available balance
+  const balanceavaiableann1 = (openingForCurFinalCianYear + totalThisFY) - totalExpenditure;
+
+  // Update the final balance in the table
+  updateElementById("td-final-balance", balanceavaiableann1);
+  //a-6 update start here
+  const a6totalexp = totalExpenditure+expenditureTLFYTotal1;
+  const fundpercentageofa6 = (a6totalexp/25000000)*100
+  updateElementById("a6fundutilizedid", a6totalexp);
+  updateElementById("a6fundpercapital", fundpercentageofa6);
+  updateElementById("a6totalintrest", totalintresta6);
+  
+ // totalrevnewfora6;//updateElementById("a6totalrevnew", (totalrevnewfora6-25000000));  
+ totalrevnewfora6 > 0 
+  ? updateElementById("a6totalrevnew", totalrevnewfora6 - 25000000) 
+  : updateElementById("a6totalrevnew", 0);
+
+  
+  
+  const a6percol = (totalrevnewfora6 + totalintresta6) !== 0
+  ? (expfromintreset / (totalrevnewfora6 + totalintresta6)) * 100
+  : 0;
+
+updateElementById("a6percolumn", a6percol);
+
+  //fora2 a4 a5
+
+  const candidateappearinlastfy = fetchNumericValueById("tdetail-candidates-appeared");
+  const intakecapacity = fetchNumericValueById("tdetail-intake-capacity");
+  const candidatepassed = fetchNumericValueById("tdetail-candidates-passed");
+  const seatavaviableinthisfy = fetchNumericValueById("tdetail-total-seats-available");
+  const morethan5000 = fetchNumericValueById("tdetail-seats-fee-above-5000");
+  const filledmorethan5000 = fetchNumericValueById("tdetail-seats-filled-fee-above-5000");
+ 
+  const appearvsintaccap = (candidateappearinlastfy / intakecapacity)*100;
+  const passvsintackcap = (candidatepassed/candidateappearinlastfy)*100;
+  const percentagemorethan500 = (filledmorethan5000/seatavaviableinthisfy)*100
+  //const a2percentadmission5000 = (filledmorethan5000 /seatavaviableinthisfy)*100;
+updateFetchElementById("a2-candidates-appeared", candidateappearinlastfy);
+updateFetchElementById("a2-intake-capacity", intakecapacity);
+updateFetchElementById("a2-candidates-passed", candidatepassed);
+updateElementById("a2-percent-appeared", appearvsintaccap);
+updateElementById("a2-percent-passed", passvsintackcap);
+updateFetchElementById("a2-total-seats", seatavaviableinthisfy);
+updateFetchElementById("a2-fee-5000-seats", morethan5000);
+updateFetchElementById("a2-seats-filled-5000", filledmorethan5000);
+//updateElementById("a2-percent-passed", percentagemorethan500);
+updateElementById("a2-percent-admission-5000", percentagemorethan500);
+
+//a-4
+const totalnooftradeattheofrel = fetchNumericValueById("tdetail-trades-at-release");
+const totalnoofunitattheofrel = fetchNumericValueById("tdetail-units-at-release");
+const seatingcapacity = fetchNumericValueById("tdetail-seating-capacity-at-release");
+const tradesasondatea4 = fetchNumericValueById("tdetail-trades-current");
+const unitasondate = fetchNumericValueById("tdetail-units-current");
+const currentseatingcapacitya4= fetchNumericValueById("tdetail-seating-capacity-current");
+const tradeperca4 = (tradesasondatea4-totalnooftradeattheofrel)/totalnooftradeattheofrel*100;
+const unitperca4 = (unitasondate-totalnoofunitattheofrel)/totalnoofunitattheofrel*100;
+const seatingcapaperca4 = (currentseatingcapacitya4-seatingcapacity)/seatingcapacity*100;
+updateFetchElementById("a4-initial-trades", totalnooftradeattheofrel);
+updateFetchElementById("a4-initial-units", totalnoofunitattheofrel);
+updateFetchElementById("a4-initial-seating", seatingcapacity);
+updateFetchElementById("a4-current-trades", tradesasondatea4);
+updateFetchElementById("a4-current-units", unitasondate);
+updateFetchElementById("a4-current-seating", currentseatingcapacitya4);
+
+updateElementByIdforpercentage("a4-percent-trades", tradeperca4.toFixed(2) +"%" );
+updateElementByIdforpercentage("a4-percent-units", unitperca4.toFixed(2) + "%" );
+updateElementByIdforpercentage("a4-percent-seating", seatingcapaperca4.toFixed(2) + "%");
+//updateFetchElementById("a4-initial-trades", seatfilled);
+//updateFetchElementById("a4-initial-trades", passoutatthetimeofrel);
+
+
+//a5 y1
+const seatavaiabley1a5 = fetchNumericValueById("tdetail-ava-lastyear");
+const seatfilledy1a5 = fetchNumericValueById("tdetail-fill-lastyear");
+const passouty1a5 = fetchNumericValueById("tdetail-passcount-lastyear");
+const seatutilizationy1 = (seatfilledy1a5 / seatavaiabley1a5)*100
+const passpery1 = (passouty1a5 / seatfilledy1a5 )*100
+
+updateFetchElementById("a5-yrrel-nextseats",seatavaiabley1a5);
+updateFetchElementById("a5-2015-totalfilled",seatfilledy1a5);
+updateElementByIdforpercentage("a5-2015-util",seatutilizationy1.toFixed(2) + "%")
+updateFetchElementById("a5-2015-passout",passouty1a5);
+updateElementByIdforpercentage("a5-2015-passoutpercent",passpery1.toFixed(2) +"%")
+
+//y2
+const seatavaiabley2a5 = fetchNumericValueById("tdetail-ava-last2");
+const seatfilledy2a5 = fetchNumericValueById("tdetail-fill-last2");
+const passouty2a5 = fetchNumericValueById("tdetail-passcount-last2");
+const seatutilizationy2 = (seatfilledy2a5 / seatavaiabley2a5)*100
+const passpery2 = (passouty2a5 / seatfilledy2a5 )*100
+
+updateFetchElementById("a5-2015-nextseats",seatavaiabley2a5);
+updateFetchElementById("a5-2016-totalfilled",seatfilledy2a5);
+updateElementByIdforpercentage("a5-2016-util",seatutilizationy2.toFixed(2) +"%")
+updateFetchElementById("a5-2016-passout",passouty2a5);
+updateElementByIdforpercentage("a5-2016-passoutpercent",passpery2.toFixed(2) +"%")
+//y3
+const seatavaiabley3a5 = fetchNumericValueById("tdetail-ava-last3");
+const seatfilledy3a5 = fetchNumericValueById("tdetail-fill-last3");
+const passouty3a5 = fetchNumericValueById("tdetail-passcount-last3");
+const seatutilizationy3 = (seatfilledy3a5 / seatavaiabley3a5)*100
+const passpery3 = (passouty3a5 / seatfilledy3a5 )*100
+
+updateFetchElementById("a5-2016-nextseats",seatavaiabley3a5);
+updateFetchElementById("a5-2017-totalfilled",seatfilledy3a5);
+updateElementByIdforpercentage("a5-2017-util",seatutilizationy3.toFixed(2) +"%")
+updateFetchElementById("a5-2017-passout",passouty3a5);
+updateElementByIdforpercentage("a5-2017-passoutpercent",passpery3.toFixed(2)+"%")
+        
+  
+}
+  
+
+
+
+
+
+
+  //a-6 update end here
+
+//annexure-1 end here
+
+// header sart here
+
+  // Populate years dynamically
+  const yearSelect = document.getElementById('year');
+  for (let year = 2024; year <= 2080; year++) {
+    const option = document.createElement('option');
+    option.value = year;
+    option.text = year;
+    yearSelect.add(option);
+  }
+
+  // Quarter range mapping
+  const quarterRangeDisplay = document.getElementById('quarterRange');
+  const quarterSelect = document.getElementById('quarter');
+
+  const quarterMap = {
+    Q1: "April - June",
+    Q2: "July - September",
+    Q3: "October - December",
+    Q4: "January - March"
+  };
+
+  quarterSelect.addEventListener('change', function () {
+    const selected = this.value;
+    quarterRangeDisplay.textContent = quarterMap[selected];
+  });
+
+  // Trigger default selection
+  quarterSelect.dispatchEvent(new Event('change'));
+
+
+//header ends here
+//start display qpr q and year
+
+
+  const qprYearSelect = document.getElementById('year');
+  const qprQuarterSelect = document.getElementById('quarter');
+  const qprQuarterRangeDisplay = document.getElementById('quarterRange');
+  const qprSelectedOutput = document.getElementById('selectedOutput');
+  const qprTableQuarter = document.querySelector('.a6-quarter');
+
+  // Target span elements
+  const spanA1 = document.getElementById('a1yerdisplay');
+  const spanA2 = document.getElementById('a2yeaddisplay');
+  const spanA3 = document.getElementById('a3yeardisplay');
+  const spanA4 = document.getElementById('tabley1');
+  const spanA5 = document.getElementById('tabley2');
+  const spanA6 = document.getElementById('tabley3');
+
+  const qprQuarterMap = {
+    Q1: "April - June",
+    Q2: "July - September",
+    Q3: "October - December",
+    Q4: "January - March"
+  };
+
+  const qprQuarterEndingMap = {
+    Q1: "June",
+    Q2: "September",
+    Q3: "December",
+    Q4: "March"
+  };
+
+  // Populate year dropdown
+  for (let y = 2024; y <= 2080; y++) {
+    const opt = document.createElement('option');
+    opt.value = y;
+    opt.text = y;
+    qprYearSelect.appendChild(opt);
+  }
+
+  function updateQPRDisplay() {
+    const selectedQ = qprQuarterSelect.value;
+    let selectedY = parseInt(qprYearSelect.value);
+    const range = qprQuarterMap[selectedQ];
+    const [start, end] = range.split(' - ');
+
+    // If Q4, treat it as part of the NEXT year
+    const displayYear = (selectedQ === 'Q4') ? selectedY + 1 : selectedY;
+
+    // Update primary displays
+    qprQuarterRangeDisplay.textContent = range;
+    qprSelectedOutput.textContent = `${range} ${selectedY}`;
+    qprTableQuarter.textContent = `${start}-${selectedY} to ${end}-${selectedY}`;
+
+    // Quarter-ending string
+    const quarterEnd = qprQuarterEndingMap[selectedQ];
+
+    const displayText = `Quarter ending ${quarterEnd}-${displayYear}`;
+
+    // Update spans
+    spanA1.textContent = displayText;
+    spanA2.textContent = displayText;
+    spanA3.textContent = displayText;
+    spanA4.textContent = `${selectedY - 1}-${String(selectedY).slice(2)}`;
+  spanA5.textContent = `${selectedY - 2}-${String(selectedY - 1).slice(2)}`;
+  spanA6.textContent = `${selectedY - 3}-${String(selectedY - 2).slice(2)}`;
+  }
+
+  qprYearSelect.addEventListener('change', updateQPRDisplay);
+  qprQuarterSelect.addEventListener('change', updateQPRDisplay);
+
+  // Trigger once on load
+  updateQPRDisplay();
+
+
+
+
+
+
+
+//end display qpr q and year
+//in lakh 
+
+  
+
+//years last 3 frop dropdown
+
+  const fyYearSelect = document.getElementById("year");
+  const fyQuarterSelect = document.getElementById("quarter");
+
+  const fyYearDisplay1 = document.querySelector("#yearDisplay1 span");
+  const fyYearDisplay2 = document.querySelector("#yearDisplay2 span");
+  const fyYearDisplay3 = document.querySelector("#yearDisplay3 span");
+
+  function updateFYDisplays() {
+    let selectedFYYear = parseInt(fyYearSelect.value);
+    const selectedFYQuarter = fyQuarterSelect.value;
+
+    let baseFYStartYear;
+    if (selectedFYQuarter === "Q4") {
+      baseFYStartYear = selectedFYYear - 1;
+    } else {
+      baseFYStartYear = selectedFYYear;
+    }
+
+    const fyLast1 = `${baseFYStartYear - 1}-${String(baseFYStartYear).slice(-2)}`;
+    const fyLast2 = `${baseFYStartYear - 2}-${String(baseFYStartYear - 1).slice(-2)}`;
+    const fyLast3 = `${baseFYStartYear - 3}-${String(baseFYStartYear - 2).slice(-2)}`;
+
+    fyYearDisplay1.textContent = fyLast1;
+    fyYearDisplay2.textContent = fyLast2;
+    fyYearDisplay3.textContent = fyLast3;
+  }
+
+  fyYearSelect.addEventListener("change", updateFYDisplays);
+  fyQuarterSelect.addEventListener("change", updateFYDisplays);
+
+  // Populate dropdown if not already filled
+  if (fyYearSelect.options.length === 0) {
+    for (let y = 2024; y <= 2080; y++) {
+      const fyOption = document.createElement("option");
+      fyOption.value = y;
+      fyOption.textContent = y;
+      fyYearSelect.appendChild(fyOption);
+    }
+  }
+
+  fyYearSelect.value = new Date().getFullYear();
+  updateFYDisplays();
+
+
+</script>
+
+</body>
+</html>
