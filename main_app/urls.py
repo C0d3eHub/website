@@ -5,6 +5,7 @@ from .views import header_content_view, key_performance_indicator_view,trainee_v
 from django.conf import settings
 from django.conf.urls.static import static
 from .admin import admin_site
+from . import views
 
 
 
@@ -71,6 +72,7 @@ urlpatterns = [
     path('fetch-topics/', views.fetch_topics, name='fetch_topics'),
     path('start_test/<int:trade_id>/<str:topic_id>/<int:num_questions>/<str:user_name>/<str:iti_name>/',views.start_test,name='start_test'),
     path('tenders/', views.tender_list, name='tender_list'),
+    path('qpr/', views.qpr_view, name='qpr'),
     
 
     
